@@ -3,7 +3,6 @@ import {NavLink} from 'react-router-dom';
 import {Badge, Nav, NavItem, NavLink as RsNavLink} from 'reactstrap';
 import classNames from 'classnames';
 import nav from './_nav';
-import SidebarFooter from './../SidebarFooter';
 import SidebarForm from './../SidebarForm';
 import SidebarHeader from './../SidebarHeader';
 import SidebarMinimizer from './../SidebarMinimizer';
@@ -154,8 +153,6 @@ class Sidebar extends Component {
             {navList(nav.items)}
           </Nav>
         </nav>
-        <SidebarFooter/>
-        <SidebarMinimizer/>
       </div>
     )
   }

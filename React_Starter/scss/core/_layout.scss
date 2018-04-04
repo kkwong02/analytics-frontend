@@ -84,13 +84,20 @@ app-root {
   }
 
   .main, .app-footer {
-    margin-left: $sidebar-width;
+    margin-left: $sidebar-width+$toolbox-width;
   }
 
   &.sidebar-hidden {
     .main, .app-footer {
+      margin-left: $toolbox-width;
+    }
+    .toolbox {
       margin-left: 0;
     }
+  }
+
+  .toolbox {
+    margin-left: $sidebar-width;
   }
 }
 
@@ -291,7 +298,8 @@ app-root {
 .app-footer,
 .sidebar,
 .main,
-.aside-menu {
+.aside-menu,
+.toolbox {
   transition: margin-left $layout-transition-speed, margin-right $layout-transition-speed, width $layout-transition-speed, flex $layout-transition-speed;
 }
 .sidebar-nav {
