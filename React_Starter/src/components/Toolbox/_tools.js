@@ -4,7 +4,7 @@ export default {
             {
                name: 'Scatter Plot',
                type: 'plot',
-               plot_type: 'scatter',
+               plotType: 'scatter',
                icon: 'placeholder.png',
             }
         ]
