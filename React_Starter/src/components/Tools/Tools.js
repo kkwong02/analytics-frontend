@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import {Card, CardBody, CardHeader} from 'reactstrap'
-import Plot from 'react-plotly.js';
+import createPlotlyComponent from 'react-plotly.js/factory'
+
+var Plotly = require('plotly.js/lib/index-basic');
+const Plot = createPlotlyComponent(Plotly);
 
 
 class PlotTool extends Component {
@@ -8,11 +11,21 @@ class PlotTool extends Component {
         super(props);
         this.state = {
             data: [],
-            layout:{},
-            frames: [],
-            config: {},
-            query: {}
-        }
+            layout: {autosize: true},
+            frames: null,
+            config: {
+                displayModeBar: false,
+            }
+        };
+    }
+
+    render() {
+        return (<Plot
+            data={this.state.data}
+            layout={this.state.layout}
+            frames={this.state.frames}
+            config={this.state.config}
+        />)
     }
 }
 
@@ -20,27 +33,27 @@ class ToolFrame extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            frameName: null;
-            data: null;
+            frameName: null,
+        };
+    }
+
+    renderTool() {
+        if (this.props.toolType === 'plot') {
+            return (<PlotTool />)
         }
     }
 
     render() {
         return (
             <Card>
-                <CardHeader>{this.state.frameName||this.propsToolName}</CardHeader>
+                <CardHeader>Tool</CardHeader>
                 <CardBody>
-                    {this.renderTool()}
+                {this.renderTool()}
                 </CardBody>
             </Card>
             )
     }
 
-    renderTool() {
-        if this.props.toolType === 'plot' {
-            return (
-                <PlotTool/>
-                )
-        }
-    }
 }
+
+export default ToolFrame;

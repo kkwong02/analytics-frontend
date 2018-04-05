@@ -19,6 +19,7 @@ class Full extends Component {
           <Toolbox />
           <main className="main">
             <Container fluid>
+              <Dashboard />
             </Container>
           </main>
           <Aside />

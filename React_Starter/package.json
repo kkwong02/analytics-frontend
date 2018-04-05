@@ -33,12 +33,10 @@
   "dependencies": {
     "bootstrap": "4.0.0",
     "history": "4.7.2",
-    "npm": "^5.8.0",
     "plotly.js": "1.35.2",
     "react": "16.2.0",
     "react-dom": "16.2.0",
     "react-plotly.js": "2.1.0",
-    "react-transition-group": "2.2.1",
     "reactstrap": "5.0.0-beta"
   },
   "scripts": {
