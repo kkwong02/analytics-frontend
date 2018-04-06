@@ -7,25 +7,15 @@ const Plot = createPlotlyComponent(Plotly);
 
 
 class PlotTool extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            data: [],
-            layout: {autosize: true},
-            frames: null,
-            config: {
-                displayModeBar: false,
-            }
-        };
-    }
-
     render() {
-        return (<Plot
-            data={this.state.data}
-            layout={this.state.layout}
-            frames={this.state.frames}
-            config={this.state.config}
-        />)
+        return (
+        <Plot
+            data={this.props.settings.data}
+            layout={this.props.settings.layout}
+            frames={this.props.settings.frames}
+            config={this.props.settings.config}
+        />
+        )
     }
 }
 
@@ -38,15 +28,15 @@ class ToolFrame extends Component {
     }
 
     renderTool() {
-        if (this.props.toolType === 'plot') {
-            return (<PlotTool />)
+        if (this.props.tool.toolType === 'plot') {
+            return (<PlotTool settings={this.props.tool.plotSettings} />)
         }
     }
 
     render() {
         return (
             <Card>
-                <CardHeader>Tool</CardHeader>
+                <CardHeader>{this.props.tool.title}</CardHeader>
                 <CardBody>
                 {this.renderTool()}
                 </CardBody>

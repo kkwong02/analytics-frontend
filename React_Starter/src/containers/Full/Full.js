@@ -10,6 +10,39 @@ import Dashboard from '../../views/Dashboard/';
 
 
 class Full extends Component {
+  constructor() {
+    super();
+  
+    this.state = {
+      toolFrames: [
+        {
+          id: 1,
+          title: 'Scatter Plot',
+          minimized: false,
+          toolType: 'plot',
+          plotSettings: {
+            data: null,
+            layout: null,
+            frames: null,
+            config: null
+          }
+        }], // a list of tools that have been added
+    }
+  }
+
+  componentDidMount() {
+    var socket = new WebSocket('ws://localhost/analytics/');
+
+    socket.onmessage = function(event) {
+      console.log(event);
+    }
+
+    // Testing socket connection.
+    socket.onopen = function() {
+      socket.send(JSON.stringify({action: 'get_tags'}))
+    }
+  }
+
   render() {
     return (
       <div className="app">
@@ -19,7 +52,7 @@ class Full extends Component {
           <Toolbox />
           <main className="main">
             <Container fluid>
-              <Dashboard />
+              <Dashboard toolFrames={this.state.toolFrames}/>
             </Container>
           </main>
           <Aside />
