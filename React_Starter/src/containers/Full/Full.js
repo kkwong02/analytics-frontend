@@ -27,20 +27,22 @@ class Full extends Component {
             config: null
           }
         }], // a list of tools that have been added
+      data: {}
     }
   }
 
   componentDidMount() {
     var socket = new WebSocket('ws://localhost/analytics/');
 
+    let self = this;
     socket.onmessage = function(event) {
-      console.log(event);
-    }
+      this.setState({data: JSON.parse(event.data)});
+    }.bind(this);
 
     // Testing socket connection.
     socket.onopen = function() {
-      socket.send(JSON.stringify({action: 'get_tags'}))
-    }
+      socket.send(JSON.stringify({action: 'get_fields'}));
+    };
   }
 
   render() {
@@ -55,7 +57,7 @@ class Full extends Component {
               <Dashboard toolFrames={this.state.toolFrames}/>
             </Container>
           </main>
-          <Aside />
+          <Aside data={this.state.data}/>
         </div>
       </div>
     );
