@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Badge } from 'reactstrap';
-import Draggable from 'react-draggable'; 
+import { DragSource } from "react-dnd";
 
 class DataField extends Component {
     constructor() {
@@ -12,9 +12,7 @@ class DataField extends Component {
 
     render() {
         return (
-            <Draggable>
-                <Badge onDragStart={this.handDragStart} color="primary" className="p-1 m-2" >{this.props.fieldName}</Badge>
-            </Draggable>
+            <Badge onDragStart={this.handDragStart} color="primary" className="p-1 m-2" >{this.props.fieldName}</Badge>
         )
     }
 }

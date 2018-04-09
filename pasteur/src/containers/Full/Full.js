@@ -31,6 +31,14 @@ class Full extends Component {
     }
   }
 
+  handlePlotSettingChange(id) {
+    console.log(id);
+  }
+
+  createNewFrame() {
+    console.log('new!');
+  }
+
   componentDidMount() {
     var socket = new WebSocket('ws://localhost/analytics/');
 
