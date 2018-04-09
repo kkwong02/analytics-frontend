@@ -5,6 +5,22 @@ import createPlotlyComponent from 'react-plotly.js/factory'
 var Plotly = require('plotly.js/lib/index-basic');
 const Plot = createPlotlyComponent(Plotly);
 
+class DataSelector extends Component {
+    render() {
+        return (
+            <div>
+                Axes
+                <div>
+                    X
+                </div>
+                <div>
+                    y
+                </div>
+            </div>
+        );
+    }
+}
+
 class PlotTool extends Component {
     render() {
         return (<Plot
@@ -35,6 +51,7 @@ class ToolFrame extends Component {
                 <CardHeader>{this.props.tool.title}</CardHeader>
                 <CardBody>
                     {this.renderTool()}
+                    <DataSelector />
                 </CardBody>
             </Card>
         )
