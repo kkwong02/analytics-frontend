@@ -1,34 +1,27 @@
 import React, {Component} from 'react';
 import {Card, CardBody, CardHeader} from 'reactstrap'
-import createPlotlyComponent from 'react-plotly.js/factory'
+import Graph from '../Graph/Graph'
 
-var Plotly = require('plotly.js/lib/index-basic');
-const Plot = createPlotlyComponent(Plotly);
-
-class DataSelector extends Component {
-    render() {
-        return (
-            <div>
-                Axes
-                <div>
-                    X
-                </div>
-                <div>
-                    y
-                </div>
-            </div>
-        );
+/**
+ * Generates the default state and
+ */
+class ToolFactory {
+    constructor(props) {
+        this.props = props;
+        this.tools = {
+            'graph': this.buildGraph
+        }
     }
-}
 
-class PlotTool extends Component {
-    render() {
-        return (<Plot
-            data={this.props.settings.data}
-            layout={this.props.settings.layout}
-            frames={this.props.settings.frames}
-            config={this.props.settings.config}/>)
+    build() {
+
     }
+
+    buildGraph(graphType) {
+        settings = _graph_defaults[graphType] // default state.
+    }
+
+
 }
 
 class ToolFrame extends Component {
@@ -38,20 +31,26 @@ class ToolFrame extends Component {
             frameName: null
         };
     }
+    handleClose() {
+        this.props.frameClose();
+    }
 
     renderTool() {
         if (this.props.tool.toolType === 'plot') {
-            return (<PlotTool settings={this.props.tool.plotSettings}/>)
+            return (<Graph settings={this.props.tool.plotSettings}/>)
         }
     }
 
     render() {
         return (
             <Card>
-                <CardHeader>{this.props.tool.title}</CardHeader>
+                <CardHeader>{this.props.tool.title}
+                <button onClick={this.handleClose.bind(this)} type="button" className="close">
+                    <span>&times;</span>
+                </button>
+                </CardHeader>
                 <CardBody>
                     {this.renderTool()}
-                    <DataSelector />
                 </CardBody>
             </Card>
         )
