@@ -1,34 +1,14 @@
 import React, {Component} from 'react';
 import {Card, CardBody, CardHeader} from 'reactstrap'
 import Graph from '../Graph/Graph'
-
-/**
- * Generates the default state and
- */
-class ToolFactory {
-    constructor(props) {
-        this.props = props;
-        this.tools = {
-            'graph': this.buildGraph
-        }
-    }
-
-    build() {
-
-    }
-
-    buildGraph(graphType) {
-        settings = _graph_defaults[graphType] // default state.
-    }
-
-
-}
+import GraphEditor from '../Graph/GraphEditor'
+import DateField from '../Data'
 
 class ToolFrame extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            frameName: null
+            edit: false
         };
     }
     handleClose() {
@@ -36,23 +16,47 @@ class ToolFrame extends Component {
     }
 
     renderTool() {
-        if (this.props.tool.toolType === 'plot') {
+        if (this.props.tool.toolType === 'graph') {
             return (<Graph settings={this.props.tool.plotSettings}/>)
         }
     }
+    handleEdit() {
+        this.setState({edit: true});
+    }
+
+    finishEdit() {
+        this.setState({edit: false});
+    }
 
     render() {
+        let variables;
+
         return (
+            <div>
             <Card>
                 <CardHeader>{this.props.tool.title}
-                <button onClick={this.handleClose.bind(this)} type="button" className="close">
-                    <span>&times;</span>
-                </button>
+                <div className="card-actions">
+                    <button onClick={this.handleEdit.bind(this)}>Edit</button>
+                    <button onClick={this.handleClose.bind(this)} type="button" className="close">
+                        <span>&times;</span>
+                    </button>
+                </div>
+
                 </CardHeader>
                 <CardBody>
-                    {this.renderTool()}
+                <div className="row">
+                    <div className="col">
+                        {this.renderTool()}
+                    </div>
+                    <div className="col-sm-3 bg-light">
+                        <h5>???</h5>
+                        { variables }
+                    </div>
+                </div>
                 </CardBody>
             </Card>
+            <GraphEditor isOpen={this.state.edit} finishEdit={this.finishEdit.bind(this)}/>
+            </div>
         )
     }
 

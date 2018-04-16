@@ -39,7 +39,8 @@ class Full extends Component {
                     }
                 }
             ], // a list of tools that have been added
-            data: {}
+            data: {}, // ??? I forgot what this is.
+            edit: null, // an id of tool or null.
         }
     }
 

@@ -16,5 +16,3 @@ class DataField extends Component {
         )
     }
 }
-
-export default DataField;
