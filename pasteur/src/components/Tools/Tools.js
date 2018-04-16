@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Card, CardBody, CardHeader} from 'reactstrap'
 import Graph from '../Graph/Graph'
 import GraphEditor from '../Graph/GraphEditor'
-import DateField from '../Data'
 
 class ToolFrame extends Component {
     constructor(props) {
@@ -44,15 +43,7 @@ class ToolFrame extends Component {
 
                 </CardHeader>
                 <CardBody>
-                <div className="row">
-                    <div className="col">
-                        {this.renderTool()}
-                    </div>
-                    <div className="col-sm-3 bg-light">
-                        <h5>???</h5>
-                        { variables }
-                    </div>
-                </div>
+                    {this.renderTool()}
                 </CardBody>
             </Card>
             <GraphEditor isOpen={this.state.edit} finishEdit={this.finishEdit.bind(this)}/>

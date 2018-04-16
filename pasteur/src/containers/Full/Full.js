@@ -20,7 +20,17 @@ class Full extends Component {
                     minimized: false,
                     toolType: 'graph',
                     plotSettings: {
-                        data: null,
+                        data: [
+                            {
+                                x: [1,2,3,4],
+                                y:[5,6,7,8],
+                                marker: {color: 'green'}
+                            },
+                            {
+                                y: [2,4,6,7],
+                                marker: {color: 'blue'}
+                            }
+                        ],
                         layout: null,
                         frames: null,
                         config: null
@@ -35,11 +45,11 @@ class Full extends Component {
                         data: null,
                         layout: null,
                         frames: null,
-                        config: null
+                        config: { displayModeBar: false }
                     }
                 }
             ], // a list of tools that have been added
-            data: {}, // ??? I forgot what this is.
+            socket: null,
             edit: null, // an id of tool or null.
         }
     }
@@ -64,11 +74,12 @@ class Full extends Component {
             this.setState({
                 data: JSON.parse(event.data)
             });
+            console.log(this.state.data)
         }.bind(this);
 
         // Testing socket connection.
         socket.onopen = function () {
-            socket.send(JSON.stringify({action: 'get_fields'}));
+            socket.send(JSON.stringify({action: 'get_experiment_list'}));
         };
     }
 

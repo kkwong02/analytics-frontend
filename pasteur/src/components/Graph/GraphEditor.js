@@ -10,7 +10,7 @@ class GraphEditor extends Component {
         return (
             <Modal isOpen={this.props.isOpen}>
                 <ModalHeader toggle={this.cancelEdit.bind(this)}>Edit</ModalHeader>
-                <ModalBody>Editing here?</ModalBody>
+                <ModalBody>No idea what goes here.</ModalBody>
                 <ModalFooter>
                     <Button color="danger" onClick={this.cancelEdit.bind(this)} >Cancel</Button>
                     <Button color="primary">Save</Button>
