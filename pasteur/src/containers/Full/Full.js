@@ -22,7 +22,7 @@ class Full extends Component {
                     plotSettings: {
                         data: [
                             {
-                                x: [1,2,3,4],
+                                x: [1,2,3,5],
                                 y:[5,6,7,8],
                                 marker: {color: 'green'}
                             },
