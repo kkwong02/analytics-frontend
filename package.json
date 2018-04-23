@@ -1,33 +1,36 @@
 {
-  "name": "@coreui/react",
-  "version": "1.0.10",
-  "description": "Open Source React Admin Template",
-  "main": "",
-  "homepage": "http://coreui.io/react/",
-  "github": "https://github.com/mrholek/CoreUI-React#readme",
+  "name": "pasteur-analytics",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@coreui/coreui": "2.0.0-beta.10",
+    "@coreui/react": "2.0.0-beta.1",
+    "bootstrap": "^4.1.0",
+    "npm": "^5.8.0",
+    "npm-run-all": "^4.1.2",
+    "plotly.js": "^1.36.1",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "react-plotly.js": "^2.1.0",
+    "reactstrap": "^5.0.0",
+    "redux": "^4.0.0"
+  },
+  "devDependencies": {
+    "babel-jest": "^22.4.3",
+    "eslint": "^4.19.1",
+    "eslint-plugin-react": "^7.7.0",
+    "node-sass-chokidar": "^1.2.2",
+    "npm-run-all": "^4.1.2",
+    "react-scripts": "^1.1.4"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mrholek/CoreUI-React.git"
-  },
-  "keywords": [
-    "Bootstrap",
-    "Admin",
-    "Template",
-    "Open Source",
-    "CSS",
-    "HTML",
-    "RWD",
-    "Dashboard",
-    "React",
-    "React.js",
-    "Reactjs"
-  ],
-  "author": "Łukasz Holeczek",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/mrholek/CoreUI-React/issues"
+    "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
+    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
+    "start-js": "react-scripts start",
+    "start": "npm-run-all -p watch-css start-js",
+    "build-js": "react-scripts build",
+    "build": "npm-run-all build-css build-js",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   }
 }

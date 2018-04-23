@@ -1,8 +1,0 @@
-{
-    "name": "graph",
-    "description": "",
-    "authors": "",
-    "version": "1.0.0",
-    "main": "Graph.js",
-    "dependencies": {}
-}
