@@ -5,8 +5,7 @@
     color: $toolbox-color;
     background: $toolbox-bg;
     height: calc(100vh - #{$navbar-height});
-    position: fixed;
-    z-index: $zindex-sticky - 2;
+    float: left;
     @include borders($toolbox-borders);
 
     .toolbox-header {

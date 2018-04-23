@@ -18,10 +18,10 @@ class App extends Component {
             <Sidebar />
           </AppSidebar>
 
-          {/* <Toolbox hide></Toolbox> */}
           <main className="main">
+            <Toolbox />
             <Container fluid>
-            <Tool></Tool>
+              <Tool />
             </Container>
           </main>
         </div>

@@ -9884,8 +9884,7 @@ body {
   color: #2f353a;
   background: #fff;
   height: calc(100vh - 55px);
-  position: fixed;
-  z-index: 1018;
+  float: left;
   border-right: 1px solid #c8ced3; }
   .toolbox .toolbox-header {
     padding: 0.75rem 1rem;
