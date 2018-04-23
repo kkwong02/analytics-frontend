@@ -1,7 +1,11 @@
+@import "./vendor/bootstrap-variables";
+
 @import "variables";
 
 @import "node_modules/@coreui/coreui/scss/coreui";
 
 @import 'node_modules/@coreui/coreui/scss/_dropdown-menu-right.scss';
 
-@import "custom";
+@import "toolbox";
+
+@import "layout";

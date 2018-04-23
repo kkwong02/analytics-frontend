@@ -1,0 +1,12 @@
+.icon {
+    height: 15px;
+    width: 15px;
+}
+
+.icon-sidebar {
+    fill: $sidebar-nav-link-icon-color;
+
+    &:hover {
+        fill: $sidebar-nav-link-hover-color;
+    }
+}

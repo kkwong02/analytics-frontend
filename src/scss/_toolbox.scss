@@ -1,0 +1,27 @@
+.toolbox {
+    display: flex;
+    flex-direction: column;
+    width: $toolbox-width;
+    color: $toolbox-color;
+    background: $toolbox-bg;
+    height: calc(100vh - #{$navbar-height});
+    position: fixed;
+    z-index: $zindex-sticky - 2;
+    @include borders($toolbox-borders);
+
+    .toolbox-header {
+        padding: $toolbox-padding-y $toolbox-padding-x;
+        @include borders($toolbox-header-borders)
+    }
+
+    .tools-container {
+        overflow-y: auto;
+
+        .set-header {
+            width: 100%;
+            display: inline-block;
+            padding: $toolbox-padding-y $toolbox-padding-x;
+            @include borders($toolbox-header-borders);
+        }
+    }
+}

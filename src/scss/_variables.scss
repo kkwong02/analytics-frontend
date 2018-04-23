@@ -1,8 +1,20 @@
-// Bootstrap overrides
-$purple: #673AB7;
-$blue: #448AFF;
+// Toolbox
+$toolbox-width : 200px !default;
+$toolbox-color : $gray-800 !default;
+$toolbox-bg : #fff !default;
+$toolbox-borders: (
+    right: (
+        size : 1px,
+        style : solid,
+        color : $border-color)
+    ) !default;
 
-$theme-colors: (
-    primary: $purple,
-    secondary: $blue,
-);
+$toolbox-padding-y : .75rem !default;
+$toolbox-padding-x : 1rem !default;
+
+$toolbox-header-borders: (
+    bottom: (
+        size : 1px,
+        style : solid,
+        color : $border-color)
+    ) !default;
