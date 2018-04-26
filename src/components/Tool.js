@@ -1,24 +1,20 @@
-import React, { Component } from 'react';
-import {Card, CardHeader, CardBody, CardBlock } from 'reactstrap'
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 
-class Tool extends Component {
+
+
+class Tool extends PureComponent {
     render() {
         return (
-            <Card>
-                <CardHeader>
-                <span>{this.props.windowName}</span>
-                <div className="card-header-actions">
-                    <a className="card-header-action btn" href="#">Settings</a>
-                    <a className="card-header-action btn" href="#">-</a>
-                    <a className="card-header-action btn" href="#">x</a>
-                </div>
-                </CardHeader>
-                <CardBody>
-                    Tool here.
-                </CardBody>
-            </Card>
+            <div>
+
+            </div>
         );
     }
 }
+
+Tool.propTypes = {
+    name: PropTypes.string.isRequired,
+};
 
 export default Tool;

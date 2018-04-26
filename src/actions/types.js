@@ -1,0 +1,3 @@
+export const LIST_SESSIONS = 'LIST_SESSIONS';
+export const JOIN_SESSION = 'JOIN_SESSION';
+export const CREATE_SESSION = 'CREATE_SESSION';

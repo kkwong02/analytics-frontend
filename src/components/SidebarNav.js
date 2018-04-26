@@ -3,7 +3,7 @@ import { Nav, NavItem, NavLink } from 'reactstrap'
 import { _navItems } from './settings/_navItems'
 
 
-class Sidebar extends Component {
+class SidebarNav extends Component {
     renderHeader(item) {
         return (
         <li className="nav-title">{item.name}</li>
@@ -42,4 +42,4 @@ class Sidebar extends Component {
     }
 }
 
-export default Sidebar;
+export default SidebarNav;
