@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Nav, NavItem, NavLink } from 'reactstrap'
-import { _navItems } from './_navItems'
+import { _navItems } from './settings/_navItems'
 
 
 class Sidebar extends Component {
