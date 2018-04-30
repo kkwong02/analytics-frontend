@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Nav, NavItem, NavLink } from 'reactstrap'
-import { _navItems } from './settings/_navItems'
+import { _navItems } from '../constants/_navItems'
 
 
-class SidebarNav extends Component {
-    renderHeader(item) {
+class SidebarNav extends PureComponent {
+    renderHeader(item, index) {
         return (
-        <li className="nav-title">{item.name}</li>
+        <li key={index} className="nav-title">{item.name}</li>
         );
     }
 
@@ -14,9 +14,9 @@ class SidebarNav extends Component {
 
     }
 
-    renderNavItem(item) {
+    renderNavItem(item, index) {
         return (
-            <NavItem>
+            <NavItem key={index}>
                 <NavLink href={item.url}>
                     {this.renderIcon(item.icon)}
                     {item.name}
@@ -26,11 +26,11 @@ class SidebarNav extends Component {
     }
 
     render() {
-        let navComponents = _navItems.map(item => {
+        let navComponents = _navItems.map((item, index) => {
             if (item.title) {
-                return this.renderHeader(item)
+                return this.renderHeader(item, index)
             }
-            return this.renderNavItem(item)
+            return this.renderNavItem(item, index)
 
         })
 

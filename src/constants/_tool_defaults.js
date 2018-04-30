@@ -1,4 +1,4 @@
-const tool_settings = [
+export const tool_settings = [
     {
         group_name: "Graph",
         tools: [
@@ -23,5 +23,3 @@ const tool_settings = [
         ]
     }
 ];
-
-export const tool_settings;

@@ -1,38 +1,52 @@
 import React, {Component} from 'react';
 
-import {AppHeader, AppSidebar} from '@coreui/react';
+import {AppHeader, AppSidebar, AppAside} from '@coreui/react';
 import {Container} from 'reactstrap';
 import Header from './components/Header';
 import SidebarNav from './components/SidebarNav';
-import Tool from './components/Tool';
 
-import { Provider } from 'react-redux';
+import {Provider} from 'react-redux';
 
 import store from './store';
 
-class App extends Component {
+import Tool from './components/Tool';
+import Toolbox from './components/Toolbox'
+
+class Content extends Component {
   render() {
     return (
-      <Provider store={store}>
       <div className="app">
         <AppHeader fixed>
-        <Header/>
+          <Header/>
         </AppHeader>
         <div className="app-body">
           <AppSidebar fixed>
-            <SidebarNav />
+            <SidebarNav/>
           </AppSidebar>
-
+          <Toolbox/>
           <main className="main">
-            <div className="toolbox">
-            {/* individual tool components here! */}
-            </div>
             <Container fluid>
-              <Tool />
+              <Tool/>
             </Container>
           </main>
+          <AppAside fixed offCanvas={false}>
+            <div>
+              Data here?
+            </div>
+          </AppAside>
         </div>
       </div>
+    );
+  }
+}
+
+class App extends Component {
+
+  render() {
+    console.log(store.getState());
+    return (
+      <Provider store={store}>
+        <Content />
       </Provider>
     );
   }

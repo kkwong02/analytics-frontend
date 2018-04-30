@@ -1,10 +1,12 @@
 import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
+import ReduxWebSocketBridge from 'redux-websocket-bridge'
 import rootReducer from "./reducers";
 
 const initialState = {};
 
-const middleware = [thunk];
+const middleware = [
+    ReduxWebSocketBridge('ws://localhost/analytics/')
+];
 
 const store = createStore(
     rootReducer,
