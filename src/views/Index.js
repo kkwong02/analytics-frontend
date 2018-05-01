@@ -35,4 +35,4 @@ class Index extends Component {
 
 const mapStateToProps = state => ({session: state.current_session});
 
-export default connect(mapStateToProps, null)(Index)
+export default connect(mapStateToProps)(Index)

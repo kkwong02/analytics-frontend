@@ -1,9 +1,8 @@
-// Sessions
-export const SESSION_LIST = 'SESSION.LIST';
-export const SESSION_JOIN = 'SESSION.JOIN';
-export const SESSION_CREATE = 'SESSION.CREATE';
-export const SESSION_CLOSE = 'SESSION.CLOSE'
-
+// Session server responses
+export const SERVER_SESSION_LIST = 'SERVER/SESSION.LIST';
+export const SERVER_SESSION_JOIN = 'SERVER/SESSION.JOIN';
+export const SERVER_SESSION_CREATE = 'SERVER/SESSION.CREATE';
+export const SERVER_SESSION_CLOSE = 'SERVER/SESSION.CLOSE';
 
 // Action related/tool settings
 export const ACTION_CREATE = 'ACTION.CREATE';

@@ -1,34 +1,71 @@
-import React, {Component} from 'react';
+import React, {Component, PureComponent} from 'react';
 import {
     Card,
     CardBody,
     CardTitle,
-    CardDeck,
     Container,
     Row,
-    Col
+    Col,
+    Button
 } from "reactstrap";
 
+import Proptypes from "prop-types";
 import {connect} from "react-redux";
 
-class Sessions extends Component {
-    render_session_list() {
-        this
-            .props
-            .session_list
-            .map(session => {
-                return (
-                    <Card key={session.id}>
-                        <CardBody>
-                            <CardTitle>{session.name}</CardTitle>
-                        </CardBody>
-                    </Card>
-                )
-            })
+class SessionTile extends PureComponent {
+    constructor(props) {
+        super(props);
+        this.on_click_handler = this
+            .on_click_handler
+            .bind(this);
+    }
+
+    on_click_handler() {
+        // dispatch SERVER/SESSION.JOIN Action
+        console.log("Connect to session", this.props.session.id);
     }
 
     render() {
-        console.log(this.props.session_list)
+        return (
+            <div className="col-2 mb-3">
+                <Card onClick={this.on_click_handler}>
+                    <CardBody>
+                        <CardTitle>{this.props.session.name}</CardTitle>
+                    </CardBody>
+                </Card>
+            </div>
+        );
+    }
+}
+
+class Sessions extends Component {
+    constructor(props){
+        super(props);
+        this.create_session_click = this.create_session_click.bind(this);
+
+    }
+
+    render_session_list() {
+        let sessions = this
+            .props
+            .session_list
+            .map(session => {
+                return (<SessionTile key={session.id} session={session}/>)
+            });
+
+        return sessions;
+    }
+    create_session_click(){
+        // do something to bring up modal
+        console.log("Create Session");
+    }
+
+    render() {
+
+        let sessions;
+        if (this.props.session_list.length > 0) {
+            sessions = this.render_session_list();
+        }
         return (
             <main className="main pt-5">
                 <Container fluid>
@@ -38,7 +75,10 @@ class Sessions extends Component {
                                 <CardBody>
                                     <CardTitle>Pasteur Analytics</CardTitle>
                                     Please Select an existing session or create a new one.
-                                    <CardDeck></CardDeck>
+                                    <div className="row">
+                                    <Button onClick={this.create_session_click}>Create New Session</Button>
+                                        {sessions}
+                                    </div>
                                 </CardBody>
                             </Card>
                         </Col>
@@ -49,6 +89,10 @@ class Sessions extends Component {
     }
 }
 
-const mapStateToProps = state => ({session_list: state.session_list})
+Sessions.Proptypes = {
+    session_list: Proptypes.array.isRequired
+};
+
+const mapStateToProps = state => ({session_list: state.session.session_list})
 
 export default connect(mapStateToProps, {})(Sessions);
