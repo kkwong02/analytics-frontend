@@ -32,9 +32,9 @@ class Tool extends Component {
                 <CardHeader>
                 Title
                 <div className='card-header-actions'>
-                    <a className="card-header-action btn btn-setting" href='#'>Settings</a>
-                    <a className="card-header-action btn btn-minimize" href='#'>Minimize</a>
-                    <a className="card-header-action btn btn-close" href='#'>Close</a>
+                    <a className="card-header-action btn btn-setting" href='#settings'>Settings</a>
+                    <a className="card-header-action btn btn-minimize" href='#minimize'>Minimize</a>
+                    <a className="card-header-action btn btn-close" href='#close'>Close</a>
                 </div>
                 </CardHeader>
                 <CardBody>

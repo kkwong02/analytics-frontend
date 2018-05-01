@@ -2,7 +2,7 @@ import { SESSION_LIST, SESSION_CLOSE, SESSION_CREATE, SESSION_JOIN } from '../ac
 
 const initialState = {
     session_list: [],
-    session: null,
+    current_session: null,
     new_session: {}
 };
 
