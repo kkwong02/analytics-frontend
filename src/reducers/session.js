@@ -1,9 +1,8 @@
-import { SERVER_SESSION_LIST, SERVER_SESSION_CLOSE, SERVER_SESSION_CREATE, SERVER_SESSION_CONNECT } from '../actions/types'
+import { SERVER_SESSION_LIST, SERVER_SESSION_CLOSE, SERVER_SESSION_CONNECT } from '../actions/types'
 
 const initialState = {
     session_list: [],
     current_session: null,
-    new_session: {},
     error: null,
 };
 
@@ -14,11 +13,6 @@ export default function session(state=initialState, action) {
             return {
                 ...state,
                 session_list: action.payload.sessions
-            }
-        case SERVER_SESSION_CREATE:
-            return {
-                ...state,
-                new_session: action.payload
             }
 
         case SERVER_SESSION_CONNECT:

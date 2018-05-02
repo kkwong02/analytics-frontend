@@ -1,7 +1,6 @@
 // Session server responses
 export const SERVER_SESSION_LIST = 'SERVER/SESSION.LIST';
 export const SERVER_SESSION_CONNECT = 'SERVER/SESSION.CONNECT';
-export const SERVER_SESSION_CREATE = 'SERVER/SESSION.CREATE';
 export const SERVER_SESSION_CLOSE = 'SERVER/SESSION.CLOSE';
 
 // Action related/tool settings

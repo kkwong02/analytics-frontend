@@ -13,15 +13,17 @@ import Proptypes from "prop-types";
 import {connect} from "react-redux";
 
 import {join_session} from "../actions/sessionActions"
+import SessionCreateModal from '../components/SessionCreateModal';
 
 class SessionTile extends PureComponent {
     constructor(props) {
         super(props);
+
         this.join = this.join.bind(this)
     }
 
     join() {
-        this.props.join(this.props.session.id)
+        this.props.join(this.props.session)
     }
 
     render() {
@@ -40,8 +42,11 @@ class SessionTile extends PureComponent {
 class Sessions extends Component {
     constructor(props) {
         super(props);
-        this.create_session_click = this
-            .create_session_click
+        this.state = {
+            create: false
+        }
+        this.create_session_toggle = this
+            .create_session_toggle
             .bind(this);
 
     }
@@ -56,9 +61,11 @@ class Sessions extends Component {
 
         return sessions;
     }
-    create_session_click() {
+    create_session_toggle() {
         // do something to bring up modal
-        console.log("Create Session");
+        this.setState((prevState) => {
+            return {create: !prevState.create}
+        })
     }
 
     render() {
@@ -77,13 +84,14 @@ class Sessions extends Component {
                                     <CardTitle>Pasteur Analytics</CardTitle>
                                     Please Select an existing session or create a new one.
                                     <div className="row">
-                                        <Button onClick={this.create_session_click}>Create New Session</Button>
+                                        <Button onClick={this.create_session_toggle}>Create New Session</Button>
                                         {sessions}
                                     </div>
                                 </CardBody>
                             </Card>
                         </Col>
                     </Row>
+                    <SessionCreateModal toggle={this.create_session_toggle} create={this.state.create}/>
                 </Container>
             </main>
         );
