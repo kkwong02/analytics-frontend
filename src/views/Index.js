@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 
+import Proptypes from "prop-types";
 import Sessions from "./Sessions";
 import Main from "./Main";
 
@@ -12,13 +13,14 @@ import SidebarNav from '../components/SidebarNav';
 class Index extends Component {
     render() {
         let content;
-        if (this.props.currrent_session) {
+
+        if (this.props.current_session !== null) {
             content = <Main/>
         } else {
             content = <Sessions/>
         }
         return (
-            <React.Fragment>
+            <div className="app">
                 <AppHeader fixed>
                     <Header/>
                 </AppHeader>
@@ -28,11 +30,15 @@ class Index extends Component {
                     </AppSidebar>
                     {content}
                 </div>
-            </React.Fragment>
+            </div>
         );
     }
 }
 
-const mapStateToProps = state => ({session: state.current_session});
+Index.Proptypes = {
+    current_session: Proptypes.object.isRequired
+}
+
+const mapStateToProps = state => ({current_session: state.session.current_session});
 
 export default connect(mapStateToProps)(Index)

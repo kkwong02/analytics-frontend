@@ -1,4 +1,4 @@
-import { SERVER_SESSION_LIST, SERVER_SESSION_CLOSE, SERVER_SESSION_CREATE, SERVER_SESSION_JOIN } from '../actions/types'
+import { SERVER_SESSION_LIST, SERVER_SESSION_CLOSE, SERVER_SESSION_CREATE, SERVER_SESSION_CONNECT } from '../actions/types'
 
 const initialState = {
     session_list: [],
@@ -21,15 +21,15 @@ export default function session(state=initialState, action) {
                 new_session: action.payload
             }
 
-        case SERVER_SESSION_JOIN:
+        case SERVER_SESSION_CONNECT:
             return {
                 ...state,
-                session: action.payload
+                current_session: action.payload
             }
         case SERVER_SESSION_CLOSE:
             return {
                 ...state,
-                session: null
+                current_session: null
             }
 
         default:
