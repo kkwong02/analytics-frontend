@@ -1,4 +1,4 @@
-import { SERVER_SESSION_LIST, SERVER_SESSION_CLOSE, SERVER_SESSION_CONNECT } from '../actions/types'
+import { SESSION_LIST, SESSION_CLOSE, SESSION_CONNECT } from '../actions/types'
 
 const initialState = {
     session_list: [],
@@ -8,19 +8,21 @@ const initialState = {
 
 // TODO: Add error checking
 export default function session(state=initialState, action) {
-    switch (action.type) {
-        case SERVER_SESSION_LIST:
+    let action_type = action.type.replace('SERVER/', '');
+
+    switch (action_type) {
+        case SESSION_LIST:
             return {
                 ...state,
                 session_list: action.payload.sessions
             }
 
-        case SERVER_SESSION_CONNECT:
+        case SESSION_CONNECT:
             return {
                 ...state,
                 current_session: action.payload
             }
-        case SERVER_SESSION_CLOSE:
+        case SESSION_CLOSE:
             return {
                 ...state,
                 current_session: null

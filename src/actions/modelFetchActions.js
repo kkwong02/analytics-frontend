@@ -1,11 +1,6 @@
-import {SEND} from 'redux-websocket-bridge'
+import { send_request } from "./websocketSend";
+import { FETCH_PROJECTS } from "./types";
 
 export function fetch_projects() {
-    return {
-        type: `@@websocket/${SEND}`,
-        payload: JSON.stringify({
-            type: 'SESSION.CONNECT',
-            payload: JSON.stringify(session)
-        })
-    };
+    return send_request(FETCH_PROJECTS)
 }
