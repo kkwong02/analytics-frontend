@@ -1,14 +1,12 @@
 import { FETCH_DATA, ADD_REQUEST } from "./types";
 import {send_request} from "./websocketSend";
 
-const uuidv4 = require('uuid/v4')
-
-export function add_request(request) {
+export function add_request(uuid, request) {
 
     return ({
         type: ADD_REQUEST,
         payload: {
-            uuid: uuidv4(),
+            uuid: uuid,
             request: request
         }
     })

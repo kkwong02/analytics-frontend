@@ -1,21 +1,28 @@
 import React, {Component} from "react"
 import createPlotlyComponent from "react-plotly.js/factory";
 
-import Plotly from "plotly.js/lib/index-basic";
+import { add_request, fetch_data } from "../actions/toolActions";
+import {connect} from "react-redux"
 
+import Plotly from "plotly.js/lib/index-basic";
 const Plot = createPlotlyComponent(Plotly);
+
+const uuidv4 = require('uuid/v4')
 
 class GraphTool extends Component {
     constructor(props) {
         super(props);
-        this.onChange = this
-            .onChange
+        this.onSubmit = this
+            .onSubmit
             .bind(this);
     }
 
-    onChange(e) {
-        console.log(e.target.name);
-        console.log(e.target.value);
+    onSubmit(e) {
+        e.preventDefault();
+        let uuid = uuidv4();
+        let request = {[e.target[0].name]: e.target[0].value};
+        this.props.add_request(uuid, request);
+        this.props.fetch_data();
     }
 
     render() {
@@ -23,7 +30,10 @@ class GraphTool extends Component {
             <React.Fragment>
                 <div className="row">
                     <div className="col-sm-2 bg-light">
-                        <input name="y-axis" onChange={this.onChange}/>
+                        <form onSubmit={this.onSubmit}>
+                            <input name="y-axis" onChange={this.onChange}/>
+                            <button>Submit</button>
+                        </form>
                     </div>
                     <div className="col-sm-8">
                         <Plot/>
@@ -32,7 +42,10 @@ class GraphTool extends Component {
                 </div>
                 <div className="row justify-content-sm-center">
                     <div className="col-sm-8 bg-light pt-5 pb-5">
-                        <input name="x-axis" onChange={this.onChange}/>
+                        <form onSubmit={this.onSubmit}>
+                            <input name="x-axis" onChange={this.onChange}/>
+                            <button type="submit">Submit</button>
+                        </form>
                     </div>
                 </div>
             </React.Fragment>
@@ -40,4 +53,4 @@ class GraphTool extends Component {
     }
 }
 
-export default GraphTool;
+export default connect(null, {add_request, fetch_data})(GraphTool)
