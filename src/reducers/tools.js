@@ -11,12 +11,10 @@ export default function tools(state=initialState, action) {
 
     switch (action.type) {
         case 'SERVER/'+ FETCH_DATA:
-            // ????
             if (action.error) {
                 return state
             }
-            console.log(action.payload)
-            if (state.request[action.payload.uuid]){
+            if (state.requests[action.payload.uuid]){
                 console.log("it does something.")
             }
             return state;

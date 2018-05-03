@@ -20,9 +20,12 @@ class GraphTool extends Component {
     onSubmit(e) {
         e.preventDefault();
         let uuid = uuidv4();
-        let request = {[e.target[0].name]: e.target[0].value};
+        let request = {
+            experiments: [1],
+            expressions: [e.target[0].value]
+        };
         this.props.add_request(uuid, request);
-        this.props.fetch_data();
+        this.props.fetch_data(uuid, request);
     }
 
     render() {
