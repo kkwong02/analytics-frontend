@@ -1,6 +1,29 @@
-import React, {Component} from 'react';
+import React, {Component, PureComponent} from 'react';
 import {tool_settings} from "../constants/_tool_defaults";
 import {Media, Collapse, ListGroup, ListGroupItem} from "reactstrap";
+
+class Tool extends PureComponent {
+    constructor(props) {
+        super(props);
+        this.onClick = this
+            .onClick
+            .bind(this);
+    }
+    onClick() {
+        console.log(this.props.tool.default);
+    }
+
+    render() {
+        return (
+            <ListGroupItem onClick={this.onClick}>
+                <Media>
+                    <Media object data-src={this.props.tool.icon}/>
+                    <Media body>{this.props.tool.name}</Media>
+                </Media>
+            </ListGroupItem>
+        )
+    }
+}
 
 class ToolSet extends Component {
     constructor(props) {
@@ -19,19 +42,14 @@ class ToolSet extends Component {
         })
     }
 
-    render_tool(tool) {
-        return (
-            <ListGroupItem key={tool.name}>
-                <Media>
-                    <Media object data-src={tool.icon} />
-                    <Media body>{tool.name}</Media>
-                </Media>
-            </ListGroupItem>
-        );
-    }
-
     render() {
-        let tools = this.props.set.tools.map(tool => this.render_tool(tool));
+        let tools = this
+            .props
+            .set
+            .tools
+            .map(tool => {
+                return (<Tool key={tool.name} tool={tool}/>)
+            });
         return (
             <React.Fragment>
                 <ListGroupItem onClick={this.toggle}>
