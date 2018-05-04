@@ -16,7 +16,7 @@ class Tool extends Component {
                 </div>
                 </CardHeader>
                 <CardBody>
-                    <GraphTool />
+                    <GraphTool id={this.props.id}/>
                 </CardBody>
             </Card>
         );

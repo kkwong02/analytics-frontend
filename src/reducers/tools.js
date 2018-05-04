@@ -3,7 +3,6 @@ import { FETCH_DATA, ADD_REQUEST } from "../actions/types";
 const initialState = {
     experiments: [],
     tools_list: [],
-    tools_map: [],
     requests: {},
 };
 
@@ -15,7 +14,9 @@ export default function tools(state=initialState, action) {
                 return state
             }
             if (state.requests[action.payload.uuid]){
-                console.log("it does something.")
+                console.log(action.payload);
+                //  get the tool to update
+
             }
             return state;
 
