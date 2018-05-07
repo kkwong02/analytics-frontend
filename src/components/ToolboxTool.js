@@ -12,7 +12,6 @@ class ToolboxTool extends PureComponent {
             .bind(this);
     }
     onClick() {
-        console.log(this.props.tool.params);
         this.props.add_tool({name:this.props.tool.name, params:this.props.tool.params});
     }
 

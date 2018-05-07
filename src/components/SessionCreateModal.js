@@ -34,7 +34,6 @@ class SessionCreateModal extends Component {
     }
 
     onSubmit(e) {
-        console.log("this did something");
         e.preventDefault();
         this.props.join_session({
             name: this.state.name,

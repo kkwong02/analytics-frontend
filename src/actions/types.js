@@ -15,5 +15,8 @@ export const FETCH_FIELDS = 'FETCH.FIELDS';
 export const FETCH_DATA = 'FETCH.DATA';
 
 
-export const ADD_REQUEST = 'ADD_REQUEST';
-export const ADD_TOOL = 'ADD_TOOl';
+export const ADD_REQUEST = 'ADD.REQUEST';
+export const ADD_TOOL = 'ADD.TOOl';
+export const TOOL_MINIMIZE = 'TOOL.MINIMIZE';
+export const TOOL_EDIT = 'TOOL.EDIT';
+export const DELETE_TOOL = 'DELETE.TOOL'

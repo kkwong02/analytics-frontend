@@ -5,6 +5,7 @@ export const tool_settings = [
             {
                 "name": "Scatter Plot",
                 "icon" : "http://via.placeholder.com/50x50",
+
                 "params": {
                     data:[],
                     layout: {},
