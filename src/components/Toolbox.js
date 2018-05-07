@@ -10,15 +10,17 @@ class Tool extends PureComponent {
             .bind(this);
     }
     onClick() {
-        console.log(this.props.tool.default);
+        console.log(this.props.tool.params);
     }
 
     render() {
         return (
             <ListGroupItem onClick={this.onClick}>
                 <Media>
-                    <Media object data-src={this.props.tool.icon}/>
-                    <Media body>{this.props.tool.name}</Media>
+                    <Media object src={this.props.tool.icon}/>
+                    <Media className="ml-2" body>
+                    {this.props.tool.name}
+                    </Media>
                 </Media>
             </ListGroupItem>
         )

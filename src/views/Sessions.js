@@ -19,7 +19,12 @@ class SessionTile extends PureComponent {
     constructor(props) {
         super(props);
 
-        this.join = this.join.bind(this)
+        this.join = this.join.bind(this);
+        this.delete = this.delete.bind(this);
+    }
+
+    delete() {
+        this.props.delete_session(this.props.session);
     }
 
     join() {

@@ -16,6 +16,7 @@ export default function tools(state=initialState, action) {
             if (state.requests[action.payload.uuid]){
                 console.log(action.payload);
                 //  get the tool to update
+                // do something according to the request
 
             }
             return state;
