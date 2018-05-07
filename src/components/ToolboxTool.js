@@ -2,6 +2,9 @@ import React, {PureComponent} from 'react';
 import { Media, ListGroupItem } from 'reactstrap';
 import PropTypes from 'prop-types';
 
+import { add_tool } from "../actions/toolActions";
+import { connect } from "react-redux";
+
 class ToolboxTool extends PureComponent {
     constructor(props) {
         super(props);
@@ -11,6 +14,7 @@ class ToolboxTool extends PureComponent {
     }
     onClick() {
         console.log(this.props.tool.params);
+        this.props.add_tool({name:this.props.tool.name, params:this.props.tool.params});
     }
 
     render() {
@@ -29,4 +33,4 @@ class ToolboxTool extends PureComponent {
 
 ToolboxTool.propTypes = {};
 
-export default ToolboxTool;
+export default connect(null, {add_tool})(ToolboxTool);

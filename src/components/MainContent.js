@@ -1,17 +1,27 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Container } from "reactstrap";
 
+import Tool from "./Tool";
 import { connect } from 'react-redux';
 
 class MainContent extends Component {
-    // constructor(props) {
-    //     super(props);
-
-    // }
+    constructor(props){
+        super(props);
+        this.render_tools = this.render_tools.bind(this);
+    }
+    render_tools(){
+        this.props.tools_list.map(tool => {
+            console.log(tool)
+            return (<div>test</div>)
+        })
+    }
 
     render() {
         return (
-            <div />
+            <Container>
+            {this.render_tools()}
+            </Container>
         );
     }
 }

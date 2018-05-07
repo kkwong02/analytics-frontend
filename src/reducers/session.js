@@ -22,11 +22,11 @@ export default function session(state=initialState, action) {
                 ...state,
                 current_session: action.payload
             }
-        case SESSION_CLOSE:
-            return {
-                ...state,
-                current_session: null
-            }
+        // case SESSION_CLOSE:
+        //     return {
+        //         ...state,
+        //         current_session: null
+        //     }
 
         default:
             return state;

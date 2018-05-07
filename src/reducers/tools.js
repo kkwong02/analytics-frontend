@@ -1,4 +1,4 @@
-import { FETCH_DATA, ADD_REQUEST } from "../actions/types";
+import { FETCH_DATA, ADD_REQUEST, ADD_TOOL } from "../actions/types";
 
 const initialState = {
     experiments: [],
@@ -28,6 +28,12 @@ export default function tools(state=initialState, action) {
                     ...state.requests,
                     [action.payload.uuid]: action.payload.request
                 }
+            }
+
+        case ADD_TOOL:
+            return {
+                ...state,
+                tools_list: [...state.tools_list, action.payload]
             }
 
         default:

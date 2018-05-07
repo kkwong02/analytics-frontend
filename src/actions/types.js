@@ -15,4 +15,5 @@ export const FETCH_FIELDS = 'FETCH.FIELDS';
 export const FETCH_DATA = 'FETCH.DATA';
 
 
-export const ADD_REQUEST = 'ADD_REQUEST'
+export const ADD_REQUEST = 'ADD_REQUEST';
+export const ADD_TOOL = 'ADD_TOOl';
