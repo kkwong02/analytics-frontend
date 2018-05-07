@@ -1,31 +1,9 @@
-import React, {Component, PureComponent} from 'react';
+import React, {Component} from 'react';
 import {tool_settings} from "../constants/_tool_defaults";
-import {Media, Collapse, ListGroup, ListGroupItem} from "reactstrap";
+import { Collapse, ListGroup, ListGroupItem, ListGroupItemHeading} from "reactstrap";
 
-class Tool extends PureComponent {
-    constructor(props) {
-        super(props);
-        this.onClick = this
-            .onClick
-            .bind(this);
-    }
-    onClick() {
-        console.log(this.props.tool.params);
-    }
+import ToolboxTool from "./ToolboxTool";
 
-    render() {
-        return (
-            <ListGroupItem onClick={this.onClick}>
-                <Media>
-                    <Media object src={this.props.tool.icon}/>
-                    <Media className="ml-2" body>
-                    {this.props.tool.name}
-                    </Media>
-                </Media>
-            </ListGroupItem>
-        )
-    }
-}
 
 class ToolSet extends Component {
     constructor(props) {
@@ -50,13 +28,13 @@ class ToolSet extends Component {
             .set
             .tools
             .map(tool => {
-                return (<Tool key={tool.name} tool={tool}/>)
+                return (<ToolboxTool key={tool.name} tool={tool}/>)
             });
         return (
             <React.Fragment>
-                <ListGroupItem onClick={this.toggle}>
+                <div className="" onClick={this.toggle}>
                     {this.props.set.group_name}
-                </ListGroupItem>
+                </div>
                 <Collapse isOpen={this.state.collapsed}>
                     <ListGroupItem>
                         <ListGroup>
@@ -76,9 +54,9 @@ class Toolbox extends Component {
             return (<ToolSet key={index} set={set}/>)
         });
         return (
-            <ListGroup>
+            <div className="toolbox">
                 {tools}
-            </ListGroup>
+            </div>
         );
     }
 }
