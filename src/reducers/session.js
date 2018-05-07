@@ -1,4 +1,4 @@
-import { SESSION_LIST, SESSION_CLOSE, SESSION_CONNECT } from '../actions/types'
+import { SESSION_LIST, SESSION_CONNECT } from '../actions/types'
 
 const initialState = {
     session_list: [],
@@ -22,11 +22,6 @@ export default function session(state=initialState, action) {
                 ...state,
                 current_session: action.payload
             }
-        // case SESSION_CLOSE:
-        //     return {
-        //         ...state,
-        //         current_session: null
-        //     }
 
         default:
             return state;

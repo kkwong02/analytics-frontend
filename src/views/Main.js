@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 import {AppAside} from '@coreui/react';
-import {Container, Breadcrumb, BreadcrumbItem, Button} from 'reactstrap';
+import {Breadcrumb, BreadcrumbItem, Button} from 'reactstrap';
 
 import Toolbox from '../components/Toolbox'
 

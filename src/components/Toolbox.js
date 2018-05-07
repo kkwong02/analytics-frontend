@@ -4,7 +4,6 @@ import { Collapse, ListGroup, ListGroupItem} from "reactstrap";
 
 import ToolboxTool from "./ToolboxTool";
 
-
 class ToolSet extends Component {
     constructor(props) {
         super(props);
