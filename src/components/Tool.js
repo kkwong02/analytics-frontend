@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Card, CardBody, CardHeader, Collapse } from 'reactstrap'
 import PropTypes from 'prop-types'
 
-import { toggle_minimize, toggle_edit } from "../actions/toolActions";
+import { toggle_minimize, toggle_edit, delete_tool } from "../actions/toolActions";
 
 import GraphTool from './GraphTool'
 
@@ -32,18 +32,9 @@ class Tool extends Component {
         this.props.toggle_minimize(this.props.id);
     }
 
-    /**
-     * removes the tool card.
-     * TODO: Implement this.
-     */
+
     remove_card() {
-        if (typeof(this.props.params.id) === 'string') {
-            // just remove from state if not saved on server
-        }
-        else if (typeof(this.props.params.id === 'number')){
-            // delete from server then let the reducer delete from state
-        }
-        // if anything else (not really sure how, really) ignore
+        this.props.delete_tool(this.props.id);
     }
 
     render() {
@@ -64,7 +55,7 @@ class Tool extends Component {
                     </CardBody>
                 </Collapse>
             </Card>
-            <ToolEditModal isOpen={this.props.params.edit} id={this.props.id} toggle={this.props.toggle_edit}/>
+            <ToolEditModal isOpen={this.props.params.edit} id={this.props.id} tool={this.props.params} toggle={this.props.toggle_edit}/>
             </React.Fragment>
         );
     }
@@ -75,4 +66,4 @@ Tool.propTypes = {
     toggle_edit: PropTypes.func.isRequired
 };
 
-export default connect(null, {toggle_minimize, toggle_edit})(Tool);
+export default connect(null, {toggle_minimize, toggle_edit, delete_tool})(Tool);

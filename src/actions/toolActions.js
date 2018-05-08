@@ -37,6 +37,7 @@ export function add_tool(tool) {
             tool: tool,
             isOpen: true,
             edit: true,
+            experiments: [],
         },
         meta: {id: uuidv4()}
     })
@@ -73,7 +74,7 @@ export function toggle_edit(id) {
  * @param {number} id - id of tool
  */
 export function delete_tool(id) {
-    if (id === 0) {
+    if (typeof(id) === 'string') {
         return ({
             type: TOOL_DELETE,
             payload: {

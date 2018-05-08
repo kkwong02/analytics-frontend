@@ -1,9 +1,10 @@
-import { FETCH_DATA, ADD_REQUEST, TOOL_MINIMIZE, TOOL_EDIT, TOOL_ADD, TOOL_SAVE, TOOL_DELETE } from "../actions/types";
+import { FETCH_DATA, ADD_REQUEST, TOOL_MINIMIZE, TOOL_EDIT, TOOL_ADD, TOOL_SAVE, TOOL_DELETE, FETCH_EXPERIMENTS } from "../actions/types";
 
 const initialState = {
     experiments: [],
     tools_list: new Map(),
     requests: {},
+    buffer: {}
 };
 
 export default function tools(state=initialState, action) {
@@ -48,9 +49,11 @@ export default function tools(state=initialState, action) {
         case TOOL_ADD:
             newState = new Map(state.tools_list);
             newState.set(action.meta.id, action.payload);
+
             return {
                 ...state,
-                tools_list: newState
+                tools_list: newState,
+                buffer: {[action.meta.id]: action.payload}
             }
         case 'SERVER/' + TOOL_DELETE:
             if (action.error) {
@@ -61,6 +64,7 @@ export default function tools(state=initialState, action) {
         case TOOL_DELETE:
             newState = new Map(state.tools_list);
             newState.delete(action.payload.id)
+
             return {
                 ...state,
                 tools_list: newState
@@ -82,6 +86,12 @@ export default function tools(state=initialState, action) {
             return {
                 ...state,
                 tools_list: new Map(state.tools_list).set(action.payload.id, tool)
+            }
+
+        case FETCH_EXPERIMENTS:
+            return {
+                ...state,
+                experiments: action.payload
             }
 
         default:

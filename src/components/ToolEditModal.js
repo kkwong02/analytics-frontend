@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
 import {Modal, ModalHeader, ModalFooter, ModalBody, Button} from "reactstrap";
-import {toggle_edit} from "../actions/toolActions";
+import {toggle_edit, delete_tool} from "../actions/toolActions";
 import {connect} from "react-redux";
 
 import GraphEditor from "./GraphEditor";
@@ -12,7 +12,6 @@ const DATA = 'DATA';
 class ToolEditModal extends PureComponent {
     constructor(props) {
         super(props);
-        this.toggle = this.toggle.bind(this);
         this.cancel = this.cancel.bind(this);
         this.save = this.save.bind(this);
         this.next = this.next.bind(this);
@@ -43,15 +42,13 @@ class ToolEditModal extends PureComponent {
         }));
     }
 
-    toggle() {
-        this.props.toggle_edit(this.props.id);
-    }
-
     cancel() {
-        // if newly created (non-number id),
-        //  remove tool component from state
-        // else
-        //  just close modal
+        if (typeof(this.props.id) === 'string') {
+            this.props.delete_tool(this.props.id);
+        }
+        else {
+            this.props.toggle_edit(this.props.id);
+        };
     }
 
     save() {
@@ -61,8 +58,8 @@ class ToolEditModal extends PureComponent {
     render() {
         return (
             <Modal size='lg' isOpen={this.props.isOpen} >
-            <ModalHeader toggle={this.toggle}>
-            {this.props.title}
+            <ModalHeader toggle={this.cancel}>
+            {this.props.tool.tool.name}
             </ModalHeader>
             <ModalBody>
 
@@ -80,4 +77,4 @@ class ToolEditModal extends PureComponent {
     }
 }
 
-export default connect(null, {toggle_edit})(ToolEditModal);
+export default connect(null, {toggle_edit, delete_tool})(ToolEditModal);
