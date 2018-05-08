@@ -14,9 +14,12 @@ export const FETCH_EXPERIMENTS = 'FETCH.EXPERIMENTS';
 export const FETCH_FIELDS = 'FETCH.FIELDS';
 export const FETCH_DATA = 'FETCH.DATA';
 
-
 export const ADD_REQUEST = 'ADD.REQUEST';
-export const ADD_TOOL = 'ADD.TOOl';
+
+export const TOOL_ADD = 'TOOL.ADD';
 export const TOOL_MINIMIZE = 'TOOL.MINIMIZE';
 export const TOOL_EDIT = 'TOOL.EDIT';
-export const DELETE_TOOL = 'DELETE.TOOL'
+export const TOOL_CANCEL = 'TOOL.CANCEL';
+export const TOOL_DELETE = 'TOOL.DELETE'
+
+export const TOOL_SAVE = 'TOOL.SAVE';

@@ -19,7 +19,8 @@
     "reactstrap": "^5.0.0",
     "redux": "^4.0.0",
     "redux-websocket-bridge": "0.3.0-0",
-    "uuid": "^3.2.1"
+    "uuid": "^3.2.1",
+    "babel-polyfill": "6.26.0"
   },
   "devDependencies": {
     "babel-jest": "^22.4.3",

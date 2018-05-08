@@ -1,4 +1,4 @@
-import { FETCH_DATA, ADD_REQUEST, ADD_TOOL, TOOL_MINIMIZE, TOOL_EDIT, DELETE_TOOL} from "./types";
+import { FETCH_DATA, ADD_REQUEST, TOOL_MINIMIZE, TOOL_EDIT, TOOL_DELETE} from "./types";
 import {send_request} from "./websocketSend";
 
 const uuidv4 = require('uuid/v4')
@@ -25,21 +25,6 @@ export function add_request(uuid, tool_id, tool_index) {
  */
 export function fetch_data(uuid, params) {
     return send_request(FETCH_DATA, {uuid: uuid, ...params});
-}
-/**
- * Adds a new 'Tool' object to state.
- * @param {Object} tool - tool object
- */
-export function add_tool(tool) {
-    return ({
-        type: ADD_TOOL,
-        payload: {
-            id: uuidv4(),
-            tool: tool,
-            isOpen: true,
-            edit: true,
-        }
-    })
 }
 
 /**
@@ -73,7 +58,7 @@ export function toggle_edit(tool_index) {
  */
 export function delete_tool(tool_index) {
     return ({
-        type: DELETE_TOOL,
+        type: TOOL_DELETE,
         payload: {
             index: tool_index
         }
@@ -85,5 +70,5 @@ export function delete_tool(tool_index) {
  * @param {number} tool_index - index of tool in state.
  */
 export function server_delete_tool(tool_id, tool_index) {
-    send_request(DELETE_TOOL, {id: tool_id, index: tool_index});
+    send_request(TOOL_DELETE, {id: tool_id, index: tool_index});
 }
