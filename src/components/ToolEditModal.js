@@ -44,7 +44,7 @@ class ToolEditModal extends PureComponent {
     }
 
     toggle() {
-        this.props.toggle_edit(this.props.index);
+        this.props.toggle_edit(this.props.id);
     }
 
     cancel() {

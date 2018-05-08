@@ -1,4 +1,4 @@
-import { FETCH_DATA, ADD_REQUEST, TOOL_MINIMIZE, TOOL_EDIT, TOOL_ADD } from "../actions/types";
+import { FETCH_DATA, ADD_REQUEST, TOOL_MINIMIZE, TOOL_EDIT, TOOL_ADD, TOOL_SAVE, TOOL_DELETE } from "../actions/types";
 
 const initialState = {
     experiments: [],
@@ -52,13 +52,13 @@ export default function tools(state=initialState, action) {
                 ...state,
                 tools_list: newState
             }
-        case 'SERVER/' + ACTION_DELETE:
+        case 'SERVER/' + TOOL_DELETE:
             if (action.error) {
                 console.log(action.payload.error);
                 return state
             }
             // else fall through and delete.
-        case ACTION_DELETE:
+        case TOOL_DELETE:
             newState = new Map(state.tools_list);
             newState.delete(action.payload.id)
             return {

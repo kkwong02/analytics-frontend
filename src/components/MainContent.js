@@ -26,7 +26,7 @@ class MainContent extends Component {
 }
 
 MainContent.propTypes = {
-    tools_list: PropTypes.array.isRequired
+    tools_list: PropTypes.instanceOf(Map).isRequired
 };
 
 const mapStateToProps = state => ({

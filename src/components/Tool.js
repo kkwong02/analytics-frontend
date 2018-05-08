@@ -22,14 +22,14 @@ class Tool extends Component {
      * Toggles edit modal.
      */
     toggle_edit() {
-        this.props.toggle_edit(this.props.index);
+        this.props.toggle_edit(this.props.id);
     }
 
     /**
      * Toggle minimize state of the card.
      */
     toggle_minimize() {
-        this.props.toggle_minimize(this.props.index);
+        this.props.toggle_minimize(this.props.id);
     }
 
     /**
@@ -64,7 +64,7 @@ class Tool extends Component {
                     </CardBody>
                 </Collapse>
             </Card>
-            <ToolEditModal isOpen={this.props.params.edit} index={this.props.index} toggle={this.props.toggle_edit}/>
+            <ToolEditModal isOpen={this.props.params.edit} id={this.props.id} toggle={this.props.toggle_edit}/>
             </React.Fragment>
         );
     }

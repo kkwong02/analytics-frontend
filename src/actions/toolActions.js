@@ -62,7 +62,7 @@ export function toggle_edit(id) {
     return ({
         type: TOOL_EDIT,
         payload: {
-            index: id
+            id: id
         }
     })
 }
