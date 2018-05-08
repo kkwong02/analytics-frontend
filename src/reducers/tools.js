@@ -31,6 +31,41 @@ export default function tools(state=initialState, action) {
                 }
             }
 
+        case TOOL_SAVE:
+            newState = new Map(state.tools_list);
+
+            if (action.meta.new) {
+                newState.delete(action.meta.uuid);
+            }
+
+            newState.set(action.meta.id, action.payload);
+
+            return {
+                ...state,
+                tools_list: newState
+            };
+
+        case TOOL_ADD:
+            newState = new Map(state.tools_list);
+            newState.set(action.meta.id, action.payload);
+            return {
+                ...state,
+                tools_list: newState
+            }
+        case 'SERVER/' + ACTION_DELETE:
+            if (action.error) {
+                console.log(action.payload.error);
+                return state
+            }
+            // else fall through and delete.
+        case ACTION_DELETE:
+            newState = new Map(state.tools_list);
+            newState.delete(action.payload.id)
+            return {
+                ...state,
+                tools_list: newState
+            };
+
         case TOOL_MINIMIZE:
             tool = {...state.tools_list.get(action.payload.id)}
             tool.isOpen = !tool.isOpen;

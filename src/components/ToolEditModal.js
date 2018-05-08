@@ -48,11 +48,14 @@ class ToolEditModal extends PureComponent {
     }
 
     cancel() {
-
+        // if newly created (non-number id),
+        //  remove tool component from state
+        // else
+        //  just close modal
     }
 
     save() {
-
+        //
     }
 
     render() {

@@ -11,8 +11,8 @@ class MainContent extends Component {
         this.render_tools = this.render_tools.bind(this);
     }
     render_tools(){
-        return this.props.tools_list.map((tool, index) => {
-            return (<Tool key={tool.id} params={tool} index={index}/>)
+        return Array.from(this.props.tools_list).map(([key, value]) => {
+            return (<Tool key={key} id={key} params={value}/>)
         })
     }
 

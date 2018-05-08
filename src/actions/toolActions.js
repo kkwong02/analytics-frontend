@@ -1,4 +1,4 @@
-import { FETCH_DATA, ADD_REQUEST, TOOL_MINIMIZE, TOOL_EDIT, TOOL_DELETE} from "./types";
+import { FETCH_DATA, ADD_REQUEST, TOOL_MINIMIZE, TOOL_EDIT, TOOL_DELETE, TOOL_ADD} from "./types";
 import {send_request} from "./websocketSend";
 
 const uuidv4 = require('uuid/v4')
@@ -26,49 +26,62 @@ export function add_request(uuid, tool_id, tool_index) {
 export function fetch_data(uuid, params) {
     return send_request(FETCH_DATA, {uuid: uuid, ...params});
 }
+/**
+ * Adds a new 'Tool' object to state.
+ * @param {Object} tool - tool object
+ */
+export function add_tool(tool) {
+    return ({
+        type: TOOL_ADD,
+        payload: {
+            tool: tool,
+            isOpen: true,
+            edit: true,
+        },
+        meta: {id: uuidv4()}
+    })
+}
 
 /**
  * Toggles the minimize attribute in the state of a tool.
- * @param {number} tool_index - index of tool in state
+ * @param {number} id - id of tool.
  */
-export function toggle_minimize(tool_index) {
+export function toggle_minimize(id) {
     return ({
         type: TOOL_MINIMIZE,
         payload: {
-            index: tool_index
+            id: id
         }
     })
 }
 /**
  * toggles the edit modal.
- * @param {number} tool_index - index of tool in state
+ * @param {number} id - id of tool
  */
-export function toggle_edit(tool_index) {
+export function toggle_edit(id) {
     return ({
         type: TOOL_EDIT,
         payload: {
-            index: tool_index
+            index: id
         }
     })
 }
 /**
- * Deletes the tool from client side only.
- * Used when the tool is not saved to server side.
- * @param {number} tool_index - index of tool in state
+ * Deletes a tool.
+ * If not saved to server, then it is just removed from state, else
+ * request is sent to server then removed.
+ * @param {number} id - id of tool
  */
-export function delete_tool(tool_index) {
-    return ({
-        type: TOOL_DELETE,
-        payload: {
-            index: tool_index
-        }
-    })
-}
-/**
- * Deletes the tool from the server side.
- * @param {number} tool_id - id of tool from server
- * @param {number} tool_index - index of tool in state.
- */
-export function server_delete_tool(tool_id, tool_index) {
-    send_request(TOOL_DELETE, {id: tool_id, index: tool_index});
+export function delete_tool(id) {
+    if (id === 0) {
+        return ({
+            type: TOOL_DELETE,
+            payload: {
+                id: id
+            }
+        })
+    }
+    else {
+        return send_request(TOOL_DELETE, {id: id})
+    }
 }
