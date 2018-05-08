@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Card, CardBody, CardHeader, Collapse } from 'reactstrap'
 import PropTypes from 'prop-types'
 
-import { toggle_minimize } from "../actions/toolActions";
+import { toggle_minimize, toggle_edit } from "../actions/toolActions";
 
 import GraphTool from './GraphTool'
 
@@ -15,6 +15,14 @@ class Tool extends Component {
         super(props);
         this.toggle_minimize = this.toggle_minimize.bind(this);
         this.remove_card = this.remove_card.bind(this);
+        this.toggle_edit = this.toggle_edit.bind(this);
+    }
+
+    /**
+     * Toggles edit modal.
+     */
+    toggle_edit() {
+        this.props.toggle_edit(this.props.index);
     }
 
     /**
@@ -64,6 +72,7 @@ class Tool extends Component {
 
 Tool.propTypes = {
     toggle_minimize: PropTypes.func.isRequired,
+    toggle_edit: PropTypes.func.isRequired
 };
 
-export default connect(null, {toggle_minimize})(Tool);
+export default connect(null, {toggle_minimize, toggle_edit})(Tool);
