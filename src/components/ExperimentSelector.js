@@ -32,7 +32,7 @@ class ExperimentSelector extends Component {
             params.order_by = this.state.order_by
         }
         this.props.fetch_experiments(params);
-    }
+;    }
 
     save_experiment_set() {
         // ?????????
@@ -51,18 +51,18 @@ class ExperimentSelector extends Component {
     render() {
         return (
             <div>
-            {this.renderTable}
+            {this.renderTable()}
             </div>
         );
     }
 }
 
 ExperimentSelector.propTypes = {
-    experiment_list: PropTypes.array.isRequired
+    experiments_list: PropTypes.array.isRequired
 };
 
 const mapStatetoProps = state => ({
-    experiments: state.tools.experiments
+    experiments_list: state.tools.experiments
 });
 
 export default connect(mapStatetoProps, {fetch_experiments})(ExperimentSelector);

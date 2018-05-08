@@ -19,7 +19,7 @@ class ToolEditModal extends PureComponent {
 
         this.steps = [EXP, DATA];
         this.state = {
-            current: 1 // default to getting and setting data
+            current: 0// default to getting and setting data
         };
     }
 
@@ -55,6 +55,15 @@ class ToolEditModal extends PureComponent {
         //
     }
 
+    renderContent() {
+        if (this.state.current === 0) {
+            return (<ExperimentSelector />)
+        }
+        else if (this.state.current === 1) {
+            return (<GraphEditor />)
+        }
+    }
+
     render() {
         return (
             <Modal size='lg' isOpen={this.props.isOpen} >
@@ -62,7 +71,7 @@ class ToolEditModal extends PureComponent {
             {this.props.tool.tool.name}
             </ModalHeader>
             <ModalBody>
-
+                {this.renderContent()}
             </ModalBody>
             <ModalFooter>
                 <Button color='danger' onClick={this.cancel}>

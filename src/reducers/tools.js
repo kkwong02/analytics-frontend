@@ -88,7 +88,7 @@ export default function tools(state=initialState, action) {
                 tools_list: new Map(state.tools_list).set(action.payload.id, tool)
             }
 
-        case FETCH_EXPERIMENTS:
+        case 'SERVER/' + FETCH_EXPERIMENTS:
             return {
                 ...state,
                 experiments: action.payload
