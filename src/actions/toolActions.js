@@ -1,5 +1,17 @@
-import { FETCH_DATA, ADD_REQUEST, TOOL_MINIMIZE, TOOL_EDIT, TOOL_DELETE, TOOL_ADD} from "./types";
-import {send_request} from "./websocketSend";
+import {
+    FETCH_DATA,
+    ADD_REQUEST,
+    TOOL_MINIMIZE,
+    TOOL_EDIT,
+    TOOL_DELETE,
+    TOOL_ADD,
+    BUFFER_CREATE,
+    BUFFER_DELETE,
+    BUFFER_UPDATE
+} from "./types";
+import {
+    send_request
+} from "./websocketSend";
 
 const uuidv4 = require('uuid/v4')
 /**
@@ -24,7 +36,10 @@ export function add_request(uuid, tool_id, tool_index) {
  * @param {Object} params - params to be sent to the server
  */
 export function fetch_data(uuid, params) {
-    return send_request(FETCH_DATA, {uuid: uuid, ...params});
+    return send_request(FETCH_DATA, {
+        uuid: uuid,
+        ...params
+    });
 }
 /**
  * Adds a new 'Tool' object to state.
@@ -39,7 +54,9 @@ export function add_tool(tool) {
             edit: true,
             experiments: [],
         },
-        meta: {id: uuidv4()}
+        meta: {
+            id: uuidv4()
+        }
     })
 }
 
@@ -74,15 +91,54 @@ export function toggle_edit(id) {
  * @param {number} id - id of tool
  */
 export function delete_tool(id) {
-    if (typeof(id) === 'string') {
+    if (typeof (id) === 'string') {
         return ({
             type: TOOL_DELETE,
             payload: {
                 id: id
             }
         })
+    } else {
+        return send_request(TOOL_DELETE, {
+            id: id
+        })
     }
-    else {
-        return send_request(TOOL_DELETE, {id: id})
+}
+
+/**
+ * Adds a new key to buffer state. Used for editing and creating tools.
+ * @param {number|string} id - id of the tool buffer is for.
+ */
+export function create_buffer(id) {
+    return {
+        type: BUFFER_CREATE,
+        payload: {
+            id: id
+        }
+    }
+}
+
+/**
+ * Deletes buffer with id.
+ * @param {number|string} id - id of tool
+ */
+export function delete_buffer(id, save) {
+    return {
+        type: BUFFER_DELETE,
+        payload: {
+            id: id,
+            save: save
+        }
+    }
+}
+
+/**
+ * Updates buffer for tool
+ * @param {number|string} id - id of tool
+ */
+export function update_buffer(id, content) {
+    return {
+        type: BUFFER_UPDATE,
+        payload: content
     }
 }

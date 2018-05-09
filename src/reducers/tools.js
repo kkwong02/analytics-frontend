@@ -1,22 +1,35 @@
-import { FETCH_DATA, ADD_REQUEST, TOOL_MINIMIZE, TOOL_EDIT, TOOL_ADD, TOOL_SAVE, TOOL_DELETE, FETCH_EXPERIMENTS } from "../actions/types";
+import {
+    FETCH_DATA,
+    ADD_REQUEST,
+    TOOL_MINIMIZE,
+    TOOL_EDIT,
+    TOOL_ADD,
+    TOOL_SAVE,
+    TOOL_DELETE,
+    FETCH_EXPERIMENTS,
+    BUFFER_CREATE,
+    BUFFER_DELETE,
+    BUFFER_UPDATE
+} from "../actions/types";
 
 const initialState = {
-    experiments: [],
+    experiments_set: [],
     tools_list: new Map(),
     requests: {},
-    buffer: {}
+    buffer: {},
+    prev_experiments: [] // dump from last saved buffer.
 };
 
-export default function tools(state=initialState, action) {
+export default function tools(state = initialState, action) {
     let tool;
     let newState;
 
     switch (action.type) {
-        case 'SERVER/'+ FETCH_DATA:
+        case 'SERVER/' + FETCH_DATA:
             if (action.error) {
                 return state
             }
-            if (state.requests[action.payload.uuid]){
+            if (state.requests[action.payload.uuid]) {
 
             }
             return state;
@@ -53,7 +66,9 @@ export default function tools(state=initialState, action) {
             return {
                 ...state,
                 tools_list: newState,
-                buffer: {[action.meta.id]: action.payload}
+                buffer: {
+                    [action.meta.id]: action.payload
+                }
             }
         case 'SERVER/' + TOOL_DELETE:
             if (action.error) {
@@ -71,7 +86,8 @@ export default function tools(state=initialState, action) {
             };
 
         case TOOL_MINIMIZE:
-            tool = {...state.tools_list.get(action.payload.id)}
+            tool = { ...state.tools_list.get(action.payload.id)
+            }
             tool.isOpen = !tool.isOpen;
 
             return {
@@ -80,7 +96,8 @@ export default function tools(state=initialState, action) {
             };
 
         case TOOL_EDIT:
-            tool = {...state.tools_list.get(action.payload.id)};
+            tool = { ...state.tools_list.get(action.payload.id)
+            };
             tool.edit = !tool.edit;
 
             return {
@@ -91,9 +108,42 @@ export default function tools(state=initialState, action) {
         case 'SERVER/' + FETCH_EXPERIMENTS:
             return {
                 ...state,
-                experiments: action.payload
+                experiments_set: action.payload
             }
 
+        case BUFFER_CREATE:
+            tool = state.tools_list.get(action.payload.id);
+            let experiments = tool.experiments.length > 0 ? tool.experiments : state.prev_experiments;
+            return {
+                ...state,
+                buffer: {
+                    ...state.buffer,
+                    [action.payload.id]: {
+                        tool: {...tool.tool},
+                        experiments: [...experiments]
+                    }
+                }
+            }
+        case BUFFER_DELETE:
+            newState = {...state};
+            if (action.payload.save) {
+                newState.tools_list.set(action.payload.id, {
+                    ...state.tools_list.get(action.payload.id),
+                    tool: state.buffer[action.payload.id].tool,
+                    experiment: state.buffer[action.payload.id].experiments
+                })
+            };
+            delete newState.buffer[action.payload.id];
+            return newState;
+
+        case BUFFER_UPDATE:
+            return {
+                ...state,
+                buffer: {
+                    ...state.buffer,
+                    [action.payload.id]: action.payload
+                }
+            }
         default:
             return state;
     }

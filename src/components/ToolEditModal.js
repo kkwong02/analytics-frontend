@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
 import {Modal, ModalHeader, ModalFooter, ModalBody, Button} from "reactstrap";
-import {toggle_edit, delete_tool} from "../actions/toolActions";
+import {toggle_edit, delete_tool, create_buffer, delete_buffer, update_buffer} from "../actions/toolActions";
 import {connect} from "react-redux";
 
 import GraphEditor from "./GraphEditor";
@@ -52,7 +52,7 @@ class ToolEditModal extends PureComponent {
     }
 
     save() {
-        //
+
     }
 
     renderContent() {
@@ -62,6 +62,10 @@ class ToolEditModal extends PureComponent {
         else if (this.state.current === 1) {
             return (<GraphEditor />)
         }
+    }
+
+    componentDidMount() {
+        //  create a new buffer.
     }
 
     render() {
@@ -86,4 +90,4 @@ class ToolEditModal extends PureComponent {
     }
 }
 
-export default connect(null, {toggle_edit, delete_tool})(ToolEditModal);
+export default connect(null, {toggle_edit, delete_tool, create_buffer, delete_buffer, update_buffer})(ToolEditModal);
