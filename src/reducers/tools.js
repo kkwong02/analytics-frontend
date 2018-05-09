@@ -144,6 +144,7 @@ export default function tools(state = initialState, action) {
                     [action.payload.id]: action.payload
                 }
             }
+        case 'SERVER/' + TOOL_SAVE:
         default:
             return state;
     }

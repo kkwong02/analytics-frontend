@@ -5,6 +5,7 @@ import {
     TOOL_EDIT,
     TOOL_DELETE,
     TOOL_ADD,
+    TOOL_SAVE,
     BUFFER_CREATE,
     BUFFER_DELETE,
     BUFFER_UPDATE
@@ -141,4 +142,17 @@ export function update_buffer(id, content) {
         type: BUFFER_UPDATE,
         payload: content
     }
+}
+/**
+ * Saves the tool object to the server.
+ * Saves the tool and experiments fields in the tool object.
+ * edit and isOpen will default to false and true respectively
+ * @param {Object} tool - The tool object.
+ */
+export function save_tool(id, tool) {
+    return send_request(TOOL_SAVE, {
+        id: id,
+        tool: tool.tool,
+        experiments: tool.experiments
+    });
 }
