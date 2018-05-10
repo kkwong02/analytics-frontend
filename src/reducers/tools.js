@@ -119,6 +119,7 @@ export default function tools(state = initialState, action) {
             }
 
         case BUFFER_CLEAR:
+
         case 'SERVER/' + TOOL_SAVE:
         default:
             return state;

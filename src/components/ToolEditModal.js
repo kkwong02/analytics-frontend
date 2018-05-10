@@ -88,12 +88,7 @@ class ToolEditModal extends Component {
         }
     }
 
-    componentDidUpdate() {
-        console.log("UPDATE!");
-    }
-
     componentDidMount() {
-        console.log("MOUNT")
     }
 
     render() {

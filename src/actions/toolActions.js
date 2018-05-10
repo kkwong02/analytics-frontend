@@ -52,10 +52,7 @@ export function add_tool(tool) {
             isOpen: true,
             edit: true,
             experiments: [],
-            buffer: {
-                tool: tool,
-                experiments: []
-            }
+            buffer: {}
         },
         meta: {
             id: uuidv4()
@@ -108,10 +105,13 @@ export function delete_tool(id) {
     }
 }
 
-export function clear_buffer(id) {
+export function clear_buffer(id, save=false) {
     return {
         type: BUFFER_CLEAR,
-        meta: {id: id}
+        meta: {
+            id: id,
+            save: save
+        }
     }
 }
 
@@ -119,11 +119,14 @@ export function clear_buffer(id) {
  * Updates buffer for tool
  * @param {number|string} id - id of tool
  */
-export function update_buffer(id, content) {
+export function update_buffer(id, content, load=false) {
     return {
         type: BUFFER_UPDATE,
         payload: content,
-        meta: {id: id}
+        meta: {
+            id: id,
+            load: load
+        }
     }
 }
 /**
