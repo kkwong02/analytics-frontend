@@ -76,7 +76,6 @@ class ToolEditModal extends Component {
      * and closes modal.
      */
     save() {
-        console.log(this.props.tool)
         this.props.delete_buffer(this.props.id, true);
         this.props.save_tool(this.props.id, this.props.tool)
         this.props.toggle_edit(this.props.id);
@@ -84,7 +83,7 @@ class ToolEditModal extends Component {
 
     renderContent() {
         if (this.state.current === 0) {
-            return (<ExperimentSelector />)
+            return (<ExperimentSelector id={this.props.id}/>)
         }
         else if (this.state.current === 1) {
             return (<GraphEditor />)
@@ -116,11 +115,5 @@ class ToolEditModal extends Component {
         );
     }
 }
-
-
-
-const mapStateToProps = state => ({
-    buffer: state.tools.buffer
-})
 
 export default connect(null, {toggle_edit, delete_tool, create_buffer, delete_buffer, update_buffer, save_tool})(ToolEditModal);

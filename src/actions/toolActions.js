@@ -140,7 +140,8 @@ export function delete_buffer(id, save) {
 export function update_buffer(id, content) {
     return {
         type: BUFFER_UPDATE,
-        payload: content
+        payload: content,
+        meta: {id: id}
     }
 }
 /**
