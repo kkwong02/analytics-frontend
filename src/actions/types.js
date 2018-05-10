@@ -19,5 +19,5 @@ export const TOOL_EDIT = 'TOOL.UPDATE';
 
 export const TOOL_SAVE = 'TOOL.SAVE';
 
-export const BUFFER_CLEAR = 'BUFFER.DELETE';
+export const BUFFER_CLEAR = 'BUFFER.CLEAR';
 export const BUFFER_UPDATE = 'BUFFER.UPDATE';

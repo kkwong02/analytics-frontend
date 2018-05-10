@@ -108,19 +108,33 @@ export default function tools(state = initialState, action) {
             }
 
         case BUFFER_UPDATE:
+            newState = new Map(state.tools_list);
+
             return {
                 ...state,
-                tools: {
-                    ...state.tools,
-                    [action.meta.id]: {
-                        buffer: {...state.tools.buffer}
-                    }
-                }
+                tools_list: newState
             }
 
         case BUFFER_CLEAR:
+            newState = new Map(state.tools_list);
+            tool = newState.get(action.meta.id)
 
-        case 'SERVER/' + TOOL_SAVE:
+            let experiments = tool.experiments.length > 0 ? tool.experiments : state.prev_experiments
+
+            newState.set(action.meta.id, {
+                ...tool,
+                buffer: {
+                    experiments: experiments,
+                    tool: {...tool}
+                }
+            })
+
+            return {
+                ...state,
+                tools_list : newState
+            }
+
+        // case 'SERVER/' + TOOL_SAVE:
         default:
             return state;
     }

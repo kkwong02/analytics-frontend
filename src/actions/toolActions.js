@@ -119,13 +119,12 @@ export function clear_buffer(id, save=false) {
  * Updates buffer for tool
  * @param {number|string} id - id of tool
  */
-export function update_buffer(id, content, load=false) {
+export function update_buffer(id, content) {
     return {
         type: BUFFER_UPDATE,
         payload: content,
         meta: {
-            id: id,
-            load: load
+            id: id
         }
     }
 }

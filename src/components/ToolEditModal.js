@@ -26,10 +26,12 @@ class ToolEditModal extends Component {
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
+        let tool = nextProps.tools.get(nextProps.id);
+
         if (nextProps.current) {
-            return {current: nextProps.current}
+            return {current: nextProps.current, tool: tool}
         }
-        return prevState;
+        return {...prevState, tool:tool};
     }
     /**
      * Go to next step. Handler function.
@@ -74,8 +76,7 @@ class ToolEditModal extends Component {
      * and closes modal.
      */
     save() {
-        this.props.delete_buffer(this.props.id, true);
-        this.props.save_tool(this.props.id, this.props.tool)
+        this.props.save_tool(this.props.id, this.state.tool)
         this.props.toggle_edit(this.props.id);
     }
 
@@ -89,16 +90,17 @@ class ToolEditModal extends Component {
     }
 
     componentDidMount() {
+        this.props.clear_buffer(this.props.id);
     }
 
     render() {
         return (
             <Modal size='lg' isOpen={this.props.isOpen} >
             <ModalHeader toggle={this.cancel}>
-            {this.props.tool.tool.name}
+            {this.state.tool.tool.name}
             </ModalHeader>
             <ModalBody>
-                {/* {this.renderContent()} */}
+                {this.renderContent()}
             </ModalBody>
             <ModalFooter>
                 <Button disabled>Back</Button>
@@ -115,4 +117,8 @@ class ToolEditModal extends Component {
     }
 }
 
-export default connect(null, {toggle_edit, delete_tool, clear_buffer, update_buffer, save_tool})(ToolEditModal);
+const mapStateToProps = state => ({
+    tools: state.tools.tools_list
+})
+
+export default connect(mapStateToProps, {toggle_edit, delete_tool, clear_buffer, update_buffer, save_tool})(ToolEditModal);

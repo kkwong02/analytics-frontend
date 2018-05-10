@@ -25,6 +25,11 @@ class ExperimentSelector extends Component {
 
     }
 
+    static getDerivedStateFromProps(nextProps, prevState) {
+        let tool = nextProps.tools.get(nextProps.id);
+        return ({...prevState, tool: tool});
+    }
+
     onSearchChange(e){
         this.setState({search: e.target.value})
     }
@@ -54,7 +59,7 @@ class ExperimentSelector extends Component {
 
     onCheckChange(e) {
         let val = Number(e.target.value);
-        let experiments = [...this.props.buffer[this.props.id].experiments];
+        let experiments = [...this.state.tool.buffer.experiments];
 
         if (e.target.checked) {
             experiments.push(val);
@@ -83,7 +88,7 @@ class ExperimentSelector extends Component {
 
 
     checked(id) {
-        return this.props.buffer[this.props.id].experiments.includes(id)
+        return this.state.tool.buffer.experiments.includes(id)
     }
 
     renderTable() {
@@ -127,13 +132,11 @@ class ExperimentSelector extends Component {
 
 ExperimentSelector.propTypes = {
     experiments_list: PropTypes.array.isRequired,
-    buffer: PropTypes.object.isRequired
-
 };
 
 const mapStatetoProps = state => ({
     experiments_list: state.tools.experiments_set,
-    buffer: state.tools.buffer
+    tools: state.tools.tools_list
 });
 
 export default connect(mapStatetoProps, {fetch_experiments, update_buffer})(ExperimentSelector);

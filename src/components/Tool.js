@@ -55,7 +55,7 @@ class Tool extends Component {
                     </CardBody>
                 </Collapse>
             </Card>
-            <ToolEditModal isOpen={this.props.params.edit} id={this.props.id} tool={this.props.params} toggle={this.props.toggle_edit}/>
+            <ToolEditModal isOpen={this.props.params.edit} id={this.props.id} toggle={this.props.toggle_edit}/>
             </React.Fragment>
         );
     }
