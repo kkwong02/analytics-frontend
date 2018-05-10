@@ -6,8 +6,7 @@ import {
     TOOL_DELETE,
     TOOL_ADD,
     TOOL_SAVE,
-    BUFFER_CREATE,
-    BUFFER_DELETE,
+    BUFFER_CLEAR,
     BUFFER_UPDATE
 } from "./types";
 import {
@@ -26,8 +25,7 @@ export function add_request(uuid, tool_id, tool_index) {
         type: ADD_REQUEST,
         payload: {
             uuid: uuid,
-            id: tool_id,
-            index: tool_index
+            id: tool_id
         }
     })
 }
@@ -54,6 +52,10 @@ export function add_tool(tool) {
             isOpen: true,
             edit: true,
             experiments: [],
+            buffer: {
+                tool: tool,
+                experiments: []
+            }
         },
         meta: {
             id: uuidv4()
@@ -106,30 +108,10 @@ export function delete_tool(id) {
     }
 }
 
-/**
- * Adds a new key to buffer state. Used for editing and creating tools.
- * @param {number|string} id - id of the tool buffer is for.
- */
-export function create_buffer(id) {
+export function clear_buffer(id) {
     return {
-        type: BUFFER_CREATE,
-        payload: {
-            id: id
-        }
-    }
-}
-
-/**
- * Deletes buffer with id.
- * @param {number|string} id - id of tool
- */
-export function delete_buffer(id, save) {
-    return {
-        type: BUFFER_DELETE,
-        payload: {
-            id: id,
-            save: save
-        }
+        type: BUFFER_CLEAR,
+        meta: {id: id}
     }
 }
 

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Modal, ModalHeader, ModalFooter, ModalBody, Button} from "reactstrap";
-import {toggle_edit, delete_tool, save_tool, create_buffer, delete_buffer, update_buffer} from "../actions/toolActions";
+import {toggle_edit, delete_tool, save_tool, update_buffer, clear_buffer} from "../actions/toolActions";
 import {connect} from "react-redux";
 
 import GraphEditor from "./GraphEditor";
@@ -61,8 +61,6 @@ class ToolEditModal extends Component {
      * Deletes tool if it's newly created (not saved to server).
      */
     cancel() {
-        this.props.delete_buffer(this.props.id, false);
-
         if (typeof(this.props.id) === 'string') {
             this.props.delete_tool(this.props.id);
         }
@@ -90,8 +88,12 @@ class ToolEditModal extends Component {
         }
     }
 
+    componentDidUpdate() {
+        console.log("UPDATE!");
+    }
+
     componentDidMount() {
-        this.props.create_buffer(this.props.id);
+        console.log("MOUNT")
     }
 
     render() {
@@ -101,9 +103,11 @@ class ToolEditModal extends Component {
             {this.props.tool.tool.name}
             </ModalHeader>
             <ModalBody>
-                {this.renderContent()}
+                {/* {this.renderContent()} */}
             </ModalBody>
             <ModalFooter>
+                <Button disabled>Back</Button>
+                <Button>Next</Button>
                 <Button color='danger' onClick={this.cancel}>
                 Cancel
                 </Button>
@@ -116,4 +120,4 @@ class ToolEditModal extends Component {
     }
 }
 
-export default connect(null, {toggle_edit, delete_tool, create_buffer, delete_buffer, update_buffer, save_tool})(ToolEditModal);
+export default connect(null, {toggle_edit, delete_tool, clear_buffer, update_buffer, save_tool})(ToolEditModal);
