@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Modal, ModalHeader, ModalFooter, ModalBody, Button} from "reactstrap";
-import {toggle_edit, delete_tool, save_tool, update_buffer, clear_buffer} from "../actions/toolActions";
+import {toggle_edit, delete_tool, save_tool, create_buffer, delete_buffer, update_buffer} from "../actions/toolActions";
 import {connect} from "react-redux";
 
 import GraphEditor from "./GraphEditor";
@@ -29,7 +29,7 @@ class ToolEditModal extends Component {
         if (nextProps.current) {
             return {current: nextProps.current}
         }
-        return {...prevState};
+        return prevState;
     }
     /**
      * Go to next step. Handler function.
@@ -61,6 +61,8 @@ class ToolEditModal extends Component {
      * Deletes tool if it's newly created (not saved to server).
      */
     cancel() {
+        this.props.delete_buffer(this.props.id, false);
+
         if (typeof(this.props.id) === 'string') {
             this.props.delete_tool(this.props.id);
         }
@@ -74,30 +76,22 @@ class ToolEditModal extends Component {
      * and closes modal.
      */
     save() {
-<<<<<<< HEAD
-=======
-        console.log(this.props.tool)
         this.props.delete_buffer(this.props.id, true);
->>>>>>> parent of 9b56a0c... added missing type cast, fixed crashing when selecting experiments
         this.props.save_tool(this.props.id, this.props.tool)
         this.props.toggle_edit(this.props.id);
     }
 
     renderContent() {
         if (this.state.current === 0) {
-<<<<<<< HEAD
-            return (<ExperimentSelector id={this.props.id} buffer={this.props.tool.buffer}/>)
-=======
-            return (<ExperimentSelector />)
->>>>>>> parent of 9b56a0c... added missing type cast, fixed crashing when selecting experiments
+            return (<ExperimentSelector id={this.props.id}/>)
         }
         else if (this.state.current === 1) {
-            return (<GraphEditor buffer={this.props.tool.buffer}/>)
+            return (<GraphEditor />)
         }
     }
 
     componentDidMount() {
-        this.props.clear_buffer(this.props.id);
+        this.props.create_buffer(this.props.id);
     }
 
     render() {
@@ -110,8 +104,6 @@ class ToolEditModal extends Component {
                 {this.renderContent()}
             </ModalBody>
             <ModalFooter>
-                <Button disabled>Back</Button>
-                <Button>Next</Button>
                 <Button color='danger' onClick={this.cancel}>
                 Cancel
                 </Button>
@@ -124,14 +116,4 @@ class ToolEditModal extends Component {
     }
 }
 
-<<<<<<< HEAD
-export default connect(null, {toggle_edit, delete_tool, clear_buffer, update_buffer, save_tool})(ToolEditModal);
-=======
-
-
-const mapStateToProps = state => ({
-    buffer: state.tools.buffer
-})
-
 export default connect(null, {toggle_edit, delete_tool, create_buffer, delete_buffer, update_buffer, save_tool})(ToolEditModal);
->>>>>>> parent of 9b56a0c... added missing type cast, fixed crashing when selecting experiments

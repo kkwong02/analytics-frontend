@@ -5,7 +5,7 @@ import { Table, Input, InputGroup, InputGroupAddon, Button } from "reactstrap";
 import { connect } from "react-redux";
 
 import { fetch_experiments } from "../actions/modelFetchActions";
-
+import { update_buffer } from "../actions/toolActions";
 class ExperimentSelector extends Component {
     constructor(props) {
         super(props);
@@ -20,6 +20,8 @@ class ExperimentSelector extends Component {
         this.onSearchChange = this.onSearchChange.bind(this);
         this.onCheckChange = this.onCheckChange.bind(this);
         this.toggleSelectAll = this.toggleSelectAll.bind(this);
+
+        this.checked = this.checked.bind(this);
 
     }
 
@@ -51,33 +53,45 @@ class ExperimentSelector extends Component {
     }
 
     onCheckChange(e) {
-        e.persist();
+        let val = Number(e.target.value);
+        let experiments = [...this.props.buffer[this.props.id].experiments];
+
         if (e.target.checked) {
-            this.setState(prevState => {
-                return {selected: [...prevState.selected, e.target.value]}
-            })
+            experiments.push(val);
         }
         else {
-            this.setState(prevState => ({
-                selected: prevState.selected.filter(item => item !== e.target.value)
-            }))
+            experiments = experiments.filter(value => value !== val);
         }
+
+        this.props.update_buffer(this.props.id, {
+            experiments: experiments
+        })
     }
 
     toggleSelectAll(e) {
         if (e.target.checked) {
-            this.setState({selected: this.props.experiments_list.map(exp => exp.id)})
+            this.props.update_buffer(this.props.id, {
+                experiments: this.props.experiments_list.map(exp => exp.id)
+            })
         }
         else {
-            this.setState({selected: []})
+            this.props.update_buffer(this.props.id, {
+                experiments: []
+            })
         }
+    }
+
+
+    checked(id) {
+        console.log(id, this.props.buffer[this.props.id].experiments)
+        return this.props.buffer[this.props.id].experiments.includes(id)
     }
 
     renderTable() {
         return this.props.experiments_list.map(exp => {
             return (
                 <tr key={exp.id}>
-                    <td><input type="checkbox" value={exp.id} onChange={this.onCheckChange}/></td>
+                    <td><input type="checkbox" checked={this.checked(exp.id)} value={exp.id} onChange={this.onCheckChange}/></td>
                     <td>{exp.friendly_name}</td>
                     <td>{exp.user}</td>
                     <td>{new Date(exp.create_timestamp).toDateString()}</td>
@@ -114,10 +128,12 @@ class ExperimentSelector extends Component {
 
 ExperimentSelector.propTypes = {
     experiments_list: PropTypes.array.isRequired,
+
 };
 
 const mapStatetoProps = state => ({
     experiments_list: state.tools.experiments_set,
+    buffer: state.tools.buffer
 });
 
-export default connect(mapStatetoProps, {fetch_experiments})(ExperimentSelector);
+export default connect(mapStatetoProps, {fetch_experiments, update_buffer})(ExperimentSelector);

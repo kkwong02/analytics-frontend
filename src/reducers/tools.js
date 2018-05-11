@@ -7,7 +7,8 @@ import {
     TOOL_SAVE,
     TOOL_DELETE,
     FETCH_EXPERIMENTS,
-    BUFFER_CLEAR,
+    BUFFER_CREATE,
+    BUFFER_DELETE,
     BUFFER_UPDATE
 } from "../actions/types";
 
@@ -65,9 +66,6 @@ export default function tools(state = initialState, action) {
             return {
                 ...state,
                 tools_list: newState,
-                buffer: {
-                    [action.meta.id]: action.payload
-                }
             }
         case 'SERVER/' + TOOL_DELETE:
             if (action.error) {
@@ -110,39 +108,46 @@ export default function tools(state = initialState, action) {
                 experiments_set: action.payload
             }
 
-        case BUFFER_UPDATE:
-            newState = new Map(state.tools_list);
-
-            return {
-                ...state,
-                tools_list: newState
-            }
-
-        case BUFFER_CLEAR:
-            newState = new Map(state.tools_list);
-            tool = newState.get(action.meta.id)
-
-            let experiments = tool.experiments.length > 0 ? tool.experiments : state.prev_experiments
-
-            newState.set(action.meta.id, {
-                ...tool,
-                buffer: {
-                    experiments: experiments,
-                    tool: {...tool}
-                }
-            })
-
+        case BUFFER_CREATE:
+            tool = state.tools_list.get(action.payload.id);
+            let experiments = tool.experiments.length > 0 ? tool.experiments : state.prev_experiments;
             return {
                 ...state,
                 buffer: {
                     ...state.buffer,
-                    [action.payload.id]: action.payload
+                    [action.payload.id]: {
+                        tool: {...tool.tool},
+                        experiments: [...experiments]
+                    }
                 }
             }
+        case BUFFER_DELETE:
+            newState = {...state};
+            if (action.payload.save) {
+                newState.tools_list.set(action.payload.id, {
+                    ...state.tools_list.get(action.payload.id),
+                    tool: state.buffer[action.payload.id].tool,
+                    experiment: state.buffer[action.payload.id].experiments
+                })
+            };
+            delete newState.buffer[action.payload.id];
+            return newState;
 
-        // case 'SERVER/' + TOOL_SAVE:
+        case BUFFER_UPDATE:
+            return {
+                ...state,
+                buffer: {
+                    ...state.buffer,
+                    [action.meta.id]: {
+                        ...state.buffer[action.meta.id],
+                        ...action.payload
+                    }
+                }
+            }
+        case 'SERVER/' + TOOL_SAVE:
         default:
             return state;
     }
 
 };
+
