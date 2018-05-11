@@ -74,13 +74,22 @@ class ToolEditModal extends Component {
      * and closes modal.
      */
     save() {
+<<<<<<< HEAD
+=======
+        console.log(this.props.tool)
+        this.props.delete_buffer(this.props.id, true);
+>>>>>>> parent of 9b56a0c... added missing type cast, fixed crashing when selecting experiments
         this.props.save_tool(this.props.id, this.props.tool)
         this.props.toggle_edit(this.props.id);
     }
 
     renderContent() {
         if (this.state.current === 0) {
+<<<<<<< HEAD
             return (<ExperimentSelector id={this.props.id} buffer={this.props.tool.buffer}/>)
+=======
+            return (<ExperimentSelector />)
+>>>>>>> parent of 9b56a0c... added missing type cast, fixed crashing when selecting experiments
         }
         else if (this.state.current === 1) {
             return (<GraphEditor buffer={this.props.tool.buffer}/>)
@@ -115,4 +124,14 @@ class ToolEditModal extends Component {
     }
 }
 
+<<<<<<< HEAD
 export default connect(null, {toggle_edit, delete_tool, clear_buffer, update_buffer, save_tool})(ToolEditModal);
+=======
+
+
+const mapStateToProps = state => ({
+    buffer: state.tools.buffer
+})
+
+export default connect(null, {toggle_edit, delete_tool, create_buffer, delete_buffer, update_buffer, save_tool})(ToolEditModal);
+>>>>>>> parent of 9b56a0c... added missing type cast, fixed crashing when selecting experiments

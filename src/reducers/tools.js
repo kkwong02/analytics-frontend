@@ -65,6 +65,9 @@ export default function tools(state = initialState, action) {
             return {
                 ...state,
                 tools_list: newState,
+                buffer: {
+                    [action.meta.id]: action.payload
+                }
             }
         case 'SERVER/' + TOOL_DELETE:
             if (action.error) {
@@ -131,7 +134,10 @@ export default function tools(state = initialState, action) {
 
             return {
                 ...state,
-                tools_list : newState
+                buffer: {
+                    ...state.buffer,
+                    [action.payload.id]: action.payload
+                }
             }
 
         // case 'SERVER/' + TOOL_SAVE:

@@ -122,10 +122,7 @@ export function clear_buffer(id, save=false) {
 export function update_buffer(id, content) {
     return {
         type: BUFFER_UPDATE,
-        payload: content,
-        meta: {
-            id: id
-        }
+        payload: content
     }
 }
 /**
