@@ -83,7 +83,6 @@ class ExperimentSelector extends Component {
 
 
     checked(id) {
-        console.log(id, this.props.buffer[this.props.id].experiments)
         return this.props.buffer[this.props.id].experiments.includes(id)
     }
 

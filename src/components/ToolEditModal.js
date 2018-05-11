@@ -34,12 +34,14 @@ class ToolEditModal extends Component {
 
     componentDidMount() {
         this.props.create_buffer(this.props.id);
-
     }
 
-    componentDidUpdate() {
-        this.props.create_buffer(this.props.id);
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState === this.state) {
+            this.props.create_buffer(this.props.id);
+        }
     }
+
     /**
      * Go to next step. Handler function.
      */
@@ -99,6 +101,17 @@ class ToolEditModal extends Component {
         }
     }
 
+    renderNavbuttons() {
+        let backButton = <Button disabled={this.state.current === 0} onClick={this.prev}>Back</Button>
+        let nextButton = <Button disabled={this.state.current === this.steps.length -1} onClick={this.next}>Next</Button>
+        return (
+            <div>
+                {backButton}
+                {nextButton}
+            </div>
+        )
+    }
+
     render() {
         return (
             <Modal size='lg' isOpen={this.props.isOpen} >
@@ -109,6 +122,7 @@ class ToolEditModal extends Component {
                 {this.renderContent()}
             </ModalBody>
             <ModalFooter>
+                {this.renderNavbuttons()}
                 <Button color='danger' onClick={this.cancel}>
                 Cancel
                 </Button>
