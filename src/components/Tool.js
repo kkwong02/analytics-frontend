@@ -18,6 +18,10 @@ class Tool extends Component {
         this.toggle_edit = this.toggle_edit.bind(this);
     }
 
+    componentDidMount() {
+        this.toggle_edit();
+    }
+
     /**
      * Toggles edit modal.
      */
@@ -55,7 +59,7 @@ class Tool extends Component {
                     </CardBody>
                 </Collapse>
             </Card>
-            <ToolEditModal isOpen={this.props.params.edit} id={this.props.id} toggle={this.props.toggle_edit}/>
+            <ToolEditModal isOpen={this.props.params.edit} id={this.props.id} toggle={this.props.toggle_edit} tool={this.props.params}/>
             </React.Fragment>
         );
     }

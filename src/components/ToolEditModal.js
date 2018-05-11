@@ -26,12 +26,10 @@ class ToolEditModal extends Component {
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
-        let tool = nextProps.tools.get(nextProps.id);
-
         if (nextProps.current) {
-            return {current: nextProps.current, tool: tool}
+            return {current: nextProps.current}
         }
-        return {...prevState, tool:tool};
+        return {...prevState};
     }
     /**
      * Go to next step. Handler function.
@@ -76,16 +74,16 @@ class ToolEditModal extends Component {
      * and closes modal.
      */
     save() {
-        this.props.save_tool(this.props.id, this.state.tool)
+        this.props.save_tool(this.props.id, this.props.tool)
         this.props.toggle_edit(this.props.id);
     }
 
     renderContent() {
         if (this.state.current === 0) {
-            return (<ExperimentSelector id={this.props.id}/>)
+            return (<ExperimentSelector id={this.props.id} buffer={this.props.tool.buffer}/>)
         }
         else if (this.state.current === 1) {
-            return (<GraphEditor />)
+            return (<GraphEditor buffer={this.props.tool.buffer}/>)
         }
     }
 
@@ -97,7 +95,7 @@ class ToolEditModal extends Component {
         return (
             <Modal size='lg' isOpen={this.props.isOpen} >
             <ModalHeader toggle={this.cancel}>
-            {this.state.tool.tool.name}
+            {this.props.tool.tool.name}
             </ModalHeader>
             <ModalBody>
                 {this.renderContent()}
@@ -117,8 +115,4 @@ class ToolEditModal extends Component {
     }
 }
 
-const mapStateToProps = state => ({
-    tools: state.tools.tools_list
-})
-
-export default connect(mapStateToProps, {toggle_edit, delete_tool, clear_buffer, update_buffer, save_tool})(ToolEditModal);
+export default connect(null, {toggle_edit, delete_tool, clear_buffer, update_buffer, save_tool})(ToolEditModal);

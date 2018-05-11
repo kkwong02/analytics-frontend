@@ -50,7 +50,7 @@ export function add_tool(tool) {
         payload: {
             tool: tool,
             isOpen: true,
-            edit: true,
+            edit: false,
             experiments: [],
             buffer: {}
         },
