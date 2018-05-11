@@ -37,9 +37,7 @@ class ToolEditModal extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (!prevProps.isOpen) {
-            this.props.create_buffer(this.props.id);
-        }
+
     }
 
     /**
