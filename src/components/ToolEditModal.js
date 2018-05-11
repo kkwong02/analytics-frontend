@@ -31,6 +31,15 @@ class ToolEditModal extends Component {
         }
         return prevState;
     }
+
+    componentDidMount() {
+        this.props.create_buffer(this.props.id);
+
+    }
+
+    componentDidUpdate() {
+        this.props.create_buffer(this.props.id);
+    }
     /**
      * Go to next step. Handler function.
      */
@@ -88,10 +97,6 @@ class ToolEditModal extends Component {
         else if (this.state.current === 1) {
             return (<GraphEditor />)
         }
-    }
-
-    componentDidMount() {
-        this.props.create_buffer(this.props.id);
     }
 
     render() {
