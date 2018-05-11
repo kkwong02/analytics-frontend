@@ -141,9 +141,7 @@ export function update_buffer(id, content) {
     return {
         type: BUFFER_UPDATE,
         payload: content,
-        meta: {
-            id: id
-        }
+        meta: {id: id}
     }
 }
 /**
