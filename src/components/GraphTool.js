@@ -1,10 +1,5 @@
 import React, {PureComponent} from "react"
-
-
-import createPlotlyComponent from "react-plotly.js/factory";
-import Plotly from "plotly.js/lib/index-basic";
-const Plot = createPlotlyComponent(Plotly);
-
+import { Plot } from "../constants/plotly"
 
 class GraphTool extends PureComponent {
     render() {
