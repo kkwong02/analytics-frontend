@@ -18,6 +18,9 @@ class Tool extends Component {
         this.toggle_edit = this.toggle_edit.bind(this);
     }
 
+    componentDidMount() {
+        this.toggle_edit();
+    }
     /**
      * Toggles edit modal.
      */
