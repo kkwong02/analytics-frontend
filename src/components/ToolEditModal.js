@@ -83,6 +83,7 @@ class ToolEditModal extends Component {
     componentWillUnmount () {
         this.props.delete_buffer(this.props.id, false);
     }
+
     /**
      * Handler for saving edits. Saves the buffer state to the tool state, saves to server
      * and closes modal.
