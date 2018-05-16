@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {tool_settings} from "../constants/_tool_defaults";
+import {tool_settings} from "../constants/_tools";
 import { Collapse, ListGroup, ListGroupItem} from "reactstrap";
 
 import ToolboxTool from "./ToolboxTool";
