@@ -4,6 +4,7 @@ import {
     CartesianGrid,
     XAxis,
     YAxis,
+    ZAxis,
     Legend,
     ScatterChart,
     Scatter,
@@ -30,21 +31,28 @@ const graphContents = {
     bar: Bar
 }
 
-function Graph(props) {
-    const SpecificGraph = graphTypes[props.graphType]
-    return <SpecificGraph data={this.props.data}/>
+const axisTypes = {
+    x: XAxis,
+    y: YAxis,
+    z: ZAxis
+}
+
+
+function Axis(props, key) {
+    const SpecificAxis = axisTypes[props.axisType]
+    return <SpecificAxis {...props} key={key}/>
+}
+
+function Data(props) {
+    const SpecificItem = graphContents[props.type]
+    return <SpecificItem {...props}/>
 }
 
 class Plot extends PureComponent {
-    renderXAxes() {
-        return this.props.XAxes.map((item, index) => {
-            return (<XAxis key={index} label={item.label | item.dataKey} dataKey={item.dataKey} xAxisId={index}/>)
-        })
-    }
-    renderYAxes() {
-        return this.props.YAxes.map((item, index) => {
-            return (<YAxis key={index} label={item.label | item.dataKey} dataKey={item.dataKey} yAxisId={index}/>)
-        })
+
+    renderAxes() {
+        let axes = this.props.axes.map((axis, i) => Axis(axis, i));
+        return axes;
     }
     /**
      * Renders legend for plot. Will by default render a legend if there are multiple
@@ -52,24 +60,26 @@ class Plot extends PureComponent {
      */
     renderLegend() {
         if (this.props.data.length > 1 && !this.props.legend.hidden){
-            return ( <Legend / > )
+            return ( <Legend {...this.props.legend} /> )
         }
     }
 
     renderData() {
-
+        let data = this.props.data.map((item, i) => <Data key={i} {...item} />);
+        return data;
     }
 
     render() {
+        const Graph = graphTypes[this.props.graphType];
+
         return (
-            <ResponsiveContainer width='60%' aspect='1.25'>
+            <ResponsiveContainer minHeight={300} width='60%' aspect={1.25}>
                 <Graph graphType={this.props.graphType} data={this.props.data}>
-                { this.renderXAxes() }
-                { this.renderYAxes() }
+                { this.renderAxes() }
                 { this.renderLegend() }
                 { this.renderData() }
                 <Tooltip />
-                <CartesianGrid strokeDasharray="3 3" />
+                <CartesianGrid />
                 </Graph>
             </ResponsiveContainer>
         )

@@ -9,6 +9,8 @@ import GraphTool from './GraphTool'
 import { connect } from "react-redux";
 import ToolEditModal from './ToolEditModal';
 
+import Plot from "./Plot";
+
 
 class Tool extends Component {
     constructor(props) {
@@ -54,7 +56,7 @@ class Tool extends Component {
                 </CardHeader>
                 <Collapse isOpen={this.props.params.isOpen}>
                     <CardBody>
-                        <GraphTool params={this.props.params}/>
+                        <Plot {...this.props.params.tool}/>
                     </CardBody>
                 </Collapse>
             </Card>

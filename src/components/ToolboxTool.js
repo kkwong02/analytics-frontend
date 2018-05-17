@@ -3,6 +3,7 @@ import { Media, ListGroupItem } from 'reactstrap';
 import { connect } from "react-redux";
 
 import { add_tool } from "../actions/toolActions";
+import { GraphProps } from "../toolFactories/GraphFactory";
 
 class ToolboxTool extends PureComponent {
     constructor(props) {
@@ -12,7 +13,11 @@ class ToolboxTool extends PureComponent {
             .bind(this);
     }
     onClick() {
-        this.props.add_tool(this.props.tool);
+        let tool;
+        if (this.props.tool.type === 'graph') {
+            tool = new GraphProps(this.props.tool.graphType);
+        }
+        this.props.add_tool(tool);
     }
 
     render() {

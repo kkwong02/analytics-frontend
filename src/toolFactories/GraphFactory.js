@@ -1,41 +1,58 @@
-const uuid = require(uuid/v4);
+const uuid = require('uuid/v4');
+
 const X = 'x';
 const Y = 'y';
+const HORIZONTAL = 'horizontal';
+const VERITCAL = 'vertical';
+const TOP = 'top';
+const BOTTOM = 'bottom' ;
+const LEFT = 'left';
+const RIGHT = 'right';
 
-class DataProps {
+export class DataProps {
     constructor(type, data, dataKey, xAxisId=0, yAxisId=0) {
+        this.type = type;
         this.data = data;
         this.dataKey = dataKey;
         this.xAxisId = xAxisId;
         this.yAxisId = yAxisId;
+        this.layout = null;
+
+        this[type]();
     }
 
     line() {
-
+        this.dot = true;
+        this.stroke = 'black';
     }
 
     scatter() {
-
+        this.line = false;
+        this.shape = null;
+        this.fill = 'black';
     }
 
     bar() {
-
+        this.barSize = null;
+        this.barGap = 4;
+        this.fill = 'black';
     }
 }
 
 class LegendProps {
     constructor () {
-        this.layout = 'horizontal',
-        this.align = 'left'
+        this.layout = HORIZONTAL,
+        this.align = LEFT
     }
 }
 
-class AxisProps {
+export class AxisProps {
     constructor(type) {
-        this.orientation = type === X ? 'bottom':'left';
+        this.axisType = type;
+        this.orientation = type === X ? BOTTOM : LEFT;
         this.type = 'category';
         this.tickCount = 5;
-        this.interval = 0;
+        this.interval = 'preserveEnd';
         this.label = ''
         if (type === X){
             this.xAxisId = uuid()
@@ -45,15 +62,15 @@ class AxisProps {
         }
     }
 }
-
-class GraphProps {
+;
+export class GraphProps {
     constructor(type) {
         this.graphType = type;
-        this.xAxes = [new AxisProps(X)];
-        this.yAxes = [new AxisProps(Y)];
+        this.axes = [new AxisProps(X), new AxisProps(Y)];
         this.legend = null;
         this.referenceLines = [];
         this.data = [];
         this.errorBars = null
+        this.layout = HORIZONTAL;
     }
 }
