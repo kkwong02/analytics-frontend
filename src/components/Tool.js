@@ -47,20 +47,20 @@ class Tool extends Component {
             <React.Fragment>
             <Card>
                 <CardHeader>
-                {this.props.params.tool.name}
+                {this.props.tool.name}
                 <div className='card-header-actions'>
                     <a className="card-header-action btn btn-setting" onClick={this.toggle_edit}>Edit</a>
                     <a className="card-header-action btn btn-minimize" onClick={this.toggle_minimize}>Minimize</a>
                     <a className="card-header-action btn btn-close" onClick={this.remove_card}>Close</a>
                 </div>
                 </CardHeader>
-                <Collapse isOpen={this.props.params.isOpen}>
+                <Collapse isOpen={this.props.isOpen}>
                     <CardBody>
-                        <Plot {...this.props.params.tool}/>
+                        <Plot {...this.props.tool}/>
                     </CardBody>
                 </Collapse>
             </Card>
-            <ToolEditModal isOpen={this.props.params.edit} id={this.props.id} tool={this.props.params} toggle={this.props.toggle_edit}/>
+            <ToolEditModal isOpen={this.props.edit} id={this.props.id} tool={this.props} toggle={this.props.toggle_edit}/>
             </React.Fragment>
         );
     }

@@ -12,7 +12,7 @@ class MainContent extends Component {
     }
     render_tools(){
         return Array.from(this.props.tools_list).map(([key, value]) => {
-            return (<Tool key={key} id={key} params={value}/>)
+            return (<Tool key={key} id={key} {...value}/>)
         })
     }
 
