@@ -30,7 +30,7 @@ export default function tools(state = initialState, action) {
                 return state
             }
             if (state.requests[action.payload.uuid]) {
-
+                console.log(action.payload)
             }
             return state;
 

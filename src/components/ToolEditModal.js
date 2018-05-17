@@ -98,7 +98,7 @@ class ToolEditModal extends Component {
             return (<ExperimentSelector id={this.props.id}/>)
         }
         else if (this.state.current === 1) {
-            return (<GraphEditor {...this.props.tool.tool} />)
+            return (<GraphEditor id={this.props.id} {...this.props.tool.tool} />)
         }
     }
 

@@ -73,7 +73,7 @@ class Plot extends PureComponent {
         const Graph = graphTypes[this.props.graphType];
 
         return (
-            <ResponsiveContainer minHeight={300} width='60%' aspect={1.25}>
+            <ResponsiveContainer minHeight={300} width='100%' aspect={2}>
                 <Graph graphType={this.props.graphType} data={this.props.data}>
                 { this.renderAxes() }
                 { this.renderLegend() }

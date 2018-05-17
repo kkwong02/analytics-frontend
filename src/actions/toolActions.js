@@ -21,13 +21,12 @@ const uuidv4 = require('uuid/v4')
  * @param {string|number} tool_id - id of the tool itself.
  * @param {number} tool_index - index of the tool in state
  */
-export function add_request(uuid, tool_id, tool_index) {
+export function add_request(uuid, tool_id) {
     return ({
         type: ADD_REQUEST,
         payload: {
             uuid: uuid,
             id: tool_id,
-            index: tool_index
         }
     })
 }
