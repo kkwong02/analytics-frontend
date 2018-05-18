@@ -24,6 +24,8 @@ export class DataProps {
     line() {
         this.dot = true;
         this.stroke = 'black';
+        this.line = false;
+        this.lineType = 'joint'
     }
 
     scatter() {

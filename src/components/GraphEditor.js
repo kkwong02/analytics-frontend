@@ -17,17 +17,20 @@ class GraphEditor extends PureComponent {
 
     fetchData(e) {
         // need to get experiments from state!
+        let request = {
+            x : e.target.x.val,
+            y: e.target.y.val
+        }
         e.preventDefault();
-        console.log(this.props);
-        // let uuid = uuidv4();
-        // this.props.add_request(uuid, this.props.id);
-        // this.props.fetch_data(uuid);
+        let uuid = uuidv4();
+        this.props.add_request(uuid, this.props.id, request);
+        this.props.fetch_data(uuid,);
     }
 
     render() {
         return (
             <React.Fragment>
-                <Plot {...this.props}/>
+                <Plot {...this.props.buffer.tool}/>
                 <Row>
                 <Col>
                 <form onSubmit={this.fetchData}>
@@ -45,7 +48,12 @@ class GraphEditor extends PureComponent {
 
 GraphEditor.propTypes = {
     fetch_data: PropTypes.func.isRequired,
-    add_request: PropTypes.func.isRequired
+    add_request: PropTypes.func.isRequired,
+    buffer: PropTypes.object.isRequired
 };
 
-export default connect(null, {fetch_data, add_request})(GraphEditor);
+const mapStateToProps = state => ({
+    buffer: state.tools.buffer
+})
+
+export default connect(mapStateToProps, {fetch_data, add_request})(GraphEditor);

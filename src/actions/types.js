@@ -22,3 +22,4 @@ export const TOOL_SAVE = 'TOOL.SAVE';
 export const BUFFER_CREATE = 'BUFFER.CREATE';
 export const BUFFER_DELETE = 'BUFFER.DELETE';
 export const BUFFER_UPDATE = 'BUFFER.UPDATE';
+export const BUFFER_CLEAR = 'BUFFER.CLEAR';

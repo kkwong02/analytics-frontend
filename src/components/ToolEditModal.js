@@ -37,7 +37,10 @@ class ToolEditModal extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-
+        console.log('EDIT/UPDATE', prevProps, prevState);
+        if (!prevProps.isOpen) {
+            this.update({tool: this.props.tool.tool})
+        }
     }
 
     /**
@@ -98,7 +101,7 @@ class ToolEditModal extends Component {
             return (<ExperimentSelector id={this.props.id}/>)
         }
         else if (this.state.current === 1) {
-            return (<GraphEditor id={this.props.id} {...this.props.tool.tool} />)
+            return (<GraphEditor id={this.props.id} />)
         }
     }
 

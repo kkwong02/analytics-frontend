@@ -20,12 +20,7 @@ export const tool_settings = [
                 type: "graph",
                 "graphType": "line"
             },
-            {
-                name: "Combo Graph",
-                icon : "http://via.placeholder.com/50x50",
-                type: "graph",
-                "graphType": "composed"
-            },
+
         ]
     }
 ];
