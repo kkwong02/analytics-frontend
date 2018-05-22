@@ -107,44 +107,6 @@ export function delete_tool(id) {
 }
 
 /**
- * Adds a new key to buffer state. Used for editing and creating tools.
- * @param {number|string} id - id of the tool buffer is for.
- */
-export function create_buffer(id) {
-    return {
-        type: BUFFER_CREATE,
-        payload: {
-            id: id
-        }
-    }
-}
-
-/**
- * Deletes buffer with id.
- * @param {number|string} id - id of tool
- */
-export function delete_buffer(id, save) {
-    return {
-        type: BUFFER_DELETE,
-        payload: {
-            id: id,
-            save: save
-        }
-    }
-}
-
-/**
- * Updates buffer for tool
- * @param {number|string} id - id of tool
- */
-export function update_buffer(id, content) {
-    return {
-        type: BUFFER_UPDATE,
-        payload: content,
-        meta: {id: id}
-    }
-}
-/**
  * Saves the tool object to the server.
  * Saves the tool and experiments fields in the tool object.
  * edit and isOpen will default to false and true respectively
