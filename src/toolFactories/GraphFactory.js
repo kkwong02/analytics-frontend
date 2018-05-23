@@ -3,11 +3,11 @@ const uuid = require('uuid/v4');
 const X = 'x';
 const Y = 'y';
 const HORIZONTAL = 'horizontal';
-const VERITCAL = 'vertical';
-const TOP = 'top';
+// const VERITCAL = 'vertical';
+// const TOP = 'top';
 const BOTTOM = 'bottom' ;
 const LEFT = 'left';
-const RIGHT = 'right';
+// const RIGHT = 'right';
 
 export class DataProps {
     constructor(type, data, dataKey, xAxisId=0, yAxisId=0) {
@@ -41,10 +41,10 @@ export class DataProps {
     }
 }
 
-class LegendProps {
+export class LegendProps {
     constructor () {
-        this.layout = HORIZONTAL,
-        this.align = LEFT
+        this.layout = HORIZONTAL;
+        this.align = LEFT;
     }
 }
 

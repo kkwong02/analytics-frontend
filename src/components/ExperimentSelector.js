@@ -127,7 +127,7 @@ class ExperimentSelector extends Component {
 
 ExperimentSelector.propTypes = {
     experiments_list: PropTypes.array.isRequired,
-
+    buffer: PropTypes.object.isRequired
 };
 
 const mapStatetoProps = state => ({
