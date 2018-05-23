@@ -15,11 +15,9 @@ export const TOOL_ADD = 'TOOL.ADD';
 export const TOOL_MINIMIZE = 'TOOL.MINIMIZE';
 export const TOOL_CANCEL = 'TOOL.CANCEL';
 export const TOOL_DELETE = 'TOOL.DELETE';
-export const TOOL_EDIT = 'TOOL.UPDATE';
+export const TOOL_EDIT = 'TOOL.EDIT';
 
 export const TOOL_SAVE = 'TOOL.SAVE';
 
-export const BUFFER_CREATE = 'BUFFER.CREATE';
-export const BUFFER_DELETE = 'BUFFER.DELETE';
 export const BUFFER_UPDATE = 'BUFFER.UPDATE';
 export const BUFFER_CLEAR = 'BUFFER.CLEAR';

@@ -5,7 +5,7 @@ import { Table, Input, InputGroup, InputGroupAddon, Button } from "reactstrap";
 import { connect } from "react-redux";
 
 import { fetch_experiments } from "../actions/modelFetchActions";
-import { update_buffer } from "../actions/toolActions";
+
 class ExperimentSelector extends Component {
     constructor(props) {
         super(props);
@@ -53,37 +53,37 @@ class ExperimentSelector extends Component {
     }
 
     onCheckChange(e) {
-        let val = Number(e.target.value);
-        let experiments = [...this.props.buffer[this.props.id].experiments];
+        // let val = Number(e.target.value);
+        // let experiments = [...this.props.buffer[this.props.id].experiments];
 
-        if (e.target.checked) {
-            experiments.push(val);
-        }
-        else {
-            experiments = experiments.filter(value => value !== val);
-        }
+        // if (e.target.checked) {
+        //     experiments.push(val);
+        // }
+        // else {
+        //     experiments = experiments.filter(value => value !== val);
+        // }
 
-        this.props.update_buffer(this.props.id, {
-            experiments: experiments
-        })
+        // this.props.update_buffer(this.props.id, {
+        //     experiments: experiments
+        // })
     }
 
     toggleSelectAll(e) {
-        if (e.target.checked) {
-            this.props.update_buffer(this.props.id, {
-                experiments: this.props.experiments_list.map(exp => exp.id)
-            })
-        }
-        else {
-            this.props.update_buffer(this.props.id, {
-                experiments: []
-            })
-        }
+        // if (e.target.checked) {
+        //     this.props.update_buffer(this.props.id, {
+        //         experiments: this.props.experiments_list.map(exp => exp.id)
+        //     })
+        // }
+        // else {
+        //     this.props.update_buffer(this.props.id, {
+        //         experiments: []
+        //     })
+        // }
     }
 
 
     checked(id) {
-        return this.props.buffer[this.props.id].experiments.includes(id)
+        // return this.props.buffer[this.props.id].experiments.includes(id)
     }
 
     renderTable() {
@@ -132,7 +132,7 @@ ExperimentSelector.propTypes = {
 
 const mapStatetoProps = state => ({
     experiments_list: state.tools.experiments_set,
-    buffer: state.tools.buffer
+    buffer: state.buffer
 });
 
-export default connect(mapStatetoProps, {fetch_experiments, update_buffer})(ExperimentSelector);
+export default connect(mapStatetoProps, {fetch_experiments})(ExperimentSelector);

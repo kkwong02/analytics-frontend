@@ -4,12 +4,11 @@ import PropTypes from 'prop-types'
 
 import { toggle_minimize, toggle_edit, delete_tool } from "../actions/toolActions";
 
-import GraphTool from './GraphTool'
-
 import { connect } from "react-redux";
 import ToolEditModal from './ToolEditModal';
 
 import Plot from "./Plot";
+import { buffer_clear, buffer_update } from "../actions/bufferActions";
 
 
 class Tool extends Component {
@@ -27,6 +26,14 @@ class Tool extends Component {
      * Toggles edit modal.
      */
     toggle_edit() {
+        console.log(this.props)
+        if (!this.props.edit) {
+            this.props.buffer_update({
+                id: this.props.id,
+                experiments: this.props.experiments,
+                tool: this.props.tool
+            })
+        }
         this.props.toggle_edit(this.props.id);
     }
 
@@ -60,7 +67,7 @@ class Tool extends Component {
                     </CardBody>
                 </Collapse>
             </Card>
-            <ToolEditModal isOpen={this.props.edit} id={this.props.id} tool={this.props} toggle={this.props.toggle_edit}/>
+            <ToolEditModal isOpen={this.props.edit} id={this.props.id} toggle={this.props.toggle_edit}/>
             </React.Fragment>
         );
     }
@@ -71,4 +78,4 @@ Tool.propTypes = {
     toggle_edit: PropTypes.func.isRequired
 };
 
-export default connect(null, {toggle_minimize, toggle_edit, delete_tool})(Tool);
+export default connect(null, {toggle_minimize, toggle_edit, delete_tool, buffer_clear, buffer_update})(Tool);

@@ -5,10 +5,7 @@ import {
     TOOL_EDIT,
     TOOL_DELETE,
     TOOL_ADD,
-    TOOL_SAVE,
-    BUFFER_CREATE,
-    BUFFER_DELETE,
-    BUFFER_UPDATE
+    TOOL_SAVE
 } from "./types";
 import {
     send_request
@@ -27,7 +24,7 @@ export function add_request(uuid, tool_id, request) {
         payload: {
             uuid: uuid,
             id: tool_id,
-            request: request
+            request: request,
         }
     })
 }
@@ -52,8 +49,8 @@ export function add_tool(tool) {
         payload: {
             tool: tool,
             isOpen: true,
-            edit: false,
             experiments: [],
+            edit: false
         },
         meta: {
             id: uuidv4()

@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 import {Modal, ModalHeader, ModalFooter, ModalBody, Button} from "reactstrap";
-import {toggle_edit, delete_tool, save_tool, create_buffer, delete_buffer, update_buffer} from "../actions/toolActions";
+import {toggle_edit, delete_tool, save_tool } from "../actions/toolActions";
 import {connect} from "react-redux";
 
 import GraphEditor from "./GraphEditor";
 import ExperimentSelector from "./ExperimentSelector";
+
+import { buffer_clear, buffer_update } from "../actions/bufferActions";
 
 const EXP = 'EXPERIMENTS';
 const DATA = 'DATA';
@@ -32,17 +34,6 @@ class ToolEditModal extends Component {
         return prevState;
     }
 
-    componentDidMount() {
-        this.props.create_buffer(this.props.id);
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        console.log('EDIT/UPDATE', prevProps, prevState);
-        if (!prevProps.isOpen) {
-            this.update({tool: this.props.tool.tool})
-        }
-    }
-
     /**
      * Go to next step. Handler function.
      */
@@ -65,7 +56,6 @@ class ToolEditModal extends Component {
      * @param {Object} content - the contents of the state. needs to be the entire state.
      */
     update(content) {
-        this.props.update_buffer(this.props.id, content);
     }
 
     /**
@@ -73,7 +63,6 @@ class ToolEditModal extends Component {
      * Deletes tool if it's newly created (not saved to server).
      */
     cancel() {
-        this.props.delete_buffer(this.props.id, false);
 
         if (typeof(this.props.id) === 'string') {
             this.props.delete_tool(this.props.id);
@@ -84,7 +73,6 @@ class ToolEditModal extends Component {
     }
 
     componentWillUnmount () {
-        this.props.delete_buffer(this.props.id, false);
     }
 
     /**
@@ -92,16 +80,16 @@ class ToolEditModal extends Component {
      * and closes modal.
      */
     save() {
-        this.props.save_tool(this.props.id, this.props.tool)
+        this.props.save_tool(this.props.id, this.props.buffer.tool)
         this.props.toggle_edit(this.props.id);
     }
 
     renderContent() {
         if (this.state.current === 0) {
-            return (<ExperimentSelector id={this.props.id}/>)
+            return (<ExperimentSelector />)
         }
         else if (this.state.current === 1) {
-            return (<GraphEditor id={this.props.id} />)
+            return (<GraphEditor id={this.props.id}/>)
         }
     }
 
@@ -109,7 +97,7 @@ class ToolEditModal extends Component {
         return (
             <Modal size='lg' isOpen={this.props.isOpen} >
             <ModalHeader toggle={this.cancel}>
-            {this.props.tool.tool.name}
+            {this.props.buffer.tool.name}
             </ModalHeader>
             <ModalBody>
                 {this.renderContent()}
@@ -129,4 +117,8 @@ class ToolEditModal extends Component {
     }
 }
 
-export default connect(null, {toggle_edit, delete_tool, create_buffer, delete_buffer, update_buffer, save_tool})(ToolEditModal);
+const mapStateToProps = state => ({
+    buffer: state.buffer
+})
+
+export default connect(mapStateToProps, {toggle_edit, delete_tool, save_tool, buffer_clear, buffer_update})(ToolEditModal);

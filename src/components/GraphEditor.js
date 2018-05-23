@@ -53,7 +53,7 @@ GraphEditor.propTypes = {
 };
 
 const mapStateToProps = state => ({
-    buffer: state.tools.buffer
+    buffer: state.buffer
 })
 
 export default connect(mapStateToProps, {fetch_data, add_request})(GraphEditor);
