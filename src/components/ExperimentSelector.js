@@ -5,6 +5,7 @@ import { Table, Input, InputGroup, InputGroupAddon, Button } from "reactstrap";
 import { connect } from "react-redux";
 
 import { fetch_experiments } from "../actions/modelFetchActions";
+import { buffer_update } from "../actions/bufferActions";
 
 class ExperimentSelector extends Component {
     constructor(props) {
@@ -16,7 +17,6 @@ class ExperimentSelector extends Component {
         }
 
         this.fetch_experiments = this.fetch_experiments.bind(this);
-        this.save_experiment_set = this.save_experiment_set.bind(this);
         this.onSearchChange = this.onSearchChange.bind(this);
         this.onCheckChange = this.onCheckChange.bind(this);
         this.toggleSelectAll = this.toggleSelectAll.bind(this);
@@ -44,46 +44,41 @@ class ExperimentSelector extends Component {
         this.props.fetch_experiments(params);
 ;    }
 
-    save_experiment_set() {
-        // ?????????
-    }
-
     componentDidMount() {
         this.fetch_experiments();
     }
 
     onCheckChange(e) {
-        // let val = Number(e.target.value);
-        // let experiments = [...this.props.buffer[this.props.id].experiments];
+        let val = Number(e.target.value);
+        let experiments = [...this.props.buffer.experiments];
 
-        // if (e.target.checked) {
-        //     experiments.push(val);
-        // }
-        // else {
-        //     experiments = experiments.filter(value => value !== val);
-        // }
+        if (e.target.checked) {
+            experiments.push(val);
+        }
+        else {
+            experiments = experiments.filter(value => value !== val);
+        }
 
-        // this.props.update_buffer(this.props.id, {
-        //     experiments: experiments
-        // })
+        this.props.buffer_update({
+            experiments: experiments
+        })
     }
 
     toggleSelectAll(e) {
-        // if (e.target.checked) {
-        //     this.props.update_buffer(this.props.id, {
-        //         experiments: this.props.experiments_list.map(exp => exp.id)
-        //     })
-        // }
-        // else {
-        //     this.props.update_buffer(this.props.id, {
-        //         experiments: []
-        //     })
-        // }
+        if (e.target.checked) {
+            this.props.buffer_update({
+                experiments: this.props.experiments_list.map(exp => exp.id)
+            })
+        }
+        else {
+            this.props.buffer_update({
+                experiments: []
+            })
+        }
     }
 
-
     checked(id) {
-        // return this.props.buffer[this.props.id].experiments.includes(id)
+        return this.props.buffer.experiments.includes(id)
     }
 
     renderTable() {
@@ -110,7 +105,7 @@ class ExperimentSelector extends Component {
                 <Table>
                     <thead>
                         <tr>
-                            <td><input type='checkbox' onChange={this.toggleSelectAll}/></td>
+                            <td><input type='checkbox' name="all" onChange={this.toggleSelectAll} /></td>
                             <td>Name</td>
                             <td>Scientist</td>
                             <td>Date</td>
@@ -135,4 +130,4 @@ const mapStatetoProps = state => ({
     buffer: state.buffer
 });
 
-export default connect(mapStatetoProps, {fetch_experiments})(ExperimentSelector);
+export default connect(mapStatetoProps, {fetch_experiments, buffer_update})(ExperimentSelector);

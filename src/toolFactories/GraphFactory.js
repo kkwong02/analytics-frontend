@@ -10,14 +10,14 @@ const LEFT = 'left';
 // const RIGHT = 'right';
 
 export class DataProps {
-    constructor(type, data, dataKey, xAxisId=0, yAxisId=0) {
+    constructor(type, data, dataKey, name, xAxisId=0, yAxisId=0) {
         this.type = type;
         this.data = data;
         this.dataKey = dataKey;
         this.xAxisId = xAxisId;
         this.yAxisId = yAxisId;
         this.layout = null;
-
+        this.name = name;
         this[type]();
     }
 

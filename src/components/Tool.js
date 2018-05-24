@@ -26,7 +26,6 @@ class Tool extends Component {
      * Toggles edit modal.
      */
     toggle_edit() {
-        console.log(this.props)
         if (!this.props.edit) {
             this.props.buffer_update({
                 id: this.props.id,

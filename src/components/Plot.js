@@ -69,7 +69,7 @@ class Plot extends PureComponent {
         return data;
     }
 
-    referenceLine() {
+    renderRefLine() {
         if (this.props.referenceLine) {
             return (<ReferenceLine />);
         }
@@ -84,7 +84,7 @@ class Plot extends PureComponent {
                 { this.renderAxes() }
                 { this.renderLegend() }
                 { this.renderData() }
-                {this.referenceLine() }
+                { this.renderRefLine() }
                 <Tooltip />
                 <CartesianGrid />
                 </Graph>

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Plot from "./Plot";
 import { Row, Col } from "reactstrap";
 
-import { fetch_data, add_request } from "../actions/toolActions";
+import { fetch_data, add_request } from "../actions/bufferActions";
 import { connect } from "react-redux";
 
 const uuidv4 = require('uuid/v4')
@@ -16,15 +16,25 @@ class GraphEditor extends PureComponent {
     }
 
     fetchData(e) {
-        // need to get experiments from state!
-        let request = {
-            x : e.target.x.val,
-            y: e.target.y.val
-        }
         e.preventDefault();
+
         let uuid = uuidv4();
-        this.props.add_request(uuid, this.props.id, request);
-        this.props.fetch_data(uuid,);
+
+        let request = {
+            'f1' : {
+                type: 'axis',
+                xAxisId: e.target[0].name,
+                name: e.target[0].value
+            },
+            'f2' : {
+                type: 'scatter',
+                yAxisId: e.target[1].name,
+                yAxisId: e.target[1].name,
+                name: e.target[1].value
+            }
+        }
+        this.props.add_request(uuid, this.props.id, {});
+        this.props.fetch_data(uuid, this.props.buffer.experiments, [e.target[0].value, e.target[1].value]);
     }
 
     render() {
@@ -34,8 +44,8 @@ class GraphEditor extends PureComponent {
                 <Row>
                 <Col>
                 <form onSubmit={this.fetchData}>
-                    <input name="x" type='text' placeholder='x' required/>
-                    <input name="y" type='text' placeholder='y' required/>
+                    <input name={this.props.buffer.tool.axes[0].xAxisId} type='text' placeholder='x' required/>
+                    <input name={this.props.buffer.tool.axes[1].yAxisId} type='text' placeholder='y' required/>
                     <button>Graph</button>
                 </form>
                 </Col>

@@ -1,6 +1,4 @@
 import {
-    FETCH_DATA,
-    ADD_REQUEST,
     TOOL_MINIMIZE,
     TOOL_EDIT,
     TOOL_ADD,
@@ -22,25 +20,6 @@ export default function tools(state = initialState, action) {
     let newState;
 
     switch (action.type) {
-        case 'SERVER/' + FETCH_DATA:
-            if (action.error) {
-                return state
-            }
-            if (state.requests[action.payload.uuid]) {
-                console.log(action.payload)
-            }
-            return state;
-
-        case ADD_REQUEST:
-            return {
-                ...state,
-                requests: {
-                    ...state.requests,
-                    [action.payload.uuid]: {
-                        id: action.payload.id,
-                    }
-                }
-            }
 
         case TOOL_SAVE:
             newState = new Map(state.tools_list);

@@ -1,6 +1,4 @@
 import {
-    FETCH_DATA,
-    ADD_REQUEST,
     TOOL_MINIMIZE,
     TOOL_EDIT,
     TOOL_DELETE,
@@ -12,33 +10,7 @@ import {
 } from "./websocketSend";
 
 const uuidv4 = require('uuid/v4')
-/**
- * Adds to request array
- * @param {string} uuid - uuid of the request.
- * @param {string|number} tool_id - id of the tool itself.
- * @param {number} tool_index - index of the tool in state
- */
-export function add_request(uuid, tool_id, request) {
-    return ({
-        type: ADD_REQUEST,
-        payload: {
-            uuid: uuid,
-            id: tool_id,
-            request: request,
-        }
-    })
-}
-/**
- * Sends request to server for some data.
- * @param {string} uuid - uuid of the request
- * @param {Object} params - params to be sent to the server
- */
-export function fetch_data(uuid, params) {
-    return send_request(FETCH_DATA, {
-        uuid: uuid,
-        ...params
-    });
-}
+
 /**
  * Adds a new 'Tool' object to state.
  * @param {Object} tool - tool object
