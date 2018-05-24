@@ -8,43 +8,26 @@ import Toolbox from '../components/Toolbox'
 import MainContent from '../components/MainContent'
 
 import {connect} from 'react-redux'
-import {close_session, list_sessions} from '../actions/sessionActions'
+import {close_session, join_session} from '../actions/sessionActions'
+
+import { Link } from "react-router-dom";
 
 class Main extends Component {
-    constructor(props) {
-        super(props);
-        this.onClick = this
-            .onClick
-            .bind(this);
+
+    componentDidMount() {
+        this.props.join_session(this.props.match.params.id);
     }
-    onClick() {
-        this
-            .props
-            .close_session();
-        this
-            .props
-            .list_sessions();
+
+    componentWillUnmount() {
+        this.props.close_session();
     }
     render() {
         return (
-            <React.Fragment>
-                <Toolbox/>
-                <main className="main">
-                    <Breadcrumb>
-                        <BreadcrumbItem>
-                            <Button onClick={this.onClick}>Close Session</Button>
-                        </BreadcrumbItem>
-                    </Breadcrumb>
-                    <MainContent/>
-                </main>
-                <AppAside fixed offCanvas={false}>
-                    <div>
-                        Data here?
-                    </div>
-                </AppAside>
-            </React.Fragment>
+            <div>
+                <Link to="/">Close Session</Link>
+            </div>
         );
     }
 }
 
-export default connect(null, {close_session, list_sessions})(Main);
+export default connect(null, {close_session, join_session})(Main);

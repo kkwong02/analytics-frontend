@@ -3,6 +3,7 @@ import {
     Card,
     CardBody,
     CardTitle,
+    CardDeck,
     Container,
     Row,
     Col,
@@ -12,14 +13,16 @@ import {
 import Proptypes from "prop-types";
 import {connect} from "react-redux";
 
-import {join_session} from "../actions/sessionActions"
+import {list_sessions} from "../actions/sessionActions"
 import SessionCreateModal from '../components/SessionCreateModal';
+
+import { Link } from "react-router-dom";
+
 
 class SessionTile extends PureComponent {
     constructor(props) {
         super(props);
 
-        this.join = this.join.bind(this);
         this.delete = this.delete.bind(this);
     }
 
@@ -27,19 +30,16 @@ class SessionTile extends PureComponent {
         this.props.delete_session(this.props.session);
     }
 
-    join() {
-        this.props.join(this.props.session)
-    }
 
     render() {
         return (
-            <div className="col-2 mb-3">
+            <Link to={'/session/' + String(this.props.session.id)}>
                 <Card onClick={this.join}>
                     <CardBody>
                         <CardTitle>{this.props.session.name}</CardTitle>
                     </CardBody>
                 </Card>
-            </div>
+            </Link>
         );
     }
 }
@@ -54,6 +54,10 @@ class Sessions extends Component {
             .create_session_toggle
             .bind(this);
 
+    }
+
+    componentDidMount() {
+        this.props.list_sessions();
     }
 
     render_session_list() {
@@ -80,25 +84,17 @@ class Sessions extends Component {
             sessions = this.render_session_list();
         }
         return (
-            <main className="main pt-5">
-                <Container fluid>
-                    <Row className="justify-content-center align-items-center">
-                        <Col lg="10">
-                            <Card>
-                                <CardBody>
-                                    <CardTitle>Pasteur Analytics</CardTitle>
-                                    Please Select an existing session or create a new one.
-                                    <div className="row">
-                                        <Button onClick={this.create_session_toggle}>Create New Session</Button>
-                                        {sessions}
-                                    </div>
-                                </CardBody>
-                            </Card>
-                        </Col>
-                    </Row>
-                    <SessionCreateModal toggle={this.create_session_toggle} create={this.state.create}/>
-                </Container>
-            </main>
+            <Container fluid className="pt-5">
+                <Row className="justify-content-center align-items-center">
+                    <CardDeck>
+                        <Card onClick={this.create_session_toggle}>
+                            <CardBody>Create Session</CardBody>
+                        </Card>
+                        {sessions}
+                    </CardDeck>
+                </Row>
+                <SessionCreateModal toggle={this.create_session_toggle} create={this.state.create}/>
+            </Container>
         );
     }
 }
@@ -110,4 +106,4 @@ Sessions.Proptypes = {
 
 const mapStateToProps = state => ({session_list: state.session.session_list})
 
-export default connect(mapStateToProps, {join_session})(Sessions);
+export default connect(mapStateToProps, {list_sessions})(Sessions);

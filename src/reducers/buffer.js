@@ -11,7 +11,8 @@ const initialState = {
     tool: {name: null},
     experiments: [],
     prevExperiments: [],
-    requests: {}
+    requests: {},
+    experiments_list: []
 };
 
 export default function buffer(state=initialState, action){
