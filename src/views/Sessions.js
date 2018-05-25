@@ -78,7 +78,6 @@ class Sessions extends Component {
     }
 
     render() {
-
         let sessions;
         if (this.props.session_list.length > 0) {
             sessions = this.render_session_list();

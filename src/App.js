@@ -1,12 +1,8 @@
 import React, {Component} from 'react';
 
-import {Provider} from 'react-redux';
-
-import store from './store';
-
 import Index from "./views/Index"
 
-import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
 import {AppHeader, AppSidebar} from '@coreui/react';
 import Header from './components/Header';
 import SidebarNav from './components/SidebarNav';
@@ -14,12 +10,19 @@ import SidebarNav from './components/SidebarNav';
 import Sessions from "./views/Sessions";
 import Main from "./views/Main";
 
+import { connect } from "react-redux";
+
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      ready: false
+    }
+  }
 
   render() {
     return (
-      <Provider store={store}>
         <div className="app">
             <AppHeader fixed>
                 <Header/>
@@ -28,20 +31,30 @@ class App extends Component {
                 <AppSidebar fixed>
                     <SidebarNav/>
                 </AppSidebar>
-                <Router>
+                { this.props.connected ? (
+                  <Router>
                   <main className="main">
                   <Switch>
                     <Route path="/session/:id" component={Main} />
-                    <Route path="/" component={Sessions} />
+                    <Route path="/sessions" component={Sessions} />
+                    <Route path="/" render={() => (
+                      <Redirect to='/sessions' />
+                    )} />
                   </Switch>
                   </main>
                 </Router>
+                ) :
+                 (<div>You fucked up.</div>)
+                }
+
             </div>
         </div>
-        {/* <Index/> */}
-      </Provider>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  connected: state.websocket.connected
+});
+
+export default connect(mapStateToProps, {})(App);

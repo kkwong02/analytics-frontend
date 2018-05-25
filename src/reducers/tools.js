@@ -84,6 +84,9 @@ export default function tools(state = initialState, action) {
                 experiments_set: action.payload
             }
 
+        case 'SERVER/'+'SESSION.CLOSE':
+            return initialState;
+
         case 'SERVER/' + TOOL_SAVE:
         default:
             return state;
