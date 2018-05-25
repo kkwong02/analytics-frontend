@@ -3,7 +3,8 @@ import { SESSION_LIST, SESSION_CONNECT } from '../actions/types'
 const initialState = {
     session_list: [],
     current_session: null,
-    error: null,
+    error: false,
+    error_message: ''
 };
 
 // TODO: Add error checking

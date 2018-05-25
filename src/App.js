@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import Index from "./views/Index"
 
 import { BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
-import {AppHeader, AppSidebar} from '@coreui/react';
+import {AppHeader, AppSidebar, AppBreadcrumb} from '@coreui/react';
 import Header from './components/Header';
 import SidebarNav from './components/SidebarNav';
 
@@ -35,8 +35,8 @@ class App extends Component {
                   <Router>
                   <main className="main">
                   <Switch>
-                    <Route path="/session/:id" component={Main} />
-                    <Route path="/sessions" component={Sessions} />
+                    <Route path="/sessions/:id" component={Main} />
+                    <Route path="/sessions" component={Sessions} exact />
                     <Route path="/" render={() => (
                       <Redirect to='/sessions' />
                     )} />
@@ -44,7 +44,7 @@ class App extends Component {
                   </main>
                 </Router>
                 ) :
-                 (<div>You fucked up.</div>)
+                 (undefined)
                 }
 
             </div>

@@ -5,31 +5,45 @@ import { connect } from "react-redux";
 import { add_tool } from "../actions/toolActions";
 import { GraphProps } from "../toolFactories/GraphFactory";
 
+import { Route } from "react-router-dom";
+
 class ToolboxTool extends PureComponent {
     constructor(props) {
         super(props);
-        this.onClick = this
-            .onClick
+        this.createTool = this
+            .createTool
             .bind(this);
     }
-    onClick() {
-        let tool;
-        if (this.props.tool.type === 'graph') {
-            tool = new GraphProps(this.props.tool.graphType);
-        }
-        this.props.add_tool(tool);
+    createTool(e) {
+        // let tool;
+        // if (this.props.tool.type === 'graph') {
+        //     tool = new GraphProps(this.props.tool.graphType);
+        // }
+        // this.props.add_tool(tool);
+
     }
 
     render() {
         return (
-            <ListGroupItem onClick={this.onClick}>
-                <Media>
-                    <Media object src={this.props.tool.icon}/>
-                    <Media className="ml-2" body>
-                        {this.props.tool.name}
+            <Route render={(history) => (
+                <ListGroupItem onClick={() => {
+                    let tool;
+
+                    if (this.props.tool === 'graph') {
+                        new GraphProps(this.props.tool.graphType);
+                    }
+                    this.props.add_tool(tool);
+                    history.push('/')
+                }} >
+                    <Media>
+                        <Media object src={this.props.tool.icon}/>
+                        <Media className="ml-2" body>
+                            {this.props.tool.name}
+                        </Media>
                     </Media>
-                </Media>
-            </ListGroupItem>
+                </ListGroupItem>
+            )}>
+            </Route>
         )
     }
 }

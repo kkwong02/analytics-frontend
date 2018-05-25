@@ -33,7 +33,7 @@ class SessionTile extends PureComponent {
 
     render() {
         return (
-            <Link to={'/session/' + String(this.props.session.id)}>
+            <Link to={'/sessions/' + String(this.props.session.id)}>
                 <Card onClick={this.join}>
                     <CardBody>
                         <CardTitle>{this.props.session.name}</CardTitle>

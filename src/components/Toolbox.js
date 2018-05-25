@@ -27,7 +27,7 @@ class ToolSet extends Component {
             .set
             .tools
             .map(tool => {
-                return (<ToolboxTool key={tool.name} tool={tool}/>)
+                return (<ToolboxTool key={tool.name} tool={tool} from={this.props.from}/>)
             });
         return (
             <React.Fragment>
@@ -50,7 +50,7 @@ class Toolbox extends Component {
 
     render() {
         let tools = tool_settings.map((set, index) => {
-            return (<ToolSet key={index} set={set}/>)
+            return (<ToolSet key={index} set={set} from={this.props.from}/>)
         });
         return (
             <div className="toolbox">

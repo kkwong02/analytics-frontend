@@ -6,16 +6,17 @@ import {Breadcrumb, BreadcrumbItem, Button} from 'reactstrap';
 import Toolbox from '../components/Toolbox'
 
 import MainContent from '../components/MainContent'
+import ToolEditor from "./ToolEditor";
 
 import {connect} from 'react-redux'
 import {close_session, join_session} from '../actions/sessionActions'
 
-import { Link } from "react-router-dom";
+import { Link, Route, Switch } from "react-router-dom";
 
 class Main extends Component {
 
     componentDidMount() {
-        this.props.join_session(this.props.match.params.id);
+        this.props.join_session({id: Number(this.props.match.params.id)});
     }
 
     componentWillUnmount() {
@@ -24,7 +25,10 @@ class Main extends Component {
     render() {
         return (
             <div>
-                <Link to="/">Close Session</Link>
+                <Switch>
+                    <Route path={this.props.match.path + '/edit/:id'} exact component={ToolEditor} />
+                    <Route component={MainContent} />
+                </Switch>
             </div>
         );
     }

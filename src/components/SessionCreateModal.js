@@ -14,7 +14,6 @@ import {
 } from "reactstrap";
 
 import {connect} from "react-redux"
-
 import {join_session} from "../actions/sessionActions";
 
 class SessionCreateModal extends Component {
@@ -61,7 +60,7 @@ class SessionCreateModal extends Component {
                     </Form>
                 </ModalBody>
                 <ModalFooter>
-                    <Button type="submit" form="newSessionForm" onClick={this.create_session}>Save</Button>
+                    <Button type="submit" form="newSessionForm">Save</Button>
                     <Button onClick={this.props.toggle}>Cancel</Button>
                 </ModalFooter>
             </Modal>
