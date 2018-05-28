@@ -19,9 +19,9 @@ class MainContent extends Component {
     render_tools(){
         return Array.from(this.props.tools_list).map(([key, value]) => {
             return (
-            <Row>
+            <Row key={key}>
                 <Col>
-                     <ToolWithRouter key={key} id={key} {...value} location={this.props.match.url}/>
+                     <ToolWithRouter id={key} {...value} location={this.props.match.url}/>
                 </Col>
             </Row>)
         })

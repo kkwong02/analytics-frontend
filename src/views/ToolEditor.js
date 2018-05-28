@@ -5,13 +5,29 @@ import { Container } from "reactstrap";
 
 import { connect } from "react-redux";
 
+import { buffer_update } from "../actions/bufferActions";
+
+import ExperimentSelector from "../components/ExperimentSelector";
+
 class ToolEditor extends Component {
     close() {
         this.props.history.push(this.props.prev);
     }
     componentDidMount() {
-        console.log(this.props.match.params.id)
+        let tool = this.props.tools.get(this.props.match.params.id);
+        if (!tool) {
+            this.close.bind(this)();
+        }
+        else {
+            this.buffer_reset.bind(this)();
+        }
         console.log("edit mount")
+    }
+
+    buffer_reset() {
+        let tool = this.props.tools.get(this.props.match.params.id);
+        console.log(this.props)
+        this.props.buffer_update({id: this.props.id, tool: tool.tool, experiments: tool.experiments});
     }
     componentWillUnmount() {
         console.log("unmount");
@@ -19,13 +35,13 @@ class ToolEditor extends Component {
     render() {
         return (
             <React.Fragment>
-                <div>
+                <div className="bg-white">
                 data select
                 </div>
                 <Container>
                 <button onClick={this.close.bind(this)}>close</button>
                 </Container>
-                <div>
+                <div className="bg-white">
                 Preferences
                 </div>
             </React.Fragment>
@@ -34,8 +50,7 @@ class ToolEditor extends Component {
 }
 
 const mapStateToProps = state => ({
-    buffer: state.buffer,
     tools: state.tools.tools_list
 })
 
-export default connect(mapStateToProps)(ToolEditor);
+export default connect(mapStateToProps, {buffer_update})(ToolEditor);
