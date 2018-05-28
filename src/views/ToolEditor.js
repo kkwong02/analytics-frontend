@@ -5,7 +5,7 @@ import { Container } from "reactstrap";
 
 import { connect } from "react-redux";
 
-import { buffer_update } from "../actions/bufferActions";
+import { buffer_update, buffer_clear } from "../actions/bufferActions";
 
 import ExperimentSelector from "../components/ExperimentSelector";
 
@@ -21,7 +21,6 @@ class ToolEditor extends Component {
         else {
             this.buffer_reset.bind(this)();
         }
-        console.log("edit mount")
     }
 
     buffer_reset() {
@@ -30,7 +29,7 @@ class ToolEditor extends Component {
         this.props.buffer_update({id: this.props.id, tool: tool.tool, experiments: tool.experiments});
     }
     componentWillUnmount() {
-        console.log("unmount");
+        this.props.buffer_clear()
     }
     render() {
         return (
@@ -53,4 +52,4 @@ const mapStateToProps = state => ({
     tools: state.tools.tools_list
 })
 
-export default connect(mapStateToProps, {buffer_update})(ToolEditor);
+export default connect(mapStateToProps, {buffer_update, buffer_clear})(ToolEditor);
