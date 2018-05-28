@@ -31,7 +31,6 @@ class ToolboxTool extends PureComponent {
             <Route render={() => (
                 <ListGroupItem onClick={() => {
                     let tool;
-                    console.log(this.props)
 
                     if (this.props.tool.type === 'graph') {
                         tool = new GraphProps(this.props.tool.graphType);

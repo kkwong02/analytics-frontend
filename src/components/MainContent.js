@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Container } from "reactstrap";
+import { Container, Row, Col } from "reactstrap";
 
 import Tool from "./Tool";
 import { connect } from 'react-redux';
@@ -18,17 +18,22 @@ class MainContent extends Component {
     }
     render_tools(){
         return Array.from(this.props.tools_list).map(([key, value]) => {
-            return (<ToolWithRouter key={key} id={key} {...value} location={this.props.match.url}/>)
+            return (
+            <Row>
+                <Col>
+                     <ToolWithRouter key={key} id={key} {...value} location={this.props.match.url}/>
+                </Col>
+            </Row>)
         })
     }
 
     render() {
         return (
             <React.Fragment>
-            <Toolbox from={this.props.location.pathname}/>
-            <Container>
-            {this.render_tools()}
-            </Container>
+                <Toolbox from={this.props.location.pathname}/>
+                    <Container>
+                    {this.render_tools()}
+                    </Container>
             </React.Fragment>
         );
     }

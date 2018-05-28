@@ -11,8 +11,6 @@ const initialState = {
     experiments_set: [],
     tools_list: new Map(),
     requests: {},
-    buffer: {},
-    prev_experiments: [] // dump from last saved buffer.
 };
 
 export default function tools(state = initialState, action) {

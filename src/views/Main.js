@@ -24,16 +24,14 @@ class Main extends Component {
     }
     render() {
         return (
-            <div>
-                <Switch>
-                    <Route path={this.props.match.path + '/(edit|new)/:id'} exact render={
-                        props => {
-                            return (<ToolEditor {...props} prev={this.props.match.url}/>)
-                        }
-                    } />
-                    <Route component={MainContent} />
-                </Switch>
-            </div>
+            <Switch>
+                <Route path={this.props.match.path + '/(edit|new)/:id'} exact render={
+                    props => {
+                        return (<ToolEditor {...props} prev={this.props.match.url}/>)
+                    }
+                } />
+                <Route component={MainContent} />
+            </Switch>
         );
     }
 }
