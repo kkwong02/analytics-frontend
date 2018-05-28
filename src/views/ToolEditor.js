@@ -12,6 +12,14 @@ import ExperimentSelector from "../components/ExperimentSelector";
 import GraphEditor from "../components/GraphEditor";
 
 class ToolEditor extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            select_experiments: false
+        }
+    }
+
     close() {
         this.props.history.push(this.props.prev);
     }
@@ -23,11 +31,13 @@ class ToolEditor extends Component {
         else {
             this.buffer_reset.bind(this)();
         }
+        if (this.props.match.params[0] === 'new') {
+            this.setState({select_experiments: true});
+        }
     }
 
     buffer_reset() {
         let tool = this.props.tools.get(this.props.match.params.id);
-        console.log(this.props)
         this.props.buffer_update({
             tool_id: this.props.match.params.id,
             tool: tool.tool,
@@ -50,6 +60,7 @@ class ToolEditor extends Component {
                         <button onClick={this.close.bind(this)}>close</button>
                     </Col>
                 </Row>
+                <ExperimentSelector isOpen={this.state.select_experiments}/>
                 </Container>
                 <div className="bg-white">Preferences
                 TODO: Add missing style for this!</div>

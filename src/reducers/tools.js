@@ -4,11 +4,10 @@ import {
     TOOL_ADD,
     TOOL_SAVE,
     TOOL_DELETE,
-    FETCH_EXPERIMENTS
+
 } from "../actions/types";
 
 const initialState = {
-    experiments_set: [],
     tools_list: new Map(),
     requests: {},
 };
@@ -74,12 +73,6 @@ export default function tools(state = initialState, action) {
             return {
                 ...state,
                 tools_list: new Map(state.tools_list).set(action.payload.id, tool)
-            }
-
-        case 'SERVER/' + FETCH_EXPERIMENTS:
-            return {
-                ...state,
-                experiments_set: action.payload
             }
 
         case 'SERVER/'+'SESSION.CLOSE':

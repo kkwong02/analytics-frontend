@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Table, Input, InputGroup, InputGroupAddon, Button } from "reactstrap";
+import { Table, Input, InputGroup, InputGroupAddon, Button, Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
 import { connect } from "react-redux";
 
 import { fetch_experiments } from "../actions/modelFetchActions";
@@ -67,7 +67,7 @@ class ExperimentSelector extends Component {
     toggleSelectAll(e) {
         if (e.target.checked) {
             this.props.buffer_update({
-                experiments: this.props.experiments_list.map(exp => exp.id)
+                experiments: this.props.buffer.experiments_list.map(exp => exp.id)
             })
         }
         else {
@@ -82,7 +82,8 @@ class ExperimentSelector extends Component {
     }
 
     renderTable() {
-        return this.props.experiments_list.map(exp => {
+        console.log(this.props.buffer.experiments_list)
+        return this.props.buffer.experiments_list.map(exp => {
             return (
                 <tr key={exp.id}>
                     <td><input type="checkbox" checked={this.checked(exp.id)} value={exp.id} onChange={this.onCheckChange}/></td>
@@ -96,7 +97,11 @@ class ExperimentSelector extends Component {
 
     render() {
         return (
-            <div>
+            <Modal>
+                <ModalHeader>
+                </ModalHeader>
+                <ModalBody>
+                <div>
                 <h4>Select Experiments</h4>
                 <InputGroup>
                     <Input placeholder="Search"/>
@@ -116,18 +121,20 @@ class ExperimentSelector extends Component {
                     </tbody>
                 </Table>
             </div>
+                </ModalBody>
+                <ModalFooter>
+                </ModalFooter>
+            </Modal>
         );
     }
 }
 
 ExperimentSelector.propTypes = {
-    experiments_list: PropTypes.array.isRequired,
     buffer: PropTypes.object.isRequired
 };
 
 const mapStatetoProps = state => ({
-    experiments_list: state.tools.experiments_set,
-    buffer: state.buffer
+    buffer: state.buffer,
 });
 
 export default connect(mapStatetoProps, {fetch_experiments, buffer_update})(ExperimentSelector);

@@ -38,11 +38,12 @@ class GraphEditor extends PureComponent {
     }
 
     render() {
-        console.log(this.props)
         return (
             <React.Fragment>
                 <Row>
                 <Col>
+                {/* if statement here because this will render before
+                parent's componentdidmount updates the buffer */}
                     { this.props.buffer.tool_id &&
                     <Plot {...this.props.buffer.tool}/>
                 }

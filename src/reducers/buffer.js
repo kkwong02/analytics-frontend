@@ -3,6 +3,7 @@ import {
     BUFFER_UPDATE,
     FETCH_DATA,
     ADD_REQUEST,
+    FETCH_EXPERIMENTS
 } from '../actions/types'
 import { DataProps } from "../toolFactories/GraphFactory";
 
@@ -12,7 +13,7 @@ const initialState = {
     experiments: [],
     prevExperiments: [],
     requests: {},
-    experiments_list: []
+    experiments_list: [] // list of experiments returned from fetch
 };
 
 export default function buffer(state=initialState, action){
@@ -46,6 +47,12 @@ export default function buffer(state=initialState, action){
             //     return new DataProps()
             // })
             return state;
+
+        case 'SERVER/' + FETCH_EXPERIMENTS:
+            return {
+                ...state,
+                experiments_list: action.payload
+            }
 
         default:
             return state;
