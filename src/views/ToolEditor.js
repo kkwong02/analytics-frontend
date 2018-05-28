@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
-import { Container } from "reactstrap";
+import { Container, Row, Col } from "reactstrap";
 
 import { connect } from "react-redux";
 
 import { buffer_update, buffer_clear } from "../actions/bufferActions";
 
 import ExperimentSelector from "../components/ExperimentSelector";
+
+import GraphEditor from "../components/GraphEditor";
 
 class ToolEditor extends Component {
     close() {
@@ -26,7 +28,11 @@ class ToolEditor extends Component {
     buffer_reset() {
         let tool = this.props.tools.get(this.props.match.params.id);
         console.log(this.props)
-        this.props.buffer_update({id: this.props.id, tool: tool.tool, experiments: tool.experiments});
+        this.props.buffer_update({
+            tool_id: this.props.match.params.id,
+            tool: tool.tool,
+            experiments: tool.experiments
+        });
     }
     componentWillUnmount() {
         this.props.buffer_clear()
@@ -34,15 +40,19 @@ class ToolEditor extends Component {
     render() {
         return (
             <React.Fragment>
-                <div className="bg-white">
+                <div className="toolbox">
                 data select
                 </div>
                 <Container>
-                <button onClick={this.close.bind(this)}>close</button>
+                <Row>
+                    <Col>
+                        <GraphEditor />
+                        <button onClick={this.close.bind(this)}>close</button>
+                    </Col>
+                </Row>
                 </Container>
-                <div className="bg-white">
-                Preferences
-                </div>
+                <div className="bg-white">Preferences
+                TODO: Add missing style for this!</div>
             </React.Fragment>
         );
     }

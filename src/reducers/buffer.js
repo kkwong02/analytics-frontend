@@ -8,7 +8,7 @@ import { DataProps } from "../toolFactories/GraphFactory";
 
 const initialState = {
     tool_id: null,
-    tool: {name: null},
+    tool: {},
     experiments: [],
     prevExperiments: [],
     requests: {},

@@ -38,18 +38,15 @@ class GraphEditor extends PureComponent {
     }
 
     render() {
+        console.log(this.props)
         return (
             <React.Fragment>
-                <Plot {...this.props.buffer.tool}/>
                 <Row>
                 <Col>
-                <form onSubmit={this.fetchData}>
-                    <input name={this.props.buffer.tool.axes[0].xAxisId} type='text' placeholder='x' required/>
-                    <input name={this.props.buffer.tool.axes[1].yAxisId} type='text' placeholder='y' required/>
-                    <button>Graph</button>
-                </form>
+                    { this.props.buffer.tool_id &&
+                    <Plot {...this.props.buffer.tool}/>
+                }
                 </Col>
-
                 </Row>
             </React.Fragment>
         );
