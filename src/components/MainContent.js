@@ -7,6 +7,10 @@ import { connect } from 'react-redux';
 
 import Toolbox from "./Toolbox";
 
+import { withRouter } from "react-router-dom";
+
+const ToolWithRouter = withRouter(Tool);
+
 class MainContent extends Component {
     constructor(props){
         super(props);
@@ -14,7 +18,7 @@ class MainContent extends Component {
     }
     render_tools(){
         return Array.from(this.props.tools_list).map(([key, value]) => {
-            return (<Tool key={key} id={key} {...value} location={this.props.match.url}/>)
+            return (<ToolWithRouter key={key} id={key} {...value} location={this.props.match.url}/>)
         })
     }
 
@@ -22,7 +26,9 @@ class MainContent extends Component {
         return (
             <React.Fragment>
             <Toolbox from={this.props.location.pathname}/>
+            <Container>
             {this.render_tools()}
+            </Container>
             </React.Fragment>
         );
     }

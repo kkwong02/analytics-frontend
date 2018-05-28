@@ -10,30 +10,14 @@ import ToolEditModal from './ToolEditModal';
 import Plot from "./Plot";
 import { buffer_clear, buffer_update } from "../actions/bufferActions";
 
+import { Link } from "react-router-dom";
+
 
 class Tool extends Component {
     constructor(props) {
         super(props);
         this.toggle_minimize = this.toggle_minimize.bind(this);
         this.remove_card = this.remove_card.bind(this);
-        this.toggle_edit = this.toggle_edit.bind(this);
-    }
-
-    componentDidMount() {
-        this.toggle_edit();
-    }
-    /**
-     * Toggles edit modal.
-     */
-    toggle_edit() {
-        if (!this.props.edit) {
-            this.props.buffer_update({
-                id: this.props.id,
-                experiments: this.props.experiments,
-                tool: this.props.tool
-            })
-        }
-        this.props.toggle_edit(this.props.id);
     }
 
     /**
@@ -55,7 +39,7 @@ class Tool extends Component {
                 <CardHeader>
                 {this.props.tool.name}
                 <div className='card-header-actions'>
-                    <a className="card-header-action btn btn-setting" onClick={this.toggle_edit}>Edit</a>
+                    <Link to={this.props.match.url + '/edit/' + this.props.id}>Edit</Link>
                     <a className="card-header-action btn btn-minimize" onClick={this.toggle_minimize}>Minimize</a>
                     <a className="card-header-action btn btn-close" onClick={this.remove_card}>Close</a>
                 </div>
