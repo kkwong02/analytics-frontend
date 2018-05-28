@@ -9,13 +9,11 @@ import {
     send_request
 } from "./websocketSend";
 
-const uuidv4 = require('uuid/v4')
-
 /**
  * Adds a new 'Tool' object to state.
  * @param {Object} tool - tool object
  */
-export function add_tool(tool) {
+export function add_tool(tool, id) {
     return ({
         type: TOOL_ADD,
         payload: {
@@ -25,7 +23,7 @@ export function add_tool(tool) {
             edit: false
         },
         meta: {
-            id: uuidv4()
+            id: id
         }
     })
 }

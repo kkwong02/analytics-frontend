@@ -7,6 +7,9 @@ import { GraphProps } from "../toolFactories/GraphFactory";
 
 import { Route } from "react-router-dom";
 
+const uuidv4 = require('uuid/v4')
+
+
 class ToolboxTool extends PureComponent {
     constructor(props) {
         super(props);
@@ -15,25 +18,29 @@ class ToolboxTool extends PureComponent {
             .bind(this);
     }
     createTool(e) {
-        // let tool;
-        // if (this.props.tool.type === 'graph') {
-        //     tool = new GraphProps(this.props.tool.graphType);
-        // }
-        // this.props.add_tool(tool);
+        let tool;
+        if (this.props.tool.type === 'graph') {
+            tool = new GraphProps(this.props.tool.graphType);
+        }
+        this.props.add_tool(tool);
 
     }
 
     render() {
         return (
-            <Route render={(history) => (
+            <Route render={() => (
                 <ListGroupItem onClick={() => {
                     let tool;
+                    console.log(this.props)
 
-                    if (this.props.tool === 'graph') {
-                        new GraphProps(this.props.tool.graphType);
+                    if (this.props.tool.type === 'graph') {
+                        tool = new GraphProps(this.props.tool.graphType);
                     }
-                    this.props.add_tool(tool);
-                    history.push('/')
+                    let uuid = uuidv4();
+
+                    this.props.add_tool(tool, uuid);
+
+                    this.props.history.push(this.props.location.pathname + '/new/' + uuid);
                 }} >
                     <Media>
                         <Media object src={this.props.tool.icon}/>

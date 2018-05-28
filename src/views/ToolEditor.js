@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 class ToolEditor extends Component {
-    goback() {
-        this.props.history.goBack()
+    close() {
+        this.props.history.push(this.props.prev);
     }
     componentDidMount() {
         console.log("edit mount")
@@ -14,7 +14,7 @@ class ToolEditor extends Component {
         return (
             <div>
                 EDITOR!
-                <button onClick={this.goback.bind(this)}>close</button>
+                <button onClick={this.close.bind(this)}>close</button>
             </div>
         );
     }
