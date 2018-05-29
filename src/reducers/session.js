@@ -1,4 +1,4 @@
-import { SESSION_LIST, SESSION_CONNECT } from '../actions/types'
+import { SESSION_LIST, SESSION_CONNECT } from '../actions/types';
 
 const initialState = {
     session_list: [],
@@ -12,19 +12,19 @@ export default function session(state=initialState, action) {
     let action_type = action.type.replace('SERVER/', '');
 
     switch (action_type) {
-        case SESSION_LIST:
-            return {
-                ...state,
-                session_list: action.payload.sessions
-            }
+    case SESSION_LIST:
+        return {
+            ...state,
+            session_list: action.payload.sessions
+        }
 
-        case SESSION_CONNECT:
-            return {
-                ...state,
-                current_session: action.payload
-            }
+    case SESSION_CONNECT:
+        return {
+            ...state,
+            current_session: action.payload
+        }
 
-        default:
-            return state;
+    default:
+        return state;
     }
 }

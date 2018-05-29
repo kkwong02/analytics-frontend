@@ -9,7 +9,7 @@ import {
 import store from './store';
 
 // styles
-import './scss/style.css'
+import './scss/style.css';
 
 
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));

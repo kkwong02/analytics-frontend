@@ -8,15 +8,15 @@ import {
     Row,
     Col,
     Button
-} from "reactstrap";
+} from 'reactstrap';
 
-import Proptypes from "prop-types";
-import {connect} from "react-redux";
+import Proptypes from 'prop-types';
+import {connect} from 'react-redux';
 
-import {list_sessions} from "../actions/sessionActions"
+import {list_sessions} from '../actions/sessionActions'
 import SessionCreateModal from '../components/SessionCreateModal';
 
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 
 class SessionTile extends PureComponent {
@@ -49,11 +49,10 @@ class Sessions extends Component {
         super(props);
         this.state = {
             create: false
-        }
+        };
         this.create_session_toggle = this
             .create_session_toggle
             .bind(this);
-
     }
 
     componentDidMount() {
@@ -73,8 +72,8 @@ class Sessions extends Component {
     create_session_toggle() {
         // do something to bring up modal
         this.setState((prevState) => {
-            return {create: !prevState.create}
-        })
+            return {create: !prevState.create};
+        });
     }
 
     render() {
