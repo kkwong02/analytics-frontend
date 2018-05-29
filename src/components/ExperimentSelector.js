@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Table, Input, InputGroup, InputGroupAddon, Button, Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
-import { connect } from "react-redux";
+import { Table, Input, InputGroup, InputGroupAddon, Button, Modal, ModalBody, ModalHeader, ModalFooter } from 'reactstrap';
+import { connect } from 'react-redux';
 
-import { fetch_experiments } from "../actions/modelFetchActions";
-import { buffer_update } from "../actions/bufferActions";
+import { fetch_experiments } from '../actions/modelFetchActions';
+import { buffer_update } from '../actions/bufferActions';
 
 class ExperimentSelector extends Component {
     constructor(props) {
@@ -30,16 +30,16 @@ class ExperimentSelector extends Component {
     }
 
     fetch_experiments() {
-        let params = {}
+        let params = {};
         if (this.state.search) {
-            params.search = this.state.search
+            params.search = this.state.search;
         }
 
         if (this.state.filter) {
-            params.filter = this.state.filter
+            params.filter = this.state.filter;
         }
         if (this.state.order_by) {
-            params.order_by = this.state.order_by
+            params.order_by = this.state.order_by;
         }
         this.props.fetch_experiments(params);
 ;    }
@@ -82,7 +82,7 @@ class ExperimentSelector extends Component {
     }
 
     renderTable() {
-        console.log(this.props.buffer.experiments_list)
+        console.log(this.props.buffer.experiments_list);
         return this.props.buffer.experiments_list.map(exp => {
             return (
                 <tr key={exp.id}>
@@ -101,26 +101,26 @@ class ExperimentSelector extends Component {
                 <ModalHeader>
                 </ModalHeader>
                 <ModalBody>
-                <div>
-                <h4>Select Experiments</h4>
-                <InputGroup>
-                    <Input placeholder="Search"/>
-                    <InputGroupAddon addonType="append"><Button>Search</Button></InputGroupAddon>
-                </InputGroup>
-                <Table>
-                    <thead>
-                        <tr>
-                            <td><input type='checkbox' name="all" onChange={this.toggleSelectAll} /></td>
-                            <td>Name</td>
-                            <td>Scientist</td>
-                            <td>Date</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.renderTable()}
-                    </tbody>
-                </Table>
-            </div>
+                    <div>
+                        <h4>Select Experiments</h4>
+                        <InputGroup>
+                            <Input placeholder="Search"/>
+                            <InputGroupAddon addonType="append"><Button>Search</Button></InputGroupAddon>
+                        </InputGroup>
+                        <Table>
+                            <thead>
+                                <tr>
+                                    <td><input type='checkbox' name="all" onChange={this.toggleSelectAll} /></td>
+                                    <td>Name</td>
+                                    <td>Scientist</td>
+                                    <td>Date</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {this.renderTable()}
+                            </tbody>
+                        </Table>
+                    </div>
                 </ModalBody>
                 <ModalFooter>
                 </ModalFooter>

@@ -1,12 +1,12 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import Plot from "./Plot";
-import { Row, Col } from "reactstrap";
+import Plot from './Plot';
+import { Row, Col } from 'reactstrap';
 
-import { fetch_data, add_request } from "../actions/bufferActions";
-import { connect } from "react-redux";
+import { fetch_data, add_request } from '../actions/bufferActions';
+import { connect } from 'react-redux';
 
-const uuidv4 = require('uuid/v4')
+const uuidv4 = require('uuid/v4');
 
 class GraphEditor extends PureComponent {
     constructor(props) {
@@ -18,36 +18,36 @@ class GraphEditor extends PureComponent {
     fetchData(e) {
         e.preventDefault();
 
-        let uuid = uuidv4();
+        // let uuid = uuidv4();
 
-        let request = {
-            'f1' : {
-                type: 'axis',
-                xAxisId: e.target[0].name,
-                name: e.target[0].value
-            },
-            'f2' : {
-                type: 'scatter',
-                yAxisId: e.target[1].name,
-                xAxisId: e.target[0].name,
-                name: e.target[1].value
-            }
-        }
-        this.props.add_request(uuid, this.props.id, {});
-        this.props.fetch_data(uuid, this.props.buffer.experiments, [e.target[0].value, e.target[1].value]);
+        // let request = {
+        //     'f1' : {
+        //         type: 'axis',
+        //         xAxisId: e.target[0].name,
+        //         name: e.target[0].value
+        //     },
+        //     'f2' : {
+        //         type: 'scatter',
+        //         yAxisId: e.target[1].name,
+        //         xAxisId: e.target[0].name,
+        //         name: e.target[1].value
+        //     }
+        // };
+        // this.props.add_request(uuid, this.props.id, {});
+        // this.props.fetch_data(uuid, this.props.buffer.experiments, [e.target[0].value, e.target[1].value]);
     }
 
     render() {
         return (
             <React.Fragment>
                 <Row>
-                <Col>
-                {/* if statement here because this will render before
-                parent's componentdidmount updates the buffer */}
-                    { this.props.buffer.tool_id &&
-                    <Plot {...this.props.buffer.tool}/>
-                }
-                </Col>
+                    <Col>
+                        {/* if statement here because this will render before
+                        parent's componentdidmount updates the buffer */}
+                        { this.props.buffer.tool_id &&
+                            <Plot {...this.props.buffer.tool}/>
+                        }
+                    </Col>
                 </Row>
             </React.Fragment>
         );
@@ -62,6 +62,6 @@ GraphEditor.propTypes = {
 
 const mapStateToProps = state => ({
     buffer: state.buffer
-})
+});
 
 export default connect(mapStateToProps, {fetch_data, add_request})(GraphEditor);

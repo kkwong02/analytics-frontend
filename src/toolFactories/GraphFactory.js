@@ -18,7 +18,7 @@ export class DataProps {
         this.yAxisId = yAxisId;
         this.layout = null;
         this.name = name;
-        this.experiment = expId
+        this.experiment = expId;
 
         this[type]();
     }
@@ -60,10 +60,10 @@ export class AxisProps {
         this.label = '';
         this.dataKey = dataKey;
         if (type === X){
-            this.xAxisId = uuid()
+            this.xAxisId = uuid();
         }
         else {
-            this.yAxisId = uuid()
+            this.yAxisId = uuid();
         }
     }
 };
@@ -91,7 +91,7 @@ export class GraphProps {
         this.referenceLines = [];
         this.plots = [];
         this.data = [];
-        this.errorBars = null
+        this.errorBars = null;
         this.layout = HORIZONTAL;
         this.PlotProps = [];
     }

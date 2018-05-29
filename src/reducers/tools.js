@@ -6,7 +6,7 @@ import {
     TOOL_DELETE,
     SESSION_CLOSE
 
-} from "../actions/types";
+} from '../actions/types';
 
 const initialState = {
     tools_list: new Map(),
@@ -19,69 +19,69 @@ export default function tools(state = initialState, action) {
 
     switch (action.type) {
 
-        case TOOL_SAVE:
-            newState = new Map(state.tools_list);
+    case TOOL_SAVE:
+        newState = new Map(state.tools_list);
 
-            if (action.meta.new) {
-                newState.delete(action.meta.uuid);
-            }
+        if (action.meta.new) {
+            newState.delete(action.meta.uuid);
+        }
 
-            newState.set(action.meta.id, action.payload);
+        newState.set(action.meta.id, action.payload);
 
-            return {
-                ...state,
-                tools_list: newState
-            };
+        return {
+            ...state,
+            tools_list: newState
+        };
 
-        case TOOL_ADD:
-            newState = new Map(state.tools_list);
-            newState.set(action.meta.id, action.payload);
+    case TOOL_ADD:
+        newState = new Map(state.tools_list);
+        newState.set(action.meta.id, action.payload);
 
-            return {
-                ...state,
-                tools_list: newState,
-            }
-        case 'SERVER/' + TOOL_DELETE:
-            if (action.error) {
-                console.log(action.payload.error);
-                return state
-            }
-            // else fall through and delete.
-        case TOOL_DELETE:
-            newState = new Map(state.tools_list);
-            newState.delete(action.payload.id)
-
-            return {
-                ...state,
-                tools_list: newState
-            };
-
-        case TOOL_MINIMIZE:
-            tool = { ...state.tools_list.get(action.payload.id)
-            }
-            tool.isOpen = !tool.isOpen;
-
-            return {
-                ...state,
-                tools_list: new Map(state.tools_list).set(action.payload.id, tool)
-            };
-
-        case TOOL_EDIT:
-            tool = { ...state.tools_list.get(action.payload.id)
-            };
-            tool.edit = !tool.edit;
-
-            return {
-                ...state,
-                tools_list: new Map(state.tools_list).set(action.payload.id, tool)
-            }
-
-        case 'SERVER/'+SESSION_CLOSE:
-            return initialState;
-
-        case 'SERVER/' + TOOL_SAVE:
-        default:
+        return {
+            ...state,
+            tools_list: newState,
+        }
+    case 'SERVER/' + TOOL_DELETE:
+        if (action.error) {
+            console.log(action.payload.error);
             return state;
+        }
+        // else fall through and delete.
+    case TOOL_DELETE:
+        newState = new Map(state.tools_list);
+        newState.delete(action.payload.id);
+
+        return {
+            ...state,
+            tools_list: newState
+        };
+
+    case TOOL_MINIMIZE:
+        tool = { ...state.tools_list.get(action.payload.id)
+        }
+        tool.isOpen = !tool.isOpen;
+
+        return {
+            ...state,
+            tools_list: new Map(state.tools_list).set(action.payload.id, tool)
+        };
+
+    case TOOL_EDIT:
+        tool = { ...state.tools_list.get(action.payload.id)
+        };
+        tool.edit = !tool.edit;
+
+        return {
+            ...state,
+            tools_list: new Map(state.tools_list).set(action.payload.id, tool)
+        };
+
+    case 'SERVER/'+SESSION_CLOSE:
+        return initialState;
+
+    case 'SERVER/' + TOOL_SAVE:
+    default:
+        return state;
     }
 
 };

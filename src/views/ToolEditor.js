@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
-import { Container, Row, Col } from "reactstrap";
+import { Container, Row, Col } from 'reactstrap';
 
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-import { buffer_update, buffer_clear } from "../actions/bufferActions";
+import { buffer_update, buffer_clear } from '../actions/bufferActions';
 
-import ExperimentSelector from "../components/ExperimentSelector";
+import ExperimentSelector from '../components/ExperimentSelector';
 
-import GraphEditor from "../components/GraphEditor";
+import GraphEditor from '../components/GraphEditor';
 
 class ToolEditor extends Component {
     constructor(props) {
@@ -45,7 +45,7 @@ class ToolEditor extends Component {
         });
     }
     componentWillUnmount() {
-        this.props.buffer_clear()
+        this.props.buffer_clear();
     }
     render() {
         return (
@@ -54,13 +54,13 @@ class ToolEditor extends Component {
                 data select
                 </div>
                 <Container>
-                <Row>
-                    <Col>
-                        <GraphEditor />
-                        <button onClick={this.close.bind(this)}>close</button>
-                    </Col>
-                </Row>
-                <ExperimentSelector isOpen={this.state.select_experiments}/>
+                    <Row>
+                        <Col>
+                            <GraphEditor />
+                            <button onClick={this.close.bind(this)}>close</button>
+                        </Col>
+                    </Row>
+                    <ExperimentSelector isOpen={this.state.select_experiments}/>
                 </Container>
                 <div className="bg-white">Preferences
                 TODO: Add missing style for this!</div>
