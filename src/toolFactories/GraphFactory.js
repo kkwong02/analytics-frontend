@@ -57,8 +57,8 @@ export class AxisProps {
         this.type = 'category';
         this.tickCount = 5;
         this.interval = 'preserveEnd';
-        this.label = '',
-        this.dataKey = dataKey
+        this.label = '';
+        this.dataKey = dataKey;
         if (type === X){
             this.xAxisId = uuid()
         }

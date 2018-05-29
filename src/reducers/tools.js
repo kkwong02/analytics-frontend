@@ -4,6 +4,7 @@ import {
     TOOL_ADD,
     TOOL_SAVE,
     TOOL_DELETE,
+    SESSION_CLOSE
 
 } from "../actions/types";
 
@@ -75,7 +76,7 @@ export default function tools(state = initialState, action) {
                 tools_list: new Map(state.tools_list).set(action.payload.id, tool)
             }
 
-        case 'SERVER/'+'SESSION.CLOSE':
+        case 'SERVER/'+SESSION_CLOSE:
             return initialState;
 
         case 'SERVER/' + TOOL_SAVE:

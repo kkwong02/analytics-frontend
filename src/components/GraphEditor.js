@@ -29,7 +29,7 @@ class GraphEditor extends PureComponent {
             'f2' : {
                 type: 'scatter',
                 yAxisId: e.target[1].name,
-                yAxisId: e.target[1].name,
+                xAxisId: e.target[0].name,
                 name: e.target[1].value
             }
         }
