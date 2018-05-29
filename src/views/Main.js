@@ -32,7 +32,6 @@ class Main extends Component {
                 } />
                 <Route component={MainContent} />
             </Switch>) : <Loader />;
-            console.log(content);
 
         return (
             <div>

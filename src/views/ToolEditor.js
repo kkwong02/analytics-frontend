@@ -17,7 +17,11 @@ class ToolEditor extends Component {
 
         this.state = {
             select_experiments: false
-        }
+        };
+    }
+
+    toggleExperimentSelector () {
+        this.setState({select_experiments: !this.state.select_experiments});
     }
 
     close() {
@@ -60,7 +64,7 @@ class ToolEditor extends Component {
                             <button onClick={this.close.bind(this)}>close</button>
                         </Col>
                     </Row>
-                    <ExperimentSelector isOpen={this.state.select_experiments}/>
+                    <ExperimentSelector toggle={this.toggleExperimentSelector.bind(this)} isOpen={this.state.select_experiments}/>
                 </Container>
                 <div className="bg-white">Preferences
                 TODO: Add missing style for this!</div>

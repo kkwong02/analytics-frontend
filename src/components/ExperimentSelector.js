@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Table, Input, InputGroup, InputGroupAddon, Button, Modal, ModalBody, ModalHeader, ModalFooter } from 'reactstrap';
+import { Table, Input, InputGroup, InputGroupAddon, Button, Modal, ModalBody, ModalHeader, ModalFooter, Alert } from 'reactstrap';
 import { connect } from 'react-redux';
 
 import { fetch_experiments } from '../actions/modelFetchActions';
@@ -14,7 +14,8 @@ class ExperimentSelector extends Component {
             filters: {},
             search: null,
             order_by: null,
-        }
+            empty: false
+        };
 
         this.fetch_experiments = this.fetch_experiments.bind(this);
         this.onSearchChange = this.onSearchChange.bind(this);
@@ -22,7 +23,17 @@ class ExperimentSelector extends Component {
         this.toggleSelectAll = this.toggleSelectAll.bind(this);
 
         this.checked = this.checked.bind(this);
+        this.save = this.save.bind(this);
 
+    }
+    save() {
+        if (this.props.experiments.length > 0) {
+            this.props.toggle();
+            this.setState({empty: false});
+        }
+        else {
+            this.setState({empty: true});
+        }
     }
 
     onSearchChange(e){
@@ -42,7 +53,7 @@ class ExperimentSelector extends Component {
             params.order_by = this.state.order_by;
         }
         this.props.fetch_experiments(params);
-;    }
+    }
 
     componentDidMount() {
         this.fetch_experiments();
@@ -50,7 +61,7 @@ class ExperimentSelector extends Component {
 
     onCheckChange(e) {
         let val = Number(e.target.value);
-        let experiments = [...this.props.buffer.experiments];
+        let experiments = [...this.props.experiments];
 
         if (e.target.checked) {
             experiments.push(val);
@@ -61,14 +72,14 @@ class ExperimentSelector extends Component {
 
         this.props.buffer_update({
             experiments: experiments
-        })
+        });
     }
 
     toggleSelectAll(e) {
         if (e.target.checked) {
             this.props.buffer_update({
-                experiments: this.props.buffer.experiments_list.map(exp => exp.id)
-            })
+                experiments: this.props.experiments_list.map(exp => exp.id)
+            });
         }
         else {
             this.props.buffer_update({
@@ -78,12 +89,11 @@ class ExperimentSelector extends Component {
     }
 
     checked(id) {
-        return this.props.buffer.experiments.includes(id)
+        return this.props.experiments.includes(id);
     }
 
     renderTable() {
-        console.log(this.props.buffer.experiments_list);
-        return this.props.buffer.experiments_list.map(exp => {
+        return this.props.experiments_list.map(exp => {
             return (
                 <tr key={exp.id}>
                     <td><input type="checkbox" checked={this.checked(exp.id)} value={exp.id} onChange={this.onCheckChange}/></td>
@@ -97,16 +107,21 @@ class ExperimentSelector extends Component {
 
     render() {
         return (
-            <Modal>
+            <Modal size='lg' isOpen={this.props.isOpen}>
                 <ModalHeader>
+                Experiments
                 </ModalHeader>
                 <ModalBody>
                     <div>
-                        <h4>Select Experiments</h4>
+                        { this.state.empty &&
+                            <Alert color="danger">Please select at least one experiment!</Alert>
+                        }
+
                         <InputGroup>
                             <Input placeholder="Search"/>
                             <InputGroupAddon addonType="append"><Button>Search</Button></InputGroupAddon>
                         </InputGroup>
+
                         <Table>
                             <thead>
                                 <tr>
@@ -123,6 +138,7 @@ class ExperimentSelector extends Component {
                     </div>
                 </ModalBody>
                 <ModalFooter>
+                    <Button onClick={this.save}>Save</Button>
                 </ModalFooter>
             </Modal>
         );
@@ -134,7 +150,8 @@ ExperimentSelector.propTypes = {
 };
 
 const mapStatetoProps = state => ({
-    buffer: state.buffer,
+    experiments: state.buffer.experiments,
+    experiments_list: state.buffer.experiments_list
 });
 
 export default connect(mapStatetoProps, {fetch_experiments, buffer_update})(ExperimentSelector);

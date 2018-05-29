@@ -38,7 +38,7 @@ export default function tools(state = initialState, action) {
         return {
             ...state,
             tools_list: newState,
-        }
+        };
     case 'SERVER/' + TOOL_DELETE:
         if (action.error) {
             console.log(action.payload.error);
@@ -80,4 +80,4 @@ export default function tools(state = initialState, action) {
         return state;
     }
 
-};
+}

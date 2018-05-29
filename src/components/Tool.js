@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import { Card, CardBody, CardHeader, Collapse } from 'reactstrap'
-import PropTypes from 'prop-types'
+import { Card, CardBody, CardHeader, Collapse } from 'reactstrap';
+import PropTypes from 'prop-types';
 
-import { toggle_minimize, toggle_edit, delete_tool } from "../actions/toolActions";
+import { toggle_minimize, toggle_edit, delete_tool } from '../actions/toolActions';
 
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import ToolEditModal from './ToolEditModal';
 
-import Plot from "./Plot";
-import { buffer_clear, buffer_update } from "../actions/bufferActions";
+import Plot from './Plot';
+import { buffer_clear, buffer_update } from '../actions/bufferActions';
 
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 
 class Tool extends Component {
@@ -35,22 +35,22 @@ class Tool extends Component {
     render() {
         return (
             <React.Fragment>
-            <Card>
-                <CardHeader>
-                {this.props.tool.name}
-                <div className='card-header-actions'>
-                    <Link to={this.props.match.url + '/edit/' + this.props.id}>Edit</Link>
-                    <a className="card-header-action btn btn-minimize" onClick={this.toggle_minimize}>Minimize</a>
-                    <a className="card-header-action btn btn-close" onClick={this.remove_card}>Close</a>
-                </div>
-                </CardHeader>
-                <Collapse isOpen={this.props.isOpen}>
-                    <CardBody>
-                        <Plot {...this.props.tool}/>
-                    </CardBody>
-                </Collapse>
-            </Card>
-            <ToolEditModal isOpen={this.props.edit} id={this.props.id} toggle={this.props.toggle_edit}/>
+                <Card>
+                    <CardHeader>
+                        {this.props.tool.name}
+                        <div className='card-header-actions'>
+                            <Link to={this.props.match.url + '/edit/' + this.props.id}>Edit</Link>
+                            <a className="card-header-action btn btn-minimize" onClick={this.toggle_minimize}>Minimize</a>
+                            <a className="card-header-action btn btn-close" onClick={this.remove_card}>Close</a>
+                        </div>
+                    </CardHeader>
+                    <Collapse isOpen={this.props.isOpen}>
+                        <CardBody>
+                            <Plot {...this.props.tool}/>
+                        </CardBody>
+                    </Collapse>
+                </Card>
+                <ToolEditModal isOpen={this.props.edit} id={this.props.id} toggle={this.props.toggle_edit}/>
             </React.Fragment>
         );
     }
