@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row, Col, Button } from 'reactstrap';
 
 import { connect } from 'react-redux';
 
@@ -18,6 +18,7 @@ class ToolEditor extends Component {
         this.state = {
             select_experiments: false
         };
+        this.toggleExperimentSelector = this.toggleExperimentSelector.bind(this);
     }
 
     toggleExperimentSelector () {
@@ -55,19 +56,25 @@ class ToolEditor extends Component {
         return (
             <React.Fragment>
                 <div className="toolbox">
-                data select
+                    <Button onClick={this.toggleExperimentSelector}>Select Experiments</Button>
+                    data select
                 </div>
                 <Container>
                     <Row>
                         <Col>
-                            <GraphEditor />
-                            <button onClick={this.close.bind(this)}>close</button>
+                            <Button onClick={this.close.bind(this)}>close</Button>
                         </Col>
                     </Row>
-                    <ExperimentSelector toggle={this.toggleExperimentSelector.bind(this)} isOpen={this.state.select_experiments}/>
+                    <Row>
+                        <Col>
+                            <GraphEditor />
+                        </Col>
+                    </Row>
+                    <ExperimentSelector toggle={this.toggleExperimentSelector} isOpen={this.state.select_experiments}/>
                 </Container>
+                {/* Hiding for now to reduce screen clutter.
                 <div className="bg-white">Preferences
-                TODO: Add missing style for this!</div>
+                TODO: Add missing style for this!</div> */}
             </React.Fragment>
         );
     }

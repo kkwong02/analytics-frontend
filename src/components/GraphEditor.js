@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Plot from './Plot';
-import { Row, Col } from 'reactstrap';
+import { Row, Col, Button } from 'reactstrap';
 
 import { fetch_data, add_request } from '../actions/bufferActions';
 import { connect } from 'react-redux';
@@ -17,24 +17,6 @@ class GraphEditor extends PureComponent {
 
     fetchData(e) {
         e.preventDefault();
-
-        // let uuid = uuidv4();
-
-        // let request = {
-        //     'f1' : {
-        //         type: 'axis',
-        //         xAxisId: e.target[0].name,
-        //         name: e.target[0].value
-        //     },
-        //     'f2' : {
-        //         type: 'scatter',
-        //         yAxisId: e.target[1].name,
-        //         xAxisId: e.target[0].name,
-        //         name: e.target[1].value
-        //     }
-        // };
-        // this.props.add_request(uuid, this.props.id, {});
-        // this.props.fetch_data(uuid, this.props.buffer.experiments, [e.target[0].value, e.target[1].value]);
     }
 
     render() {
@@ -47,6 +29,12 @@ class GraphEditor extends PureComponent {
                         { this.props.buffer.tool_id &&
                             <Plot {...this.props.buffer.tool}/>
                         }
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <h3>Plot Data</h3>
+                        <Button>New</Button>
                     </Col>
                 </Row>
             </React.Fragment>

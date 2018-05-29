@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Proptype from 'prop-types'
+import Proptype from 'prop-types';
 
 import {
     Modal,
@@ -11,10 +11,10 @@ import {
     FormGroup,
     Label,
     Input
-} from "reactstrap";
+} from 'reactstrap';
 
-import {connect} from "react-redux"
-import {join_session} from "../actions/sessionActions";
+import {connect} from 'react-redux';
+import {join_session} from '../actions/sessionActions';
 
 class SessionCreateModal extends Component {
     constructor(props) {
