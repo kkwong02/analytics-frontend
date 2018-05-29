@@ -4,8 +4,6 @@ import {
     TOOL_ADD,
     TOOL_SAVE,
     TOOL_DELETE,
-    SESSION_CLOSE
-
 } from '../actions/types';
 
 const initialState = {
@@ -57,8 +55,9 @@ export default function tools(state = initialState, action) {
         };
 
     case TOOL_MINIMIZE:
-        tool = { ...state.tools_list.get(action.payload.id)
-        }
+        tool = {
+            ...state.tools_list.get(action.payload.id)
+        };
         tool.isOpen = !tool.isOpen;
 
         return {
@@ -75,9 +74,6 @@ export default function tools(state = initialState, action) {
             ...state,
             tools_list: new Map(state.tools_list).set(action.payload.id, tool)
         };
-
-    case 'SERVER/'+SESSION_CLOSE:
-        return initialState;
 
     case 'SERVER/' + TOOL_SAVE:
     default:
