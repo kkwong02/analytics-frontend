@@ -75,6 +75,10 @@ export class AxisProps {
     }
 }
 
+/**
+ * Mostly for rendeirng the edit page (since there isn't much of a way of figuring out
+ * what generates what unless we're going to sort them all on render, which is a waste)
+ */
 export class Plotter {
     constructor (x, y, items=[]) {
         this.id = uuid();
@@ -95,14 +99,5 @@ export class GraphProps {
         this.errorBars = null;
         this.layout = HORIZONTAL;
         this.plotters = []; // list of plotter objects. used to generate the UI
-    }
-}
-
-/**
- * Object used to handle response
- */
-export class GraphResponseHandler {
-    constructor() {
-
     }
 }

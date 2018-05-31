@@ -14,6 +14,7 @@ import {
     BarChart,
     Line,
     Bar,
+    Label,
     ComposedChart
 } from 'recharts';
 
@@ -38,7 +39,7 @@ const axisTypes = {
 
 function Axis(props, key) {
     const SpecificAxis = axisTypes[props.axisType];
-    return <SpecificAxis {...props} key={key}/>;
+    return (<SpecificAxis {...props} key={key}><Label value={props.label} position={this.props.orientation} angle={this.props.type === 'y' ? -90 : 0}/></SpecificAxis>);
 }
 
 function Data(props) {

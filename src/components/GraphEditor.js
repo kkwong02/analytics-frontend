@@ -9,6 +9,57 @@ import { connect } from 'react-redux';
 import {Plotter} from '../toolFactories/GraphFactory';
 
 const uuidv4 = require('uuid/v4');
+const re = /('[^']+')/g;
+
+class PlotterFrame extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            xAxis: '',
+            yAxis: ''
+        };
+
+        this.onChangeHandler = this.onChangeHandler.bind(this);
+    }
+
+    onChangeHandler(e) {
+        this.setState({[e.target.name]: e.target.value});
+    }
+
+    componentDidUpdate(){
+        let x = this.state.xAxis.match(re);
+        let y = this.state.yAxis.match(re);
+
+        if (x&&y) {
+            console.log('send');
+        }
+    }
+
+    render() {
+        return (
+            <Row>
+                <Col>
+                    <Card>
+                        <CardHeader>Plot </CardHeader>
+                        <CardBody>
+                            <Form>
+                                <FormGroup>
+                                    <Label>X-Axis</Label>
+                                    <Input onChange={this.onChangeHandler} name="xAxis" value={this.state.x}/>
+                                </FormGroup>
+                                <FormGroup>
+                                    <Label>Y-Axis</Label>
+                                    <Input onChange={this.onChangeHandler} name="yAxis" value={this.state.y}/>
+                                </FormGroup>
+                            </Form>
+                        </CardBody>
+                    </Card>
+                </Col>
+            </Row>
+        );
+    }
+}
 
 // hard coding a scatter plot maker in because... i hate life right now.
 class GraphEditor extends Component {
@@ -39,25 +90,7 @@ class GraphEditor extends Component {
     renderPlotters() {
         return this.props.buffer.tool.plotters.map(plotter => {
             return (
-                <Row key={plotter.id}>
-                    <Col>
-                        <Card>
-                            <CardHeader>Plot </CardHeader>
-                            <CardBody>
-                                <Form>
-                                    <FormGroup>
-                                        <Label>X-Axis</Label>
-                                        <Input name="x-axis" value={''}/>
-                                    </FormGroup>
-                                    <FormGroup>
-                                        <Label>Y-Axis</Label>
-                                        <Input name="y=axis" value={''}/>
-                                    </FormGroup>
-                                </Form>
-                            </CardBody>
-                        </Card>
-                    </Col>
-                </Row>
+                <PlotterFrame key={plotter.id} {...plotter}/>
             );
         });
     }
