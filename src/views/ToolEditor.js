@@ -16,9 +16,10 @@ class ToolEditor extends Component {
         super(props);
 
         this.state = {
-            select_experiments: false
+            select_experiments: false,
         };
         this.toggleExperimentSelector = this.toggleExperimentSelector.bind(this);
+        this.buffer_reset = this.buffer_reset.bind(this);
     }
 
     toggleExperimentSelector () {
@@ -34,7 +35,7 @@ class ToolEditor extends Component {
             this.close.bind(this)();
         }
         else {
-            this.buffer_reset.bind(this)();
+            this.buffer_reset();
         }
         if (this.props.match.params[0] === 'new') {
             this.setState({select_experiments: true});
@@ -82,6 +83,6 @@ class ToolEditor extends Component {
 
 const mapStateToProps = state => ({
     tools: state.tools.tools_list
-})
+});
 
 export default connect(mapStateToProps, {buffer_update, buffer_clear})(ToolEditor);

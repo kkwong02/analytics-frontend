@@ -16,6 +16,7 @@ import {
 import {connect} from 'react-redux';
 import {join_session} from '../actions/sessionActions';
 
+
 class SessionCreateModal extends Component {
     constructor(props) {
         super(props)

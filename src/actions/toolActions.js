@@ -20,7 +20,6 @@ export function add_tool(tool, id) {
             tool: tool,
             isOpen: true,
             experiments: [],
-            edit: false
         },
         meta: {
             id: id

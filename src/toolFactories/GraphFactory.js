@@ -9,6 +9,12 @@ export const BOTTOM = 'bottom' ;
 export const LEFT = 'left';
 export const RIGHT = 'right';
 
+// from https://stackoverflow.com/questions/1484506/random-color-generator
+// 2018/05/20
+const getRandomColor = () => {
+    return '#' + Math.random().toString(16).substr(-6);
+};
+
 export class DataProps {
     constructor(type, dataKey, expId, name, xAxisId=0, yAxisId=0) {
         this.type = type;
@@ -25,21 +31,21 @@ export class DataProps {
 
     line() {
         this.dot = true;
-        this.stroke = 'black';
+        this.stroke = getRandomColor();
         this.line = false;
-        this.lineType = 'joint'
+        this.lineType = 'joint';
     }
 
     scatter() {
         this.line = false;
         this.shape = null;
-        this.fill = 'black';
+        this.fill = getRandomColor();
     }
 
     bar() {
         this.barSize = null;
         this.barGap = 4;
-        this.fill = 'black';
+        this.fill = getRandomColor;
     }
 }
 
@@ -59,6 +65,7 @@ export class AxisProps {
         this.interval = 'preserveEnd';
         this.label = '';
         this.dataKey = dataKey;
+        this.expression = ''; // the expression is used when fetching data.
         if (type === X){
             this.xAxisId = uuid();
         }
@@ -66,22 +73,16 @@ export class AxisProps {
             this.yAxisId = uuid();
         }
     }
-};
+}
 
-export class PlotProps {
-    /**
-     * Object used to generate the data objects.
-     * @param {string} XAxis - uuid of XAxis
-     * @param {string} yAxis  - uuid of YAxis
-     * @param {Object} vars - variables with fn mapping
-     */
-    constructor(XAxis, YAxis, vars) {
-        this.XAxisId = XAxis;
-        this.YAxisId = YAxis;
-        this.vars = vars;
-        this.data = []
+export class Plotter {
+    constructor (x, y, items=[]) {
+        this.id = uuid();
+        this.x = x;
+        this.y = y;
+        this.items = items;  // ids of all items that are created by the plotter.
     }
-};
+}
 
 export class GraphProps {
     constructor(type) {
@@ -89,28 +90,19 @@ export class GraphProps {
         this.axes = [];
         this.legend = null;
         this.referenceLines = [];
-        this.plots = [];
+        this.plotAttrs = [];
         this.data = [];
         this.errorBars = null;
         this.layout = HORIZONTAL;
-        this.PlotProps = [];
+        this.plotters = []; // list of plotter objects. used to generate the UI
     }
 }
 
 /**
- * Factory class for generating a graph using server response
+ * Object used to handle response
  */
-export class ResponseGraphFactory {
-    /**
-     * Graph object constructor
-     * @param {Object} tool - the entire tool object.
-     * @param {array} responseData - "data" in the response payload.
-     * @param {array} experiments - a list of experiments objects (with name)
-     */
-    constructor(tool, responseData, experiments) {
-        tool.tool.PlotProps.forEach(plot => {
-            // get the related dataProps object by id
-            // update the .data property
-        });
+export class GraphResponseHandler {
+    constructor() {
+
     }
 }

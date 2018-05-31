@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React, { PureComponent } from 'react';
 import {
     ResponsiveContainer,
     CartesianGrid,
@@ -15,37 +15,35 @@ import {
     Line,
     Bar,
     ComposedChart
-} from "recharts";
-
+} from 'recharts';
 
 const graphTypes = {
-        scatter: ScatterChart,
-        line: LineChart,
-        bar: BarChart,
-        composed: ComposedChart
-}
+    scatter: ScatterChart,
+    line: LineChart,
+    bar: BarChart,
+    composed: ComposedChart
+};
 
 const graphContents = {
     scatter: Scatter,
     line: Line,
     bar: Bar
-}
+};
 
 const axisTypes = {
     x: XAxis,
     y: YAxis,
     z: ZAxis
-}
-
+};
 
 function Axis(props, key) {
-    const SpecificAxis = axisTypes[props.axisType]
-    return <SpecificAxis {...props} key={key}/>
+    const SpecificAxis = axisTypes[props.axisType];
+    return <SpecificAxis {...props} key={key}/>;
 }
 
 function Data(props) {
-    const SpecificItem = graphContents[props.type]
-    return <SpecificItem {...props}/>
+    const SpecificItem = graphContents[props.type];
+    return <SpecificItem {...props}/>;
 }
 
 class Plot extends PureComponent {
@@ -81,15 +79,15 @@ class Plot extends PureComponent {
         return (
             <ResponsiveContainer minHeight={300} width='100%' aspect={2}>
                 <Graph graphType={this.props.graphType} data={this.props.data}>
-                { this.renderAxes() }
-                { this.renderLegend() }
-                { this.renderData() }
-                { this.renderRefLine() }
-                <Tooltip />
-                <CartesianGrid />
+                    { this.renderAxes() }
+                    { this.renderLegend() }
+                    { this.renderData() }
+                    { this.renderRefLine() }
+                    <Tooltip />
+                    <CartesianGrid />
                 </Graph>
             </ResponsiveContainer>
-        )
+        );
     }
 }
 
