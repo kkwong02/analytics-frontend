@@ -17,8 +17,10 @@ class PlotterFrame extends Component {
         super(props);
 
         this.state = {
-            xAxis: '',
-            yAxis: ''
+            xAxisId: null,
+            yAxisId: null,
+            xVal: '',
+            yVal: '',
         };
 
         this.onChangeHandler = this.onChangeHandler.bind(this);
@@ -29,12 +31,12 @@ class PlotterFrame extends Component {
     }
 
     componentDidUpdate(){
-        let x = this.state.xAxis.match(re);
-        let y = this.state.yAxis.match(re);
+        let x = this.state.xVal.match(re);
+        let y = this.state.yVal.match(re);
 
         if (x&&y) {
             console.log('send');
-            this.props.fetchData([this.state.xAxis, this.state.yAxis], this.props.plotter);
+            this.props.fetchData([this.state.xVal, this.state.yVal], this.props.plotter);
         }
     }
 
@@ -49,10 +51,12 @@ class PlotterFrame extends Component {
                                 <FormGroup>
                                     <Label>X-Axis</Label>
                                     <Input onChange={this.onChangeHandler} name="xAxis" value={this.state.x}/>
+                                    <Input type="select" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>Y-Axis</Label>
                                     <Input onChange={this.onChangeHandler} name="yAxis" value={this.state.y}/>
+                                    <Input type="select"/>
                                 </FormGroup>
                             </Form>
                         </CardBody>
@@ -145,7 +149,6 @@ class GraphEditor extends Component {
 GraphEditor.propTypes = {
     fetch_data: PropTypes.func.isRequired,
     add_request: PropTypes.func.isRequired,
-    buffer: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
