@@ -34,6 +34,7 @@ class PlotterFrame extends Component {
 
         if (x&&y) {
             console.log('send');
+            this.props.fetchData([this.state.xAxis, this.state.yAxis], this.props.plotter);
         }
     }
 
@@ -79,8 +80,8 @@ class GraphEditor extends Component {
         let axis = new AxisProps(type);
         this.props.buffer_update({
             tool: {
-                ...this.props.buffer.tool,
-                axes: [...this.props.buffer.tool.axes, axis]
+                ...this.props.tool,
+                axes: [...this.props.tool.axes, axis]
             }
         });
     }
@@ -88,39 +89,26 @@ class GraphEditor extends Component {
     fetchData(request, plotter) {
         let uuid = uuidv4();
         this.props.add_request(uuid, plotter);
-        this.props.fetch_data(uuid, ...request);
+        this.props.fetch_data(uuid, this.props.experiments, request);
     }
 
     newPlotter(){
         this.props.buffer_update({
             tool: {
-                ...this.props.buffer.tool,
-                plotters: [...this.props.buffer.tool.plotters, new Plotter()]
+                ...this.props.tool,
+                plotters: [...this.props.tool.plotters, new Plotter()]
             }
         });
     }
 
     handleData(request_id) {
-        let request = this.props.buffer.request[request_id];
-        let objs = this.props.buffer.experiments.map(exp => {
-            let data;
-            if (request.plotter.objects.hasOwnProperty(exp)) {
-                data = {...this.buffer.tool.data[request.plotter.objects[exp]]};
-                data.data = this.buffer.responses[request_id].filter(item => item.experiment === exp)[0];
-                return data;
-            }
-            else {
-                data = new DataProps(this.props.buffer.tool.type, '', request.plotter.xAxis, request.plotter.yAxis);
-            }
-        });
-        this.props.buffer_update(objs);
 
     }
 
     renderPlotters() {
-        return this.props.buffer.tool.plotters.map(plotter => {
+        return this.props.tool.plotters.map(plotter => {
             return (
-                <PlotterFrame key={plotter.id} {...plotter}/>
+                <PlotterFrame key={plotter.id} plotter={plotter} fetchData={this.fetchData}/>
             );
         });
     }
@@ -135,8 +123,8 @@ class GraphEditor extends Component {
                             <CardBody>
                                 {/* if statement here because this will render before
                                 parent's componentdidmount updates the buffer */}
-                                { this.props.buffer.tool_id &&
-                                    <Plot {...this.props.buffer.tool}/>
+                                { this.props.tool_id &&
+                                    <Plot {...this.props.tool}/>
                                 }
                             </CardBody>
                         </Card>
@@ -148,7 +136,7 @@ class GraphEditor extends Component {
                         <Button onClick={this.newPlotter}>New</Button>
                     </Col>
                 </Row>
-                { this.props.buffer.tool_id && this.renderPlotters() }
+                { this.props.tool_id && this.renderPlotters() }
             </React.Fragment>
         );
     }
@@ -161,7 +149,10 @@ GraphEditor.propTypes = {
 };
 
 const mapStateToProps = state => ({
-    buffer: state.buffer
+    experiments: state.buffer.experiments,
+    tool: state.buffer.tool,
+    tool_id: state.buffer.tool_id,
+    experiments_list: state.buffer.experiments_list
 });
 
 export default connect(mapStateToProps, {fetch_data, add_request, buffer_update})(GraphEditor);
