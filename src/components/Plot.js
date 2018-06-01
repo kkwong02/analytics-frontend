@@ -59,12 +59,12 @@ class Plot extends PureComponent {
      */
     renderLegend() {
         if (this.props.data.length > 1 && !this.props.legend.hidden){
-            return ( <Legend {...this.props.legend} /> )
+            return ( <Legend {...this.props.legend} /> );
         }
     }
 
     renderData() {
-        let data = this.props.data.map((item, i) => <Data key={i} {...item} />);
+        let data = Object.keys(this.props.data).map(key => <Data key={key} {...this.props.data[key]} />);
         return data;
     }
 

@@ -20,7 +20,8 @@
     "uuid": "^3.2.1",
     "babel-polyfill": "6.26.0",
     "recharts": "^1.0.0-beta.10",
-    "react-router-dom": "^4.2.2"
+    "react-router-dom": "^4.2.2",
+    "react-select": "^1.2.1"
   },
   "devDependencies": {
     "babel-jest": "^22.4.3",

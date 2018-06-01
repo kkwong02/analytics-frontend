@@ -21,17 +21,16 @@ export function buffer_update(content) {
  * @param {string|number} tool_id - id of the tool itself.
  * @param {number} tool_index - index of the tool in state
  */
-export function add_request(uuid, tool_id, request) {
+export function add_request(uuid, plotter) {
     return ({
         type: ADD_REQUEST,
         payload: {
-            id: tool_id,
-            request: request,
+            plotter: plotter
         },
         meta: {
             uuid: uuid
         }
-    })
+    });
 }
 
 /**

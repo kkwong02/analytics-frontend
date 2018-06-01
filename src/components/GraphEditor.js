@@ -6,7 +6,8 @@ import { Row, Col, Button, Card, CardBody, CardHeader, Form, FormGroup, Input, L
 import { fetch_data, add_request, buffer_update } from '../actions/bufferActions';
 import { connect } from 'react-redux';
 
-import {Plotter} from '../toolFactories/GraphFactory';
+import {Plotter, AxisProps, DataProps} from '../toolFactories/GraphFactory';
+import Select from 'react-select';
 
 const uuidv4 = require('uuid/v4');
 const re = /('[^']+')/g;
@@ -67,24 +68,53 @@ class GraphEditor extends Component {
         super(props);
 
         this.fetchData = this.fetchData.bind(this);
-        this.newPlot = this.newPlot.bind(this);
+        this.newPlotter = this.newPlotter.bind(this);
 
         this.state = {
 
         };
     }
 
-    fetchData(e) {
-        e.preventDefault();
+    createAxis(type) {
+        let axis = new AxisProps(type);
+        this.props.buffer_update({
+            tool: {
+                ...this.props.buffer.tool,
+                axes: [...this.props.buffer.tool.axes, axis]
+            }
+        });
     }
 
-    newPlot(){
+    fetchData(request, plotter) {
+        let uuid = uuidv4();
+        this.props.add_request(uuid, plotter);
+        this.props.fetch_data(uuid, ...request);
+    }
+
+    newPlotter(){
         this.props.buffer_update({
             tool: {
                 ...this.props.buffer.tool,
                 plotters: [...this.props.buffer.tool.plotters, new Plotter()]
             }
         });
+    }
+
+    handleData(request_id) {
+        let request = this.props.buffer.request[request_id];
+        let objs = this.props.buffer.experiments.map(exp => {
+            let data;
+            if (request.plotter.objects.hasOwnProperty(exp)) {
+                data = {...this.buffer.tool.data[request.plotter.objects[exp]]};
+                data.data = this.buffer.responses[request_id].filter(item => item.experiment === exp)[0];
+                return data;
+            }
+            else {
+                data = new DataProps(this.props.buffer.tool.type, '', request.plotter.xAxis, request.plotter.yAxis);
+            }
+        });
+        this.props.buffer_update(objs);
+
     }
 
     renderPlotters() {
@@ -115,7 +145,7 @@ class GraphEditor extends Component {
                 <Row>
                     <Col>
                         <h3>Plot Data</h3>
-                        <Button onClick={this.newPlot}>New</Button>
+                        <Button onClick={this.newPlotter}>New</Button>
                     </Col>
                 </Row>
                 { this.props.buffer.tool_id && this.renderPlotters() }

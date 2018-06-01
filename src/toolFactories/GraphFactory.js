@@ -16,15 +16,13 @@ const getRandomColor = () => {
 };
 
 export class DataProps {
-    constructor(type, dataKey, expId, name, xAxisId=0, yAxisId=0) {
+    constructor(type, name, xAxisId=0, yAxisId=0) {
         this.type = type;
         this.data = [];
-        this.dataKey = dataKey;
         this.xAxisId = xAxisId;
         this.yAxisId = yAxisId;
         this.layout = null;
         this.name = name;
-        this.experiment = expId;
 
         this[type]();
     }
@@ -57,14 +55,14 @@ export class LegendProps {
 }
 
 export class AxisProps {
-    constructor(type, dataKey) {
+    constructor(type) {
         this.axisType = type;
         this.orientation = type === X ? BOTTOM : LEFT;
         this.type = 'category';
         this.tickCount = 5;
         this.interval = 'preserveEnd';
         this.label = '';
-        this.dataKey = dataKey;
+        this.dataKey = type === X ? 'f1': 'f2' ;
         this.expression = ''; // the expression is used when fetching data.
         if (type === X){
             this.xAxisId = uuid();
@@ -80,10 +78,10 @@ export class AxisProps {
  * what generates what unless we're going to sort them all on render, which is a waste)
  */
 export class Plotter {
-    constructor (x, y, items=[]) {
+    constructor (x, y, items={}) {
         this.id = uuid();
-        this.x = x;
-        this.y = y;
+        this.xAxis = x;
+        this.yAxis = y;
         this.items = items;  // ids of all items that are created by the plotter.
     }
 }
@@ -95,7 +93,7 @@ export class GraphProps {
         this.legend = null;
         this.referenceLines = [];
         this.plotAttrs = [];
-        this.data = [];
+        this.data = {};
         this.errorBars = null;
         this.layout = HORIZONTAL;
         this.plotters = []; // list of plotter objects. used to generate the UI

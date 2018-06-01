@@ -23,9 +23,7 @@ export default function buffer(state=initialState, action){
             ...state,
             requests: {
                 ...state.requests,
-                [action.meta.uuid]: {
-                    ...action.payload
-                }
+                [action.meta.uuid]: action.payload.plotter
             }
         };
 
