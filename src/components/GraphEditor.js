@@ -9,21 +9,73 @@ import { connect } from 'react-redux';
 import {Plotter, AxisProps, DataProps} from '../toolFactories/GraphFactory';
 import Select from 'react-select';
 
-const uuidv4 = require('uuid/v4');
-const re = /('[^']+')/g;
+import 'react-select/dist/react-select.css';
 
+const uuidv4 = require('uuid/v4');
+const re = /('[^']+')/g; // FIXME: change to check for all valid expressions.
+
+class AxisSelect extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            options: [],
+        };
+
+        this.createAxis = this.createAxis.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    static getDerivedStateFromProps(props) {
+        return {options: props.axes.map(axis => ({
+            value: axis.yAxisId || axis.xAxisId ,
+            label: axis.name
+        }))};
+    }
+
+    handleChange(selectedOption) {
+        this.props.selectAxis(selectedOption, this.props.type);
+    }
+
+    createAxis(option){
+        this.props.createAxis(this.props.type, option.label);
+    }
+
+    render() {
+        return (
+            <Select.Creatable
+                placeholder='Select axis'
+
+                onNewOptionClick={this.createAxis}
+                promptTextCreator = {
+                    label => {
+                        return (`Create new axis "${label}"`);
+                    }
+                }
+                options={this.state.options}
+                required
+                value={this.props.value}
+                onChange={this.handleChange}
+            />
+        );
+    }
+}
 class PlotterFrame extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            xAxisId: null,
-            yAxisId: null,
-            xVal: '',
-            yVal: '',
+            xVal: '', // expression[0] in request
+            yVal: '', // expression[1] in request
         };
 
         this.onChangeHandler = this.onChangeHandler.bind(this);
+        this.selectAxis = this.selectAxis.bind(this);
+    }
+    selectAxis(selectedOption, axis) {
+        this.props.setPlotter(this.props.plotter.id, {
+            [`${axis}Axis`]: selectedOption? selectedOption.value: null
+        });
     }
 
     onChangeHandler(e) {
@@ -48,15 +100,39 @@ class PlotterFrame extends Component {
                         <CardHeader>Plot </CardHeader>
                         <CardBody>
                             <Form>
-                                <FormGroup>
+                                <FormGroup row>
                                     <Label>X-Axis</Label>
-                                    <Input onChange={this.onChangeHandler} name="xAxis" value={this.state.x}/>
-                                    <Input type="select" />
+                                    <Col>
+                                        <Input onChange={this.onChangeHandler} name="xAxis" value={this.state.x}/>
+                                    </Col>
+                                    <Col sm={3}>
+                                        <AxisSelect
+                                            axes={this.props.axes.filter(axis => axis.axisType === 'x')}
+                                            type='x'
+                                            createAxis={this.props.createAxis}
+                                            setPlotter={this.props.setPlotter}
+                                            selectAxis={this.selectAxis}
+                                            value={this.props.plotter.xAxis}
+                                        />
+                                    </Col>
                                 </FormGroup>
-                                <FormGroup>
+                                <FormGroup row>
                                     <Label>Y-Axis</Label>
-                                    <Input onChange={this.onChangeHandler} name="yAxis" value={this.state.y}/>
-                                    <Input type="select"/>
+                                    <Col>
+                                        <Input onChange={this.onChangeHandler} name="yAxis" value={this.state.y}/>
+                                    </Col>
+                                    <Col sm={3}>
+                                        <AxisSelect
+                                            axes = {
+                                                this.props.axes.filter(axis => axis.axisType === 'y')
+                                            }
+                                            type='y'
+                                            createAxis={this.props.createAxis}
+                                            setPlotter={this.props.setPlotter}
+                                            selectAxis={this.selectAxis}
+                                            value={this.props.plotter.yAxis}
+                                        />
+                                    </Col>
                                 </FormGroup>
                             </Form>
                         </CardBody>
@@ -74,18 +150,34 @@ class GraphEditor extends Component {
 
         this.fetchData = this.fetchData.bind(this);
         this.newPlotter = this.newPlotter.bind(this);
+        this.setPlotter= this.setPlotter.bind(this);
 
         this.state = {
 
         };
     }
 
-    createAxis(type) {
-        let axis = new AxisProps(type);
+    createAxis(type, name) {
+        let axis = new AxisProps(type, name);
         this.props.buffer_update({
             tool: {
                 ...this.props.tool,
                 axes: [...this.props.tool.axes, axis]
+            }
+        });
+    }
+
+    setPlotter(id, value) {
+        let plotter = this.props.tool.plotters.findIndex(plotter => plotter.id === id);
+
+        let newPlotters = this.props.tool.plotters.slice();
+        newPlotters[plotter] = Object.assign(newPlotters[plotter], value);
+
+
+        this.props.buffer_update({
+            tool: {
+                ...this.props.tool,
+                plotters: newPlotters
             }
         });
     }
@@ -105,14 +197,17 @@ class GraphEditor extends Component {
         });
     }
 
-    handleData(request_id) {
-
-    }
-
     renderPlotters() {
         return this.props.tool.plotters.map(plotter => {
             return (
-                <PlotterFrame key={plotter.id} plotter={plotter} fetchData={this.fetchData}/>
+                <PlotterFrame
+                    key={plotter.id}
+                    plotter={plotter}
+                    fetchData={this.fetchData}
+                    axes={this.props.tool.axes}
+                    createAxis={this.createAxis.bind(this)}
+                    setPlotter={this.setPlotter}
+                />
             );
         });
     }

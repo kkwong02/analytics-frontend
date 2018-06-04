@@ -39,7 +39,15 @@ const axisTypes = {
 
 function Axis(props, key) {
     const SpecificAxis = axisTypes[props.axisType];
-    return (<SpecificAxis {...props} key={key}><Label value={props.label} position={this.props.orientation} angle={this.props.type === 'y' ? -90 : 0}/></SpecificAxis>);
+    return (
+        <SpecificAxis {...props} key={key}>
+            <Label
+                value={props.label}
+                position={props.orientation}
+                angle={props.type === 'y' ? -90 : 0}
+            />
+        </SpecificAxis>
+    );
 }
 
 function Data(props) {

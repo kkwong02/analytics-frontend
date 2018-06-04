@@ -55,13 +55,13 @@ export class LegendProps {
 }
 
 export class AxisProps {
-    constructor(type) {
+    constructor(type, name) {
         this.axisType = type;
         this.orientation = type === X ? BOTTOM : LEFT;
         this.type = 'category';
         this.tickCount = 5;
         this.interval = 'preserveEnd';
-        this.label = '';
+        this.name = name;
         this.dataKey = type === X ? 'f1': 'f2' ;
         this.expression = ''; // the expression is used when fetching data.
         if (type === X){
@@ -78,11 +78,11 @@ export class AxisProps {
  * what generates what unless we're going to sort them all on render, which is a waste)
  */
 export class Plotter {
-    constructor (x, y, items={}) {
+    constructor () {
         this.id = uuid();
-        this.xAxis = x;
-        this.yAxis = y;
-        this.items = items;  // ids of all items that are created by the plotter.
+        this.xAxis = null;
+        this.yAxis = null;
+        this.items = [];  // ids of all items that are created by the plotter.
     }
 }
 
