@@ -51,13 +51,10 @@ export default function buffer(state=initialState, action){
         let plotter = {...state.tool.plotters[plotterIndex]};
 
         let data = state.tool.data.slice();
-        console.log(data);
         action.payload.data.forEach(exp => {
-            // let obj = data.find(item => item.id === plotter.items[exp.experiment]);
-            let obj;
-            console.log(obj);
+            let obj = data.find(item => item.id === plotter.items[exp.experiment]);
+
             if (obj) {
-                console.log("this actually does something");
                 obj.data = exp.data;
             }
             else {
@@ -87,12 +84,11 @@ export default function buffer(state=initialState, action){
         };
     }
 
-    case 'SERVER/' + FETCH_EXPERIMENTS:
-
+    case 'SERVER/' + FETCH_EXPERIMENTS:{
         return {
             ...state,
             experiments_list: action.payload
-        };
+        };}
 
 
     default:
