@@ -48,13 +48,16 @@ export default function buffer(state=initialState, action){
         }
         let plotterIndex = state.tool.plotters.findIndex(item => item.id === state.requests[action.meta.uuid]);
 
-        let plotter = Object.assign({}, state.tool.plotters[plotterIndex]);
-        console.log(state.requests[action.meta.uuid]);
+        let plotter = {...state.tool.plotters[plotterIndex]};
 
         let data = state.tool.data.slice();
+        console.log(data);
         action.payload.data.forEach(exp => {
-            let obj = data[plotter.items[exp.experiment]];
+            // let obj = data.find(item => item.id === plotter.items[exp.experiment]);
+            let obj;
+            console.log(obj);
             if (obj) {
+                console.log("this actually does something");
                 obj.data = exp.data;
             }
             else {
@@ -65,7 +68,7 @@ export default function buffer(state=initialState, action){
                     plotter.xAxis,
                     plotter.yAxis
                 );
-                // plotter.items[exp.experiment] = obj.id;
+                plotter.items[exp.experiment] = obj.id;
 
                 data.push(obj);
             }
@@ -84,11 +87,13 @@ export default function buffer(state=initialState, action){
         };
     }
 
-    case 'SERVER/' + FETCH_EXPERIMENTS:{
+    case 'SERVER/' + FETCH_EXPERIMENTS:
+
         return {
             ...state,
             experiments_list: action.payload
-        };}
+        };
+
 
     default:
         return state;

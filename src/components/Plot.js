@@ -93,7 +93,7 @@ class Plot extends PureComponent {
                     {/* { this.renderAxes() } */}
                     {/* { this.renderLegend() } */}
                     <XAxis dataKey="f1" type="category"/>
-                    <YAxis type="number"/>
+                    <YAxis dataKey="f2" type="number"/>
                     { this.renderData() }
                     {/* { this.renderRefLine() } */}
                     <Tooltip />
