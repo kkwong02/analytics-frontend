@@ -50,15 +50,17 @@ function Axis(props, key) {
     );
 }
 
-function Data(props) {
-    const SpecificItem = graphContents[props.type];
-    return <SpecificItem {...props}/>;
-}
-
 class Plot extends PureComponent {
 
     renderAxes() {
-        let axes = this.props.axes.map((axis, i) => Axis(axis, i));
+        let axes = this.props.axes.map((axis) => {
+            if (axis.axisType === 'x') {
+                return (<XAxis key={axis.xAxisId} {...axis} />);
+            }
+            else {
+                return (<YAxis key={axis.yAxisId} {...axis}/>);
+            }
+        });
         return axes;
     }
     /**
@@ -72,7 +74,7 @@ class Plot extends PureComponent {
     }
 
     renderData() {
-        let data = Object.keys(this.props.data).map(key => <Data key={key} {...this.props.data[key]} />);
+        let data = this.props.data.map(plot => <Scatter key={plot.id} {...plot}/>);
         return data;
     }
 
@@ -88,10 +90,12 @@ class Plot extends PureComponent {
         return (
             <ResponsiveContainer minHeight={300} width='100%' aspect={2}>
                 <Graph graphType={this.props.graphType}>
-                    { this.renderAxes() }
-                    { this.renderLegend() }
+                    {/* { this.renderAxes() } */}
+                    {/* { this.renderLegend() } */}
+                    <XAxis dataKey="f1" type="category"/>
+                    <YAxis type="number"/>
                     { this.renderData() }
-                    { this.renderRefLine() }
+                    {/* { this.renderRefLine() } */}
                     <Tooltip />
                     <CartesianGrid />
                 </Graph>

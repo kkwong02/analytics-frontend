@@ -16,11 +16,13 @@ const getRandomColor = () => {
 };
 
 export class DataProps {
-    constructor(type, name, xAxisId=0, yAxisId=0) {
+    constructor(type, name, data, xAxisId=0, yAxisId=0) {
+        this.id = uuid();
         this.type = type;
-        this.data = [];
-        this.xAxisId = xAxisId;
-        this.yAxisId = yAxisId;
+        this.data = data;
+        // this.xAxisId = xAxisId;
+        // this.yAxisId = yAxisId;
+        this.dataKey="f2";
         this.layout = null;
         this.name = name;
 
@@ -63,7 +65,6 @@ export class AxisProps {
         this.interval = 'preserveEnd';
         this.name = name;
         this.dataKey = type === X ? 'f1': 'f2' ;
-        this.expression = ''; // the expression is used when fetching data.
         if (type === X){
             this.xAxisId = uuid();
         }
@@ -82,7 +83,7 @@ export class Plotter {
         this.id = uuid();
         this.xAxis = null;
         this.yAxis = null;
-        this.items = [];  // ids of all items that are created by the plotter.
+        this.items = {};  // experiment_id: plot_id
     }
 }
 
@@ -93,7 +94,7 @@ export class GraphProps {
         this.legend = null;
         this.referenceLines = [];
         this.plotAttrs = [];
-        this.data = {};
+        this.data = [];
         this.errorBars = null;
         this.layout = HORIZONTAL;
         this.plotters = []; // list of plotter objects. used to generate the UI

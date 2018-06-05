@@ -65,12 +65,13 @@ class PlotterFrame extends Component {
         super(props);
 
         this.state = {
-            xVal: '', // expression[0] in request
-            yVal: '', // expression[1] in request
+            xAxis: '', // expression[0] in request
+            yAxis: '', // expression[1] in request
         };
 
         this.onChangeHandler = this.onChangeHandler.bind(this);
         this.selectAxis = this.selectAxis.bind(this);
+        this.plot = this.plot.bind(this);
     }
     selectAxis(selectedOption, axis) {
         this.props.setPlotter(this.props.plotter.id, {
@@ -82,14 +83,9 @@ class PlotterFrame extends Component {
         this.setState({[e.target.name]: e.target.value});
     }
 
-    componentDidUpdate(){
-        let x = this.state.xVal.match(re);
-        let y = this.state.yVal.match(re);
-
-        if (x&&y) {
-            console.log('send');
-            this.props.fetchData([this.state.xVal, this.state.yVal], this.props.plotter);
-        }
+    plot(e) {
+        e.preventDefault();
+        this.props.fetchData([this.state.xAxis, this.state.yAxis], this.props.plotter.id);
     }
 
     render() {
@@ -99,7 +95,7 @@ class PlotterFrame extends Component {
                     <Card>
                         <CardHeader>Plot </CardHeader>
                         <CardBody>
-                            <Form>
+                            <Form onSubmit={this.plot}>
                                 <FormGroup row>
                                     <Label>X-Axis</Label>
                                     <Col>
@@ -134,6 +130,7 @@ class PlotterFrame extends Component {
                                         />
                                     </Col>
                                 </FormGroup>
+                                <Button>Plot</Button>
                             </Form>
                         </CardBody>
                     </Card>
