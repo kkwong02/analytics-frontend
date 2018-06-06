@@ -92,8 +92,8 @@ class Plot extends PureComponent {
                 <Graph graphType={this.props.graphType}>
                     {/* { this.renderAxes() } */}
                     {/* { this.renderLegend() } */}
-                    <XAxis dataKey="f1" type="category"/>
-                    <YAxis dataKey="f2" type="number"/>
+                    <XAxis dataKey={'f1'} type={'category'}/>
+                    <YAxis dataKey={'f2'} type={'number'}/>
                     { this.renderData() }
                     {/* { this.renderRefLine() } */}
                     <Tooltip />

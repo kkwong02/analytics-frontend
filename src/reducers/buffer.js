@@ -52,16 +52,25 @@ export default function buffer(state=initialState, action){
 
         let data = state.tool.data.slice();
         action.payload.data.forEach(exp => {
+            let response_data = exp.data.map(item => {
+                let cast = {};
+                Object.keys(item).forEach(key => {
+                    // can't use || because 0 is falsey
+                    cast[key] = typeof (Number(item[key])) === 'number' ? Number(item[key]) : item[key];
+                });
+                return cast;
+            });
+
             let obj = data.find(item => item.id === plotter.items[exp.experiment]);
 
             if (obj) {
-                obj.data = exp.data;
+                obj.data = response_data;
             }
             else {
                 obj = new DataProps(
                     state.tool.graphType,
                     state.experiments_list.filter(item => item.id === exp.experiment)[0].friendly_name,
-                    exp.data,
+                    response_data,
                     plotter.xAxis,
                     plotter.yAxis
                 );

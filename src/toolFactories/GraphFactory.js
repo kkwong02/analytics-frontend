@@ -16,17 +16,16 @@ const getRandomColor = () => {
 };
 
 export class DataProps {
-    constructor(type, name, data, xAxisId=0, yAxisId=0) {
+    constructor(plotType, name, data, xAxisId=0, yAxisId=0) {
         this.id = uuid();
-        this.type = type;
+        this.plotType = plotType;
         this.data = data;
         // this.xAxisId = xAxisId;
         // this.yAxisId = yAxisId;
-        this.dataKey="f2";
         this.layout = null;
         this.name = name;
 
-        this[type]();
+        this[plotType]();
     }
 
     line() {
