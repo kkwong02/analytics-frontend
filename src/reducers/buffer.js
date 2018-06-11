@@ -56,7 +56,7 @@ export default function buffer(state=initialState, action){
                 let cast = {};
                 Object.keys(item).forEach(key => {
                     // can't use || because 0 is falsey
-                    cast[key] = typeof (Number(item[key])) === 'number' ? Number(item[key]) : item[key];
+                    cast[key] = isNaN(Number(item[key])) ? item[key] : Number(item[key]);
                 });
                 return cast;
             });

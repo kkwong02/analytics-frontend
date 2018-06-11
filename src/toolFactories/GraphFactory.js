@@ -20,8 +20,8 @@ export class DataProps {
         this.id = uuid();
         this.plotType = plotType;
         this.data = data;
-        // this.xAxisId = xAxisId;
-        // this.yAxisId = yAxisId;
+        this.xAxisId = xAxisId;
+        this.yAxisId = yAxisId;
         this.layout = null;
         this.name = name;
 

@@ -74,7 +74,7 @@ class Plot extends PureComponent {
     }
 
     renderData() {
-        let data = this.props.data.map(plot => <Scatter key={plot.id} {...plot}/>);
+        let data = this.props.data.map(plot => <Scatter key={plot.id} name={plot.name} fill={plot.fill} data={plot.data}/>);
         return data;
     }
 
@@ -92,11 +92,12 @@ class Plot extends PureComponent {
                 <Graph graphType={this.props.graphType}>
                     {/* { this.renderAxes() } */}
                     {/* { this.renderLegend() } */}
-                    <XAxis dataKey={'f1'} type={'category'}/>
-                    <YAxis dataKey={'f2'} type={'number'}/>
+                    <XAxis dataKey={'f1'} name="Time [min]" type={'category'} allowDuplicatedCategory={false}/>
+                    <YAxis dataKey={'f2'} name="CFU [CFU/ml]" type={'number'}/>
                     { this.renderData() }
                     {/* { this.renderRefLine() } */}
                     <Tooltip />
+                    <Legend />
                     <CartesianGrid />
                 </Graph>
             </ResponsiveContainer>
