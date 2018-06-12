@@ -8,7 +8,6 @@ import {
 
 const initialState = {
     tools_list: new Map(),
-    requests: {},
 };
 
 export default function tools(state = initialState, action) {
@@ -65,15 +64,17 @@ export default function tools(state = initialState, action) {
             tools_list: new Map(state.tools_list).set(action.payload.id, tool)
         };
 
-    case TOOL_EDIT:
-        tool = { ...state.tools_list.get(action.payload.id)
-        };
-        tool.edit = !tool.edit;
+    case TOOL_EDIT:{
+        let tools_list = new Map(state.tools_list);
+        let tool = tools_list.get(action.meta.id);
+        tool = Object.assign(tool, action.payload);
+        tools_list.set(action.meta.id, tool);
 
         return {
             ...state,
-            tools_list: new Map(state.tools_list).set(action.payload.id, tool)
+            tools_list: tools_list
         };
+    }
 
     case 'SERVER/' + TOOL_SAVE:
     default:

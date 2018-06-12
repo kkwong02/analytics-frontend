@@ -6,6 +6,8 @@ import { Container, Row, Col, Button } from 'reactstrap';
 import { connect } from 'react-redux';
 
 import { buffer_update, buffer_clear } from '../actions/bufferActions';
+import { edit_tool } from '../actions/toolActions';
+
 
 import ExperimentSelector from '../components/ExperimentSelector';
 
@@ -20,6 +22,7 @@ class ToolEditor extends Component {
         };
         this.toggleExperimentSelector = this.toggleExperimentSelector.bind(this);
         this.buffer_reset = this.buffer_reset.bind(this);
+        this.save = this.save.bind(this);
     }
 
     toggleExperimentSelector () {
@@ -29,6 +32,12 @@ class ToolEditor extends Component {
     close() {
         this.props.history.push(this.props.prev);
     }
+
+    save() {
+        console.log(this.props.buffer);
+        this.props.edit_tool(this.props.buffer.tool_id, this.props.buffer.tool);
+    }
+
     componentDidMount() {
         let tool = this.props.tools.get(this.props.match.params.id);
         if (!tool) {
@@ -63,7 +72,8 @@ class ToolEditor extends Component {
                 <Container>
                     <Row>
                         <Col>
-                            <Button onClick={this.close.bind(this)}>close</Button>
+                            <Button onClick={this.close.bind(this)}>Cancel</Button>
+                            <Button onClick={this.save}>Save</Button>
                         </Col>
                     </Row>
                     <Row>
@@ -82,7 +92,8 @@ class ToolEditor extends Component {
 }
 
 const mapStateToProps = state => ({
-    tools: state.tools.tools_list
+    tools: state.tools.tools_list,
+    buffer: state.buffer
 });
 
-export default connect(mapStateToProps, {buffer_update, buffer_clear})(ToolEditor);
+export default connect(mapStateToProps, {buffer_update, buffer_clear, edit_tool})(ToolEditor);

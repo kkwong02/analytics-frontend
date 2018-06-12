@@ -99,7 +99,6 @@ export default function buffer(state=initialState, action){
             experiments_list: action.payload
         };}
 
-
     default:
         return state;
     }

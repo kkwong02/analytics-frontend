@@ -1,9 +1,9 @@
 import {
     TOOL_MINIMIZE,
-    TOOL_EDIT,
     TOOL_DELETE,
     TOOL_ADD,
-    TOOL_SAVE
+    TOOL_SAVE,
+    TOOL_EDIT
 } from "./types";
 import {
     send_request
@@ -37,20 +37,9 @@ export function toggle_minimize(id) {
         payload: {
             id: id
         }
-    })
+    });
 }
-/**
- * toggles the edit modal.
- * @param {number} id - id of tool
- */
-export function toggle_edit(id) {
-    return ({
-        type: TOOL_EDIT,
-        payload: {
-            id: id
-        }
-    })
-}
+
 /**
  * Deletes a tool.
  * If not saved to server, then it is just removed from state, else
@@ -64,12 +53,20 @@ export function delete_tool(id) {
             payload: {
                 id: id
             }
-        })
+        });
     } else {
         return send_request(TOOL_DELETE, {
             id: id
-        })
+        });
     }
+}
+
+export function edit_tool(id, tool) {
+    return ({
+        type: TOOL_EDIT,
+        payload: tool,
+        meta: {id: id}
+    });
 }
 
 /**

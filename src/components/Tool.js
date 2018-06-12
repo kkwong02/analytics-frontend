@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { Card, CardBody, CardHeader, Collapse } from 'reactstrap';
 import PropTypes from 'prop-types';
 
-import { toggle_minimize, toggle_edit, delete_tool } from '../actions/toolActions';
+import { toggle_minimize, delete_tool } from '../actions/toolActions';
 
 import { connect } from 'react-redux';
-import ToolEditModal from './ToolEditModal';
 
 import Plot from './Plot';
 import { buffer_clear, buffer_update } from '../actions/bufferActions';
@@ -50,7 +49,6 @@ class Tool extends Component {
                         </CardBody>
                     </Collapse>
                 </Card>
-                <ToolEditModal isOpen={this.props.edit} id={this.props.id} toggle={this.props.toggle_edit}/>
             </React.Fragment>
         );
     }
@@ -58,7 +56,6 @@ class Tool extends Component {
 
 Tool.propTypes = {
     toggle_minimize: PropTypes.func.isRequired,
-    toggle_edit: PropTypes.func.isRequired
 };
 
-export default connect(null, {toggle_minimize, toggle_edit, delete_tool, buffer_clear, buffer_update})(Tool);
+export default connect(null, {toggle_minimize, delete_tool, buffer_clear, buffer_update})(Tool);
