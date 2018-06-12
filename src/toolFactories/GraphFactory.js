@@ -80,8 +80,10 @@ export class AxisProps {
 export class Plotter {
     constructor () {
         this.id = uuid();
-        this.xAxis = null;
-        this.yAxis = null;
+        this.xAxisId = null;
+        this.yAxisId = null;
+        this.yAxisLabel = '';
+        this.xAxisLabel = '';
         this.items = {};  // experiment_id: plot_id
     }
 }

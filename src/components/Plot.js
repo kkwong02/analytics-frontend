@@ -25,34 +25,27 @@ const graphTypes = {
     composed: ComposedChart
 };
 
-const graphContents = {
-    scatter: Scatter,
-    line: Line,
-    bar: Bar
-};
-
-
 class Plot extends PureComponent {
 
     renderAxes() {
         let axes = this.props.axes.map((axis) => {
             if (axis.axisType === 'x') {
-                return (<XAxis key={axis.xAxisId} xAxisId={axis.xAxisId} type={axis.type} dataKey={axis.dataKey} allowDuplicatedCategory={false}/>);
+                return (<XAxis key={axis.xAxisId} xAxisId={axis.xAxisId} type={axis.type} dataKey={axis.dataKey} allowDuplicatedCategory={false}>
+                    <Label
+                        value={axis.name} position={axis.orientation}/>
+                </XAxis>);
             }
             else {
-                return (<YAxis key={axis.yAxisId} yAxisId={axis.yAxisId} type={'number'} dataKey={axis.dataKey}/>);
+                return (<YAxis key={axis.yAxisId} yAxisId={axis.yAxisId} type={'number'} dataKey={axis.dataKey}>
+                    <Label
+                        value={axis.name}
+                        position={axis.orientation}
+                        angle={-90}
+                    />
+                </YAxis>);
             }
         });
         return axes;
-    }
-    /**
-     * Renders legend for plot. Will by default render a legend if there are multiple
-     * things being plotted, unless expliclty hidden.
-     */
-    renderLegend() {
-        if (this.props.data.length > 1 && !this.props.legend.hidden){
-            return ( <Legend {...this.props.legend} /> );
-        }
     }
 
     renderData() {
@@ -71,15 +64,13 @@ class Plot extends PureComponent {
 
         return (
             <ResponsiveContainer minHeight={300} width='100%' aspect={2}>
-                <Graph graphType={this.props.graphType}>
+                <Graph
+                    margin={{top: 40, right: 40, bottom: 40, left: 40}}>
                     { this.renderAxes() }
-                    {/* { this.renderLegend() } */}
-                    {/* <XAxis dataKey={'f1'} name="Time [min]" type={'category'} allowDuplicatedCategory={false}/>
-                    <YAxis dataKey={'f2'} name="CFU [CFU/ml]" type={'number'}/> */}
                     { this.renderData() }
                     {/* { this.renderRefLine() } */}
                     <Tooltip />
-                    <Legend />
+                    <Legend layout='vertical' align='right' verticalAlign='middle'/>
                     <CartesianGrid />
                 </Graph>
             </ResponsiveContainer>

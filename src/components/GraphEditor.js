@@ -6,13 +6,12 @@ import { Row, Col, Button, Card, CardBody, CardHeader, Form, FormGroup, Input, L
 import { fetch_data, add_request, buffer_update } from '../actions/bufferActions';
 import { connect } from 'react-redux';
 
-import {Plotter, AxisProps, DataProps} from '../toolFactories/GraphFactory';
+import {Plotter, AxisProps} from '../toolFactories/GraphFactory';
 import Select from 'react-select';
 
 import 'react-select/dist/react-select.css';
 
 const uuidv4 = require('uuid/v4');
-const re = /('[^']+')/g; // FIXME: change to check for all valid expressions.
 
 class AxisSelect extends Component {
     constructor(props) {
@@ -64,28 +63,28 @@ class PlotterFrame extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            xAxis: '', // expression[0] in request
-            yAxis: '', // expression[1] in request
-        };
-
         this.onChangeHandler = this.onChangeHandler.bind(this);
         this.selectAxis = this.selectAxis.bind(this);
         this.plot = this.plot.bind(this);
+        this.createAxis = this.createAxis.bind(this);
     }
     selectAxis(selectedOption, axis) {
         this.props.setPlotter(this.props.plotter.id, {
-            [`${axis}Axis`]: selectedOption? selectedOption.value: null
+            [`${axis}AxisId`]: selectedOption? selectedOption.value: null
         });
     }
 
+    createAxis(axisType, axisLabel) {
+        this.props.createAxis(axisType, axisLabel, this.props.plotter.id);
+    }
+
     onChangeHandler(e) {
-        this.setState({[e.target.name]: e.target.value});
+        this.props.setPlotter(this.props.plotter.id, {[`${e.target.name}Label`]: e.target.value});
     }
 
     plot(e) {
         e.preventDefault();
-        this.props.fetchData([this.state.xAxis, this.state.yAxis], this.props.plotter.id);
+        this.props.fetchData([this.props.plotter.xAxisLabel, this.props.plotter.yAxisLabel], this.props.plotter.id);
     }
 
     render() {
@@ -99,23 +98,23 @@ class PlotterFrame extends Component {
                                 <FormGroup row>
                                     <Label>X-Axis</Label>
                                     <Col>
-                                        <Input onChange={this.onChangeHandler} name="xAxis" value={this.state.x}/>
+                                        <Input onChange={this.onChangeHandler} name="xAxis" value={this.props.plotter.xAxisLabel}/>
                                     </Col>
                                     <Col sm={3}>
                                         <AxisSelect
                                             axes={this.props.axes.filter(axis => axis.axisType === 'x')}
                                             type='x'
-                                            createAxis={this.props.createAxis}
+                                            createAxis={this.createAxis}
                                             setPlotter={this.props.setPlotter}
                                             selectAxis={this.selectAxis}
-                                            value={this.props.plotter.xAxis}
+                                            value={this.props.plotter.xAxisId}
                                         />
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>
                                     <Label>Y-Axis</Label>
                                     <Col>
-                                        <Input onChange={this.onChangeHandler} name="yAxis" value={this.state.y}/>
+                                        <Input onChange={this.onChangeHandler} name="yAxis" value={this.props.plotter.yAxisLabel}/>
                                     </Col>
                                     <Col sm={3}>
                                         <AxisSelect
@@ -123,10 +122,10 @@ class PlotterFrame extends Component {
                                                 this.props.axes.filter(axis => axis.axisType === 'y')
                                             }
                                             type='y'
-                                            createAxis={this.props.createAxis}
+                                            createAxis={this.createAxis}
                                             setPlotter={this.props.setPlotter}
                                             selectAxis={this.selectAxis}
-                                            value={this.props.plotter.yAxis}
+                                            value={this.props.plotter.yAxisId}
                                         />
                                     </Col>
                                 </FormGroup>
@@ -154,12 +153,18 @@ class GraphEditor extends Component {
         };
     }
 
-    createAxis(type, name) {
+    createAxis(type, name, plotter) {
         let axis = new AxisProps(type, name);
+        let plotters = [...this.props.tool.plotters];
+
+        let plotterId = plotters.findIndex(item => item.id === plotter);
+        plotters[plotterId][`${type}AxisId`] = axis[`${type}AxisId`];
+
         this.props.buffer_update({
             tool: {
                 ...this.props.tool,
-                axes: [...this.props.tool.axes, axis]
+                axes: [...this.props.tool.axes, axis],
+                plotters: plotters
             }
         });
     }

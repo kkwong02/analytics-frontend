@@ -69,10 +69,10 @@ export default function buffer(state=initialState, action){
             else {
                 obj = new DataProps(
                     state.tool.graphType,
-                    state.experiments_list.filter(item => item.id === exp.experiment)[0].friendly_name,
+                    `${state.experiments_list.filter(item => item.id === exp.experiment)[0].friendly_name} ${plotter.yAxisLabel.replace(/'/g, '')}`,
                     response_data,
-                    plotter.xAxis,
-                    plotter.yAxis
+                    plotter.xAxisId,
+                    plotter.yAxisId
                 );
                 plotter.items[exp.experiment] = obj.id;
 
