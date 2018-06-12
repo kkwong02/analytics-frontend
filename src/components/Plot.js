@@ -31,34 +31,16 @@ const graphContents = {
     bar: Bar
 };
 
-const axisTypes = {
-    x: XAxis,
-    y: YAxis,
-    z: ZAxis
-};
-
-function Axis(props, key) {
-    const SpecificAxis = axisTypes[props.axisType];
-    return (
-        <SpecificAxis {...props} key={key}>
-            <Label
-                value={props.label}
-                position={props.orientation}
-                angle={props.type === 'y' ? -90 : 0}
-            />
-        </SpecificAxis>
-    );
-}
 
 class Plot extends PureComponent {
 
     renderAxes() {
         let axes = this.props.axes.map((axis) => {
             if (axis.axisType === 'x') {
-                return (<XAxis key={axis.xAxisId} {...axis} />);
+                return (<XAxis key={axis.xAxisId} xAxisId={axis.xAxisId} type={axis.type} dataKey={axis.dataKey} allowDuplicatedCategory={false}/>);
             }
             else {
-                return (<YAxis key={axis.yAxisId} {...axis}/>);
+                return (<YAxis key={axis.yAxisId} yAxisId={axis.yAxisId} type={'number'} dataKey={axis.dataKey}/>);
             }
         });
         return axes;
@@ -74,7 +56,7 @@ class Plot extends PureComponent {
     }
 
     renderData() {
-        let data = this.props.data.map(plot => <Scatter key={plot.id} name={plot.name} fill={plot.fill} data={plot.data}/>);
+        let data = this.props.data.map(plot => <Scatter key={plot.id} name={plot.name} fill={plot.fill} data={plot.data} xAxisId={plot.xAxisId} yAxisId={plot.yAxisId}/>);
         return data;
     }
 
@@ -90,10 +72,10 @@ class Plot extends PureComponent {
         return (
             <ResponsiveContainer minHeight={300} width='100%' aspect={2}>
                 <Graph graphType={this.props.graphType}>
-                    {/* { this.renderAxes() } */}
+                    { this.renderAxes() }
                     {/* { this.renderLegend() } */}
-                    <XAxis dataKey={'f1'} name="Time [min]" type={'category'} allowDuplicatedCategory={false}/>
-                    <YAxis dataKey={'f2'} name="CFU [CFU/ml]" type={'number'}/>
+                    {/* <XAxis dataKey={'f1'} name="Time [min]" type={'category'} allowDuplicatedCategory={false}/>
+                    <YAxis dataKey={'f2'} name="CFU [CFU/ml]" type={'number'}/> */}
                     { this.renderData() }
                     {/* { this.renderRefLine() } */}
                     <Tooltip />
