@@ -16,14 +16,15 @@ const getRandomColor = () => {
 };
 
 export class DataProps {
-    constructor(plotType, name, data, xAxisId=0, yAxisId=0) {
+    constructor(plotType, name, data, xAxisId, yAxisId) {
         this.id = uuid();
         this.plotType = plotType;
         this.data = data;
         this.xAxisId = xAxisId;
         this.yAxisId = yAxisId;
-        this.layout = null;
+        this.layout = 'horizontal';
         this.name = name;
+        this.dataKey = 'f2';
 
         this[plotType]();
     }
@@ -37,14 +38,13 @@ export class DataProps {
 
     scatter() {
         this.line = false;
-        this.shape = null;
+        this.shape = 'circle';
         this.fill = getRandomColor();
     }
 
     bar() {
-        this.barSize = null;
-        this.barGap = 4;
-        this.fill = getRandomColor;
+        this.fill = getRandomColor();
+        this.data = undefined;
     }
 }
 

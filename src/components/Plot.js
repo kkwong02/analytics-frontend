@@ -30,13 +30,17 @@ class Plot extends PureComponent {
     renderAxes() {
         let axes = this.props.axes.map((axis) => {
             if (axis.axisType === 'x') {
-                return (<XAxis key={axis.xAxisId} xAxisId={axis.xAxisId} type={axis.type} dataKey={axis.dataKey} allowDuplicatedCategory={false}>
+                return (<XAxis key={axis.xAxisId} xAxisId={axis.xAxisId} type={axis.type} dataKey={axis.dataKey} allowDuplicatedCategory={false}
+                >
                     <Label
-                        value={axis.name} position={axis.orientation}/>
+                        value={axis.name}
+                        position={axis.orientation}
+                    />
                 </XAxis>);
             }
             else {
-                return (<YAxis key={axis.yAxisId} yAxisId={axis.yAxisId} type={'number'} dataKey={axis.dataKey}>
+                return (<YAxis key={axis.yAxisId} yAxisId={axis.yAxisId} type={'number'} dataKey={axis.dataKey}
+                >
                     <Label
                         value={axis.name}
                         position={axis.orientation}
@@ -49,7 +53,18 @@ class Plot extends PureComponent {
     }
 
     renderData() {
-        let data = this.props.data.map(plot => <Scatter key={plot.id} name={plot.name} fill={plot.fill} data={plot.data} xAxisId={plot.xAxisId} yAxisId={plot.yAxisId}/>);
+        let data = this.props.data.map(plot => {
+
+            switch (plot.plotType) {
+            case 'scatter':
+                return (
+                    <Scatter key={plot.id} {...plot} />);
+            case 'bar':
+                return (<Bar key={plot.id} {...plot}/>);
+            case 'line':
+                return (<Line key={plot.id} {...plot} />);
+            }
+        });
         return data;
     }
 
@@ -57,6 +72,9 @@ class Plot extends PureComponent {
         if (this.props.referenceLine) {
             return (<ReferenceLine />);
         }
+    }
+    legendClick(e) {
+        console.log(e);
     }
 
     render() {
@@ -70,7 +88,13 @@ class Plot extends PureComponent {
                     { this.renderData() }
                     {/* { this.renderRefLine() } */}
                     <Tooltip />
-                    <Legend layout='vertical' align='right' verticalAlign='middle'/>
+                    <Legend
+                        layout='vertical' align='right' verticalAlign='middle'
+                        wrapperStyle={{
+                            paddingLeft: '20px'
+                        }}
+                        onClick={this.legendClick}
+                    />
                     <CartesianGrid />
                 </Graph>
             </ResponsiveContainer>
