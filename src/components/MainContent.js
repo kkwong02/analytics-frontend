@@ -19,21 +19,21 @@ class MainContent extends Component {
     render_tools(){
         return Array.from(this.props.tools_list).map(([key, value]) => {
             return (
-            <Row key={key}>
-                <Col>
-                     <ToolWithRouter id={key} {...value} location={this.props.match.url}/>
-                </Col>
-            </Row>)
-        })
+                <Row key={key}>
+                    <Col>
+                        <ToolWithRouter id={key} {...value} location={this.props.match.url}/>
+                    </Col>
+                </Row>);
+        });
     }
 
     render() {
         return (
             <React.Fragment>
                 <Toolbox from={this.props.location.pathname}/>
-                    <Container>
+                <Container>
                     {this.render_tools()}
-                    </Container>
+                </Container>
             </React.Fragment>
         );
     }

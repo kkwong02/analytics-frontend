@@ -34,8 +34,8 @@ class ToolEditor extends Component {
     }
 
     save() {
-        console.log(this.props.buffer);
         this.props.edit_tool(this.props.buffer.tool_id, this.props.buffer.tool);
+        this.close();
     }
 
     componentDidMount() {

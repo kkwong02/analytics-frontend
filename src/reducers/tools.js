@@ -67,9 +67,10 @@ export default function tools(state = initialState, action) {
     case TOOL_EDIT:{
         let tools_list = new Map(state.tools_list);
         let tool = tools_list.get(action.meta.id);
-        tool = Object.assign(tool, action.payload);
+        tool = Object.assign(tool, {tool: action.payload});
         tools_list.set(action.meta.id, tool);
 
+        console.log(tools_list);
         return {
             ...state,
             tools_list: tools_list
