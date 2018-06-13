@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 
 import { Table, Input, InputGroup, InputGroupAddon, Button, Modal, ModalBody, ModalHeader, ModalFooter, Alert } from 'reactstrap';
 import { connect } from 'react-redux';

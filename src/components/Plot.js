@@ -63,6 +63,8 @@ class Plot extends PureComponent {
                 return (<Bar key={plot.id} {...plot}/>);
             case 'line':
                 return (<Line key={plot.id} {...plot} />);
+            default:
+                return;
             }
         });
         return data;

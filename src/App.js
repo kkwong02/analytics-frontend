@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 
-import Index from './views/Index';
-
 import { BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
-import {AppHeader, AppSidebar, AppBreadcrumb} from '@coreui/react';
+import {AppHeader, AppSidebar } from '@coreui/react';
 import Header from './components/Header';
 import SidebarNav from './components/SidebarNav';
 
@@ -11,7 +9,6 @@ import Sessions from './views/Sessions';
 import Main from './views/Main';
 
 import { connect } from 'react-redux';
-
 
 class App extends Component {
     render() {

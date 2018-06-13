@@ -5,9 +5,7 @@ import {
     CardTitle,
     CardDeck,
     Container,
-    Row,
-    Col,
-    Button
+    Row
 } from 'reactstrap';
 
 import Proptypes from 'prop-types';
