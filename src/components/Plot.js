@@ -74,7 +74,8 @@ class Plot extends PureComponent {
         }
     }
     legendClick(e) {
-        console.log(e);
+        // TODO: show options for item on click
+        console.log("IMPLEMENT ME!");
     }
 
     render() {

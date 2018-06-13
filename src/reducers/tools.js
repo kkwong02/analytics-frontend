@@ -70,7 +70,6 @@ export default function tools(state = initialState, action) {
         tool = Object.assign(tool, {tool: action.payload});
         tools_list.set(action.meta.id, tool);
 
-        console.log(tools_list);
         return {
             ...state,
             tools_list: tools_list

@@ -32,7 +32,6 @@ class Tool extends Component {
     }
 
     render() {
-        console.log(this.props.tool);
         return (
             <React.Fragment>
                 <Card>
