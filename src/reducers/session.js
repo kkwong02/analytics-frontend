@@ -22,7 +22,7 @@ export default function session(state=initialState, action) {
         return {
             ...state,
             current_session: action.payload
-        }
+        };
 
     default:
         return state;

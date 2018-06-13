@@ -82,7 +82,7 @@ class Plot extends PureComponent {
         const Graph = graphTypes[this.props.graphType];
 
         return (
-            <ResponsiveContainer minHeight={300} width='100%' aspect={2}>
+            <ResponsiveContainer className='reChartPlot' minHeight={300} width='100%' aspect={2}>
                 <Graph
                     margin={{top: 40, right: 40, bottom: 40, left: 40}}>
                     { this.renderAxes() }
@@ -96,7 +96,7 @@ class Plot extends PureComponent {
                         }}
                         onClick={this.legendClick}
                     />
-                    <CartesianGrid />
+                    <CartesianGrid strokeDasharray="3 3"/>
                 </Graph>
             </ResponsiveContainer>
         );

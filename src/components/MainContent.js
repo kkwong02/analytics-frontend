@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 
 import Toolbox from "./Toolbox";
 
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 
 const ToolWithRouter = withRouter(Tool);
 
@@ -26,15 +26,25 @@ class MainContent extends Component {
                 </Row>);
         });
     }
+    saveSession() {
+
+    }
+
+    /// TODO: Add export options.
+    exportGraphs() {
+
+    }
 
     render() {
-        console.log(this.props.tools_list)
         return (
             <React.Fragment>
                 <Toolbox from={this.props.location.pathname}/>
-                <div>
-                    <Button>Exit Session</Button>
-                    <Button>Export</Button>
+                <div className="breadcrumb">
+                    <Link to='/'>
+                        <Button>Exit Session</Button>
+                    </Link>
+                    {/* <Button onClick={this.saveSession}>Save</Button> */}
+                    {/* <Button onClick={this.exportGraphs}>Export</Button> */}
                 </div>
                 <Container>
                     {this.render_tools()}
