@@ -24,7 +24,7 @@ class App extends Component {
                         <SidebarNav/>
                     </AppSidebar>
                     { this.props.connected ? (
-                        <Router>
+                        <Router basename="/app/analysis">
                             <main className="main">
                                 <Alert color="danger" className='mb-0'>
                                     <b>Warning:</b>
