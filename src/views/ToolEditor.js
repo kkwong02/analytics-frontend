@@ -33,7 +33,7 @@ class ToolEditor extends Component {
     }
 
     save() {
-        this.props.edit_tool(this.props.buffer.tool_id, this.props.buffer.tool);
+        this.props.edit_tool(this.props.buffer.tool_id, this.props.buffer.tool, this.props.buffer.experiments);
         this.close();
     }
 

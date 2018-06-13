@@ -4,7 +4,6 @@ import {
     CartesianGrid,
     XAxis,
     YAxis,
-    ZAxis,
     Legend,
     ScatterChart,
     Scatter,
@@ -54,7 +53,6 @@ class Plot extends PureComponent {
 
     renderData() {
         let data = this.props.data.map(plot => {
-
             switch (plot.plotType) {
             case 'scatter':
                 return (

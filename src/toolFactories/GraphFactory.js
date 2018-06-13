@@ -9,6 +9,11 @@ export const BOTTOM = 'bottom' ;
 export const LEFT = 'left';
 export const RIGHT = 'right';
 
+const getScatterShape = () => {
+    const shapes = ['circle', 'cross', 'diamond', 'square', 'star', 'triangle'];
+    return shapes[Math.floor(Math.random() * shapes.length)];
+};
+
 // from https://stackoverflow.com/questions/1484506/random-color-generator
 // 2018/05/20
 const getRandomColor = () => {
@@ -38,7 +43,7 @@ export class DataProps {
 
     scatter() {
         this.line = false;
-        this.shape = 'circle';
+        this.shape = getScatterShape();
         this.fill = getRandomColor();
     }
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Container, Row, Col } from "reactstrap";
+import { Container, Row, Col, Button } from "reactstrap";
 
 import Tool from "./Tool";
 import { connect } from 'react-redux';
@@ -28,9 +28,14 @@ class MainContent extends Component {
     }
 
     render() {
+        console.log(this.props.tools_list)
         return (
             <React.Fragment>
                 <Toolbox from={this.props.location.pathname}/>
+                <div>
+                    <Button>Exit Session</Button>
+                    <Button>Export</Button>
+                </div>
                 <Container>
                     {this.render_tools()}
                 </Container>

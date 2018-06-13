@@ -61,10 +61,13 @@ export function delete_tool(id) {
     }
 }
 
-export function edit_tool(id, tool) {
+export function edit_tool(id, tool, experiments) {
     return ({
         type: TOOL_EDIT,
-        payload: tool,
+        payload: {
+            tool: tool,
+            experiments: experiments
+        },
         meta: {id: id}
     });
 }
