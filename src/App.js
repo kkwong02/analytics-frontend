@@ -8,6 +8,8 @@ import SidebarNav from './components/SidebarNav';
 import Sessions from './views/Sessions';
 import Main from './views/Main';
 
+import { Alert } from 'reactstrap';
+
 import { connect } from 'react-redux';
 
 class App extends Component {
@@ -24,6 +26,10 @@ class App extends Component {
                     { this.props.connected ? (
                         <Router>
                             <main className="main">
+                                <Alert color="danger" className='mb-0'>
+                                    <b>Warning:</b>
+                                    The analytical toolbox is still in active development. The current app does not save.
+                                </Alert>
                                 <Switch>
                                     <Route path="/sessions/:id" component={Main} />
                                     <Route path="/sessions" component={Sessions} exact />
