@@ -14,8 +14,9 @@ import {connect} from 'react-redux';
 import {list_sessions} from '../actions/sessionActions'
 import SessionCreateModal from '../components/SessionCreateModal';
 
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
+const CreateModal = withRouter(SessionCreateModal);
 
 class SessionTile extends PureComponent {
     constructor(props) {
@@ -89,7 +90,7 @@ class Sessions extends Component {
                         {sessions}
                     </CardDeck>
                 </Row>
-                <SessionCreateModal toggle={this.create_session_toggle} create={this.state.create}/>
+                <CreateModal toggle={this.create_session_toggle} create={this.state.create}/>
             </Container>
         );
     }

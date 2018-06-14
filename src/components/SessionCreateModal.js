@@ -15,16 +15,17 @@ import {
 
 import {connect} from 'react-redux';
 import {join_session} from '../actions/sessionActions';
+import {withRouter} from 'react-router-dom';
 
 
 class SessionCreateModal extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             projects: [],
             name: '',
             project: null
-        }
+        };
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
@@ -39,6 +40,13 @@ class SessionCreateModal extends Component {
             name: this.state.name,
             project: this.state.project
         });
+    }
+
+    componentDidUpdate(prevProps) {
+        // props.session should only exist after session is successfully created.
+        if (this.props.session && !prevProps.session) {
+            this.props.history.push(`/sessions/${this.props.session.id}`);
+        }
     }
 
     render() {
@@ -67,10 +75,14 @@ class SessionCreateModal extends Component {
             </Modal>
         );
     }
-};
+}
+
+const mapStateToProps = state => ({
+    session: state.session.current_session
+});
 
 SessionCreateModal.Proptypes = {
     join_session: Proptype.func.isRequired
-}
+};
 
-export default connect(null, {join_session})(SessionCreateModal);
+export default withRouter(connect(mapStateToProps, {join_session})(SessionCreateModal));
